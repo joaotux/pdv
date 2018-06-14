@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="form" id="secGerenciar">
+	<div class="container">
+		<div class="col-md-11">
+			<div class="row">
+
+				<div th:if="${caixa.isBanco()}">
+					<h2
+						th:text="'Gerenciar Banco'"
+						class="col-md-4 titulo-h1"></h2>
+				</div>
+				<h2 th:if="!${caixa.isBanco()}"
+					th:text="${caixa.isCofre()} ? 'Gerenciar Cofre' : 'Gerenciar Caixa'"
+					class="col-md-4 titulo-h1"></h2>
+
+				<div class="form-group col-md-1 col-md-offset-7">
+					<a
+						th:href="@{/caixa/relatorio/caixa/{codigo}(codigo=${caixa.codigo})}"
+						target="_blank"><span class="glyphicon glyphicon-print btn-lg"
+						data-toggle="tooltip" data-placement="top" title="Relatório Caixa"></span></a>
+				</div>
+			</div>
+
+			<div id="recarregastatus">
+				<div id="statusFechado" th:if="!${caixa.isAberto()}">
+					<span>FECHADO</span>
+				</div>
+			</div>
+
+			<div class="btn-group btn-group-justified" role="group"
+				aria-label="..." id="grupoPainelCaixa">
+				<div class="btn-group" role="group"
+					sec:authorize="hasRole('CAIXA_SUPRIMENTO')">
+					<button type="button" class="btn btn-azul-menu" data-toggle="modal"
+						data-target=".modalSuprimento" id="btnSuprimento">Suprimento</button>
+				</div>
+
+				<div class="btn-group" role="group"
+					sec:authorize="hasRole('CAIXA_SANGRIA')">
+					<button type="button" class="btn btn-azul-menu" data-toggle="modal"
+						data-target=".modalSangria" id="btnSangria">Retirada</button>
+				</div>
+
+				<div class="btn-group" role="group"
+					sec:authorize="hasRole('CAIXA_TRANSFERENCIA')">
+					<button type="button" class="btn btn-azul-menu" data-toggle="modal"
+						data-target=".modalTransferencia" id="btnTransferencia">Tranferência</button>
+				</div>
+
+				<div class="btn-group" role="group"
+					sec:authorize="hasRole('FECHAR_CAIXA')">
+					<button class="btn btn-azul-menu" data-toggle="modal"
+						data-target=".modalFechaCaixa" id="btnfechacaixa">Fechar</button>
+				</div>
+			</div>
+
+			<form th:object="${caixa}">
+
+				<div th:include="@{messagens/mensagemErro}"></div>
+
+				<input type="hidden" th:field="*{data_fechamento}"
+					id="dataFechamantoCaixa" />
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigoCaixa" class="txt-01">Caixa</label> <input
+							id="codigoCaixa" name="codigo" type="text" class="form-control"
+							th:value="*{codigo}" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-2 col-md-offset-8">
+						<label for="usuario" class="txt-01">Usuário</label> <input
+							id="usuario" name="usuario" type="text" class="form-control"
+							th:value="*{usuario.user}" disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2 col-md-offset-10">
+						<label for="dataAbertura" class="txt-01">Data Abertura</label> <input
+							id="dataAbertura" name="data_cadastro" type="text"
+							class="form-control" th:value="*{{data_cadastro}}"
+							disabled="disabled" />
+					</div>
+				</div>
+
+				<!-- TABELA DE LANAMENTOS -->
+				<div th:insert="caixa/lancamentos" id="tabLancamentos"></div>
+
+				<div class="row saldosCaixa">
+					<div class="form-group col-md-2 col-md-offset-6">
+						<label for="valorEntrada" id="valorEntrada">Entrada</label> <input
+							id="valorEntrada" th:value="*{{valor_entrada}}|" type="text"
+							class="form-control" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="valorSaida" id="valorSaida">Saída</label> <input
+							id="valorSaida" th:value="*{{valor_saida}}" type="text"
+							class="form-control" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="valorTotal" id="valorTotal">Saldo Total</label> <input
+							id="valorTotal" type="text" class="form-control"
+							th:value="*{{valor_total}}" disabled="disabled" />
+					</div>
+				</div>
+			</form>
+
+			<div th:insert="caixa/modalSuprimento"></div>
+			<div th:insert="caixa/modalSangria"></div>
+			<div th:insert="caixa/modalTransferencia"></div>
+			<div th:insert="caixa/modalFechaCaixa"></div>
+
+		</div>
+	</div>
+</section>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div id="body-dados-permissoes">
+	<div class="row titulo-tabela-permissoes">
+		<b class="col-md-1">#</b> <b class="col-md-4">Nome</b> <b
+			class="col-md-2">Descrição</b>
+	</div>
+	<div class="tabela-dados-permissoes">
+		<table class="table">
+			<tbody>
+				<tr th:each="permissao : ${permissoesUsu}">
+					<td th:text="${permissao.codigo}"></td>
+					<td th:text="${permissao.nome}"></td>
+					<td th:text="${permissao.descricao}"></td>
+					<td><a th:attr="data-codigo=${permissao.codigo}"
+						th:href="@{/grupousuario/remove/}" class="btn-remove-permissao"><span
+							class="glyphicon glyphicon-remove"></span></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</html>

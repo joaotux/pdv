@@ -1,0 +1,78 @@
+#descricaoTab {
+	text-align: left;
+}
+
+#valorTotal {
+	color: blue;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#valorSaida {
+	color: red;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#valorEntrada {
+	color: green;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#grupoPainelCaixa {
+	padding-bottom: 2%;
+}
+
+#statusFechado {
+	color: red;
+	font-size: 2em;
+	float: right;
+}
+
+#tabLancamentos {
+	height: 550px;
+}
+
+.btns-modal-caixa {
+	margin-left: 50px;
+}
+
+.caixa-info {
+	color: black;
+	border-style: ridge;
+	border-color: black;
+}
+
+.caixa-cor-info {
+	background-color: #8ae234;
+}
+
+.cofre-cor-info {
+	background-color: #d3d7cf;
+}
+
+.cofre-cor-info b {
+	padding-right: 40px;
+}
+
+.caixa-cor {
+	background-color: #8ae234;
+	font-weight: bold;
+}
+
+.cofre-cor {
+	background-color: #d3d7cf;
+	font-weight: bold;
+}
+
+.caixa-cor :hover {
+	background-color: #73d216;
+	font-weight: bold;
+}
+
+.cofre-cor :hover {
+	background-color: #babdb6;
+	font-weight: bold;
+}
+

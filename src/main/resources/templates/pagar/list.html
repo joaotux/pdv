@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list" class="secDespesas">
+	<div class="container bodypagar">
+
+		<div class="col-md-11">
+
+			<h1 class="titulo-h1">Despesas</h1>
+			<br />
+
+			<div th:include="pagar/buscaPagar"></div>
+			<br />
+
+			<div id="btn-padrao" sec:authorize="hasRole('PAGAR_DESPESA')">
+				<a class="btn btn-info btnAbreModal" data-toggle="modal"
+					data-target=".modalDespesa">Novo</a>
+			</div>
+
+			<table class="table table-hover tab-despesas">
+				<thead class="cabeca-tabela-principal">
+					<tr>
+						<th>#</th>
+						<th>Fornecedor</th>
+						<th>Observação</th>
+						<th class="text-center">Valor Total</th>
+						<th class="text-center">Valor Pago</th>
+						<th class="text-center">Restante</th>
+						<th class="text-center">Vencimento</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="parcela : ${parcelas}"
+						th:classappend="${parcela.isQuitado()} ? 'warning' : 'success'">
+						<td th:text="${parcela.codigo}"></td>
+						<td th:text="${parcela.pagar.fornecedor.nome}"></td>
+						<td th:text="${parcela.pagar.observacao}"></td>
+						<td class="text-center" th:text="|R$ ${{parcela.valor_total}}|"></td>
+						<td class="text-center" th:text="|R$ ${{parcela.valor_pago}}|"></td>
+						<td class="text-center" th:text="|R$ ${{parcela.valor_restante}}|"></td>
+						<td class="text-center" th:text="${{parcela.data_vencimento}}"></td>
+						<td><a sec:authorize="hasRole('PAGAR_DESPESA')"
+							th:if="!${parcela.isQuitado()}"
+							th:attr="data-vlrestante=${parcela.valor_restante}, data-parcela=${parcela.codigo}"
+							class="btn btn-modal-paga" data-toggle="modal"
+							data-target=".modalpagdespesa"><img alt="Pagar"
+								th:src="@{/icons/menu/pagamento.png}"></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div th:insert="pagar/modalDespesa"></div>
+			<div th:insert="pagar/modalPagardespesa"></div>
+
+			<div class="row">
+				<div class="col-md-offset-5">
+					<a th:classappend="!${hasPrevious} ? 'disabled'"
+						th:href="@{/pagar(page=${pagAnterior})}"
+						class="btn btn-info btn-anterior">Anterior</a> <span
+						th:text="${pagAtual+1 + '/' + qtdpaginas}"></span> <a
+						th:classappend="!${hasNext} ? 'disabled'"
+						th:attr="data-pag-proxima=${proxPagina}"
+						th:href="@{/pagar(page=${proxPagina})}"
+						class="btn btn-info btn-proxima">Proxima</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

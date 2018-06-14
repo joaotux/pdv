@@ -1,0 +1,12 @@
+#buscaGrupos {
+	padding-top: 2%;
+}
+
+#tabUsuGrupos thead {
+	background-color: #1ac6ff;
+	font-size: 1.2em;
+}
+
+#tabUsuGrupos {
+	border-style: solid;
+}

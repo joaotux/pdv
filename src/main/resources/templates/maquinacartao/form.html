@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="form">
+	<div class="container">
+
+		<div class="col-md-11">
+
+			<form th:action="@{/maquinacartao}" method="post"
+				th:object="${maquinacart}" id="form_maquinacartao">
+				<input type="hidden" th:field="*{codigo}" />
+				
+				<div class="row">
+					<div class="col-md-12">
+						<br />
+						<div th:include="@{messagens/messageSuccess}"></div>
+						<div th:include="@{messagens/mensagemErro}"></div>
+					</div>
+				</div>
+				<h2 class="titulo-h1">Máquina Cartão</h2>
+
+				<div id="btn-padrao">
+					<a th:href="@{/maquinacartao}" class="btn btn-azul-padrao"><span
+						class="fa fa-list fa-lg"> Listar</span> </a>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigo">Código</label> <input id="codigo"
+							name="codigo" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label for="descricao">Descrição</label> <input id="descricao"
+							name="descricao" type="text" class="form-control"
+							th:field="*{descricao}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="taxa_deb">Taxa Débito</label> <input id="taxa_deb"
+							name="taxa_debito" type="text"
+							class="form-control js-mascara-porcento"
+							th:field="*{taxa_debito}" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="taxa_cred">Taxa Crédito</label> <input id="taxa_cred"
+							name="taxa_credito" type="text"
+							class="form-control js-mascara-porcento"
+							th:field="*{taxa_credito}" />
+					</div>
+					
+					<div class="form-group col-md-2">
+						<label for="taxa_antec">Taxa Antecipação</label> <input id="taxa_antec"
+							name="taxa_antecipacao" type="text"
+							class="form-control js-mascara-porcento"
+							th:field="*{taxa_antecipacao}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-1	">
+						<label for="qtd_dias_deb">Qtd. dias débito</label> <input
+							id="qtd_dias_deb" name="dias_debito" type="number"
+							class="form-control" th:field="*{dias_debito}" />
+					</div>
+
+					<div class="form-group col-md-1">
+						<label for="qtd_dias_cred">Qtd. dias crédito</label> <input
+							id="qtd_dias_cred" name="dias_credito" type="number"
+							class="form-control" th:field="*{dias_credito}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="banco">Banco</label> <select id="banco" name="banco"
+							class="form-control" th:field="*{banco}">
+							<option value=""></option>
+							<option th:each="banco : ${bancos}" th:text="${banco.descricao}"
+								th:value="${banco.codigo}"></option>
+						</select>
+					</div>
+				</div>
+
+				<input type="submit" value="Salvar" class="btn btn-azul-padrao" />
+
+			</form>
+		</div>
+	</div>
+</section>
+</html>

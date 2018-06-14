@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="container">
+	<div th:insert="notafiscal/buscaProdutos"></div>
+</div>
+
+<div>
+	<table class="table" id="dados-produto-nf">
+		<thead>
+			<tr>
+				<th class="col-md-1">#</th>
+				<th class="col-md-2">Descrição</th>
+				<th class="col-md-1 text-center">NCM</th>
+				<th class="col-md-1 text-center">CST</th>
+				<th class="col-md-1">CFOP</th>
+				<th class="col-md-1">UNI</th>
+				<th class="col-md-1">Qtd</th>
+				<th class="col-md-1">Vl. Unitário</th>
+				<th class="col-md-1 text-center">Vl. Total</th>
+				<th class="col-md-1 text-center">BC. ICMS</th>
+				<th class="col-md-1 text-center">Vl. ICMS</th>
+				<th class="col-md-1">Aliq. ICMS</th>
+				<th></th>
+			</tr>
+		</thead>
+	</table>
+
+	<div id="nf-produtos" class="regra-tr-click">
+		<table class="table table-hover produtos-nota">
+			<tbody>
+				<tr th:each="item : ${itens}">
+					<td th:text="${item[0]}" class="col-md-1"></td>
+					<!-- codigo -->
+					<td th:text="${item[1]}" class="col-md-2"></td>
+					<!-- descricao -->
+					<td th:text="${item[2]}" class="col-md-1 text-center"></td>
+					<!-- ncm -->
+					<td th:text="${item[3]}" class="col-md-1 text-center"></td>
+					<!-- cst -->
+					<td th:text="${item[4]}" class="col-md-1"></td>
+					<!-- cfop -->
+					<td th:text="${item[5]}" class="col-md-1"></td>
+					<!-- uni -->
+					<td th:text="${item[6]}" class="col-md-1"></td>
+					<!-- qtd -->
+					<td th:text="|R$ ${item[7]}|" class="col-md-1 text-center"></td>
+					<!-- vl uni -->
+					<td th:text="|R$ ${item[8]}|" class="col-md-1 text-center"></td>
+					<!-- vl total -->
+					<td th:text="|R$ ${item[9]}|" class="col-md-1 text-center"></td>
+					<!-- bc icms -->
+					<td th:text="|R$ ${item[10]}|" class="col-md-1 text-center"></td>
+					<!-- vl icms -->
+					<td th:text="${item[11]}" class="col-md-1 text-center"></td>
+					<!-- aliq icms -->
+					<td><a th:attr="data-notaitem=${item[12]}, data-nota=${item[13]}" href="/" class="btn-remove-item">X</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</html>

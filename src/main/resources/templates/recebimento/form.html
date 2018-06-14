@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+
+	<div class="container" id="body-recebimento">
+
+		<div class="col-md-11">
+			<div th:include="@{messagens/messageSuccess}"></div>
+
+			<h2 class="text-center">Recebimento</h2>
+
+			<form action="@{/recebimento}" method="post"
+				th:object="${recebimento}">
+
+				<input type="hidden" th:field="*{codigo}" id="codreceber" /> <input
+					type="hidden" th:field="*{data_processamento}" id="processamento" />
+
+				<div class="row">
+					<div class="form-group col-md-1">
+						<label for="codigo">Receber</label> <input id="codigo"
+							name="pessoa" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label for="cliente">Cliente</label> <input id="cliente"
+							name="pessoa" type="text" class="form-control"
+							th:field="*{pessoa.nome}" disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-10">
+						<table class="table table-hover tab-dados-parcelas">
+							<thead id="cabeca-tabela">
+								<tr>
+									<th>#</th>
+									<th>Restante</th>
+									<th class="text-center">Sequencia</th>
+									<th class="text-center">Vencimento</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="parc : *{parcela}" class="success">
+									<td th:text="${parc.codigo}"></td>
+									<td th:text="|R$ ${{parc.valor_restante}}|"></td>
+									<td class="text-center" th:text="${parc.sequencia}"></td>
+									<td class="text-center" th:text="${{parc.data_vencimento}}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-2">
+						<table class="tab-dados-recebimento">
+							<tr>
+								<td>
+									<div class="form-group">
+										<label for="total">Total</label> <input id="total"
+											name="valor_total" type="text"
+											class="form-control js-mascara" th:field="*{valor_total}"
+											disabled="disabled" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label for="titulo">Titulo</label> <select id="titulo"
+											name="titulo" class="form-control" th:field="*{titulo}">
+											<option value=""></option>
+											<option th:each="titulo : ${titulos}"
+												th:text="${titulo.descricao}" th:value="${titulo.codigo}"></option>
+										</select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label for="desc">Desc</label> <input id="desc"
+											name="valor_desconto" type="text"
+											class="form-control js-mascara" th:field="*{valor_desconto}" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label for="acres">Acres</label> <input id="acres"
+											name="valor_acrescimo" type="text"
+											class="form-control js-mascara" th:field="*{valor_acrescimo}" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label for="vlrecebido">Valor Recebido</label> <input
+											id="vlrecebido" name="valor_recebido" type="text"
+											class="form-control js-mascara" th:field="*{valor_recebido}" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><a sec:authorize="hasRole('REALIZAR_RECEBIMENTO')"
+									class="btn btn-success col-md-12 btn-receber-titulo"
+									th:href="@{/recebimento}">Receber</a></td>
+							</tr>
+							<tr>
+								<td><a
+									class="btn btn-danger col-md-12 btn-cancelar-receber"
+									th:href="@{/recebimento/codigo(codigo=*{codigo})}">Cancelar</a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</section>
+</html>

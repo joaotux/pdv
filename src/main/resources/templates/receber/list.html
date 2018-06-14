@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+	<div class="container">
+		<div class="col-md-11">
+			<div class="listaParcelas">
+
+				<h1 class="titulo-h1">Receber</h1>
+				<br />
+
+				<div th:include="receber/buscaCliente"></div>
+
+				<br />
+
+				<table class="table cabeca-tabela-principal">
+					<tbody>
+						<tr>
+							<td class="col-md-1">#</td>
+							<td class="col-md-3">Cliente</td>
+							<td class="text-center col-md-1">Valor Total</td>
+							<td class="text-center col-md-1">Recebido</td>
+							<td class="text-center col-md-1">Desconto</td>
+							<td class="text-center col-md-1">Restante</td>
+							<td class="text-center col-md-1">Sequencia</td>
+							<td class="text-center col-md-1">Data</td>
+							<td class="text-center col-md-1">Vencimento</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div id="table-parcelas-cliente">
+					<table class="table table-hover tabela-receber">
+						<tr th:each="parcela : ${parcelas}"
+							th:classappend="${parcela.isQuitado()} ? 'warning' : 'success'">
+							<td class="col-md-1" th:text="${parcela.receber.codigo}"></td>
+							<td class="col-md-3" th:text="${parcela.receber.pessoa.nome}"></td>
+							<td class="text-center col-md-1"
+								th:text="|R$ ${{parcela.valor_total}}|"></td>
+							<td class="text-center col-md-1"
+								th:text="|R$ ${{parcela.valor_recebido}}|"></td>
+							<td class="text-center col-md-1"
+								th:text="|R$ ${{parcela.valor_desconto}}|"></td>
+							<td class="text-center col-md-1"
+								th:text="|R$ ${{parcela.valor_restante}}|"></td>
+							<td class="text-center col-md-1" th:text="${parcela.sequencia}"></td>
+							<td class="text-center col-md-1"
+								th:text="${{parcela.data_cadastro}}"></td>
+							<td class="text-center col-md-1"
+								th:text="${{parcela.data_vencimento}}"></td>
+							<td th:if="!${parcela.isQuitado()}"><input type="checkbox"
+								th:value="${parcela.codigo}" class="marcado" /></td>
+
+							<td><input type="hidden"
+								th:value="${parcela.receber.pessoa.codigo}" id="codpessoa" /></td>
+						</tr>
+					</table>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-2">
+						<a sec:authorize="hasRole('REALIZAR_RECEBIMENTO')"
+							th:href="@{/receber/parcelas}"
+							class="btn btn-access btn-receber-varios" data-toggle="tooltip"
+							data-placement="top" title="Receber"><img alt="Receber"
+							th:src="@{/icons/recebimento.png}" width="80%"></a>
+					</div>
+					<div class="col-md-offset-7 col-md-3">
+						<h3 class="total_receber" th:text="|Total: R$ ${{totalReceber}}|"></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

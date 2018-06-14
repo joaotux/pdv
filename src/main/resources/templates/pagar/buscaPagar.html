@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="container">
+	<div class="margem-top">
+		<div class="col-md-10">
+			<form th:action="@{/pagar}" th:object="${filter}" method="GET">
+				<div class="input-group">
+					<input type="text" class="form-control"
+						placeholder="Informe o nome do fornecedor" autofocus="autofocus"
+						th:field="*{nome}" id="busca" />
+					<div class="input-group-btn">
+						<button class="btn btn-default btn-busca-pagar" type="submit">
+							<i class="glyphicon glyphicon-search"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</html>

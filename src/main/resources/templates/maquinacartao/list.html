@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+
+	<div class="container">
+		<div class="col-md-11 body-maquinacartao">
+			<div class="margem-top">
+				<h1 class="titulo-h1">Maquinas Cartão</h1>
+
+				<div id="btn-padrao">
+					<a sec:authorize="hasRole('EDITAR_CARTAO')" th:href="@{/maquinacartao/form}" class="btn btn-azul-padrao">Nova</a>
+				</div>
+
+				<table class="table table-hover table-maquina">
+					<tr>
+						<th>#</th>
+						<th>Descrição</th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr th:each="maquina : ${maquinas}">
+						<td th:text="${maquina.codigo}"></td>
+						<td th:text="${maquina.descricao}"></td>
+						<td sec:authorize="hasRole('EDITAR_CARTAO')"><a th:href="@{/maquinacartao/{codigo}(codigo=${maquina.codigo})}"><span class="glyphicon glyphicon-pencil "></span></a></td>
+						<td sec:authorize="hasRole('EDITAR_CARTAO')"><a th:attr="data-codmaquina=${maquina.codigo}" th:href="@{/maquinacartao/}" class="glyphicon glyphicon-remove btn-remove-maquina "></a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

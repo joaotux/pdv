@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="list">
+	<div class="container" id="body-grupousuarios">
+
+		<div class="col-md-11">
+			<div th:include="@{messagens/messageSuccess}"></div>
+
+			<h1 class="text-center">Grupos Usuário</h1>
+
+			<div id="btn-padrao">
+				<a sec:authorize="hasRole('EDITAR_TITULO')"
+					th:href="@{/grupousuario/form}" class="btn btn-azul-padrao">Novo</a>
+			</div>
+
+			<table class="table table-hover">
+				<thead class="cabeca-tabela-principal">
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Descrição</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="grupo : ${grupos}">
+						<td th:text="${grupo.codigo}"></td>
+						<td th:text="${grupo.nome}"></td>
+						<td th:text="${grupo.descricao}"></td>
+						<td><a
+							th:href="@{/grupousuario/{codigo}(codigo=${grupo.codigo})}"><span
+								class="glyphicon glyphicon-pencil"></span></a></td>
+						<td><a
+							th:href="@{/grupousuario/remove/{codigo}(codigo=${grupo.codigo})}"><span
+								class="glyphicon glyphicon-remove"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+</html>

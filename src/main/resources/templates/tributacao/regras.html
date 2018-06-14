@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="container body-regras-fiscais">
+
+	<br />
+	<div class="col-md-12">
+		<div class="col-md-1"
+			sec:authorize="hasRole('CADATRAR_REGRA_TRIBUTACAO')">
+			<a class="btn btn-success btn-nova-regra" data-toggle="modal"
+				data-target=".modalregratributaria">+</a>
+		</div>
+		<div class="fiscal-dados-regras">
+
+			<table class="table" id="dados-regras">
+				<caption>
+					<h3>Entrada</h3>
+				</caption>
+				<thead>
+					<tr>
+						<th class=" col-md-1">#</th>
+						<th class=" col-md-1">UF</th>
+						<th class="text-center col-md-1">CFOP</th>
+						<th class="text-center col-md-1">CST/CSOSN</th>
+						<th class="text-center col-md-1">CST-PIS</th>
+						<th class="text-center col-md-1">CST-COFINS</th>
+						<th class="text-center col-md-1">Aliq. PIS</th>
+						<th class="text-center col-md-1">Aliq. COFINS</th>
+						<th class="text-center col-md-1">Aliq. IPI</th>
+						<th class="text-center col-md-1">Aliq. ICMS</th>
+						<th class="text-center col-md-1"></th>
+						<th class="text-center col-md-1"></th>
+					</tr>
+				</thead>
+			</table>
+
+			<div id="fiscal-regras" class="regra-tr-click">
+				<table class="table table-hover">
+					<tbody>
+						<tr th:each="regra : ${regras_entrada}">
+							<td class="col-md-1 codigo" th:text="${regra.codigo}"></td>
+							<td class="col-md-1 uf" th:text="${regra.uf.sigla}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cfop.cfop}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cst_csosn.cst_csosn}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cst_pis.cst}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cst_cofins.cst}"></td>
+							<td class="text-center col-md-1 linha" th:text="|% ${regra.pis}|"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="|% ${regra.cofins}|"></td>
+							<td class="text-center col-md-1 linha aliqipi"
+								th:text="|% ${regra.aliq_ipi}|"></td>
+							<td class="text-center col-md-1 linha aliqicms"
+								th:text="|% ${regra.aliq_icms}|"></td>
+							<td class="text-center"><a
+								th:attr="data-codigo=${regra.codigo}"
+								th:href="@{/regras/"
+								class="btn-delete-regra"><span
+									class="glyphicon glyphicon-remove"></span></a></td>
+							<td class="text-center"><a
+								th:attr="data-codregra=${regra.codigo}" th:href="@{/regras/}"
+								class="btn-edita-regra"><span
+									class="glyphicon glyphicon-pencil"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<table class="table" id="dados-regras">
+				<caption>
+					<h3>Saída</h3>
+				</caption>
+				<thead>
+					<tr>
+						<th class=" col-md-1">#</th>
+						<th class=" col-md-1">UF</th>
+						<th class="text-center col-md-1">CFOP</th>
+						<th class="text-center col-md-1">CST/CSOSN</th>
+						<th class="text-center col-md-1">CST-PIS</th>
+						<th class="text-center col-md-1">CST-COFINS</th>
+						<th class="text-center col-md-1">Aliq. PIS</th>
+						<th class="text-center col-md-1">Aliq. COFINS</th>
+						<th class="text-center col-md-1">Aliq. IPI</th>
+						<th class="text-center col-md-1">Aliq. ICMS</th>
+						<th class="text-center col-md-1"></th>
+						<th class="text-center col-md-1"></th>
+					</tr>
+				</thead>
+			</table>
+
+			<div id="fiscal-regras" class="regra-tr-click">
+				<table class="table table-hover">
+					<tbody>
+						<tr th:each="regra : ${regras_saida}">
+							<td class="col-md-1 codigo" th:text="${regra.codigo}"></td>
+							<td class="col-md-1 uf" th:text="${regra.uf.sigla}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cfop.cfop}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cst_csosn.cst_csosn}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cst_pis.cst}"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="${regra.cst_cofins.cst}"></td>
+							<td class="text-center col-md-1 linha" th:text="|% ${regra.pis}|"></td>
+							<td class="text-center col-md-1 linha"
+								th:text="|% ${regra.cofins}|"></td>
+							<td class="text-center col-md-1 linha aliqipi"
+								th:text="|% ${regra.aliq_ipi}|"></td>
+							<td class="text-center col-md-1 linha aliqicms"
+								th:text="|% ${regra.aliq_icms}|"></td>
+							<td class="text-center"><a
+								sec:authorize="hasRole('EXCLUIR_REGRA_TRIBUTACAO')"
+								th:attr="data-codigo=${regra.codigo}"
+								th:href="@{/regras/{codigo}(codigo=${regra.codigo})}"
+								class="btn-delete-regra"><span
+									class="glyphicon glyphicon-remove"></span></a></td>
+							<td class="text-center"><a
+								sec:authorize="hasRole('EDITAR_REGRA_TRIBUTACAO')"
+								th:attr="data-codregra=${regra.codigo}" th:href="@{/}"
+								class="btn-edita-regra"><span
+									class="glyphicon glyphicon-pencil"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<br />
+
+	<div th:insert="tributacao/modalRegraTributaria"></div>
+</div>
+</html>

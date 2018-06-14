@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="form">
+	<div class="container">
+
+		<div class="col-md-11">
+
+			<h2 class="titulo-h1">Titulo</h2>
+
+
+			<form th:action="@{/titulos}" method="post" th:object="${titulo}">
+				<input type="hidden" name="codigo" th:field="*{codigo}" />
+
+				<div class="row">
+					<div class="col-md-12">
+						<div th:include="@{messagens/messageSuccess}"></div>
+						<div th:include="@{messagens/mensagemErro}"></div>
+					</div>
+				</div>
+
+				<div id="btn-padrao">
+					<a th:href="@{/titulos}" class="btn btn-azul-padrao"><span
+						class="fa fa-list fa-lg"> Listar</span> </a>
+				</div>
+
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigo">Código</label> <input id="codigo"
+							name="codigo" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label for="descricao">Descrição</label> <input id="descricao"
+							name="descricao" type="text" class="form-control"
+							th:field="*{descricao}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label for="titulo_tipo">Tipo</label> <select id="titulo_tipo"
+							name="tipo" class="form-control" th:field="*{tipo}">
+							<option th:each="tipo : ${tipos}" th:text="${tipo.descricao}"
+								th:value="${tipo.codigo}"></option>
+						</select>
+					</div>
+				</div>
+
+				<!-- pego o link para listar os bancos com js -->
+				<a th:href="@{/maquinacartao/listaJson}" id="link_maquina"></a>
+
+				<div class="row">
+					<div class="maquina-info col-md-2">
+				<!--  
+						<label for="maquina">Máquina</label><select name="maquina"
+							class="form-control select_maquinacartao">
+							<option th:each="maquina : ${maquinas}" th:text="${maquina.descricao}" th:value="maquina.codigo"></option>
+						</select>
+				-->
+					</div>
+				</div>
+				<br /> <input type="submit" value="Salvar"
+					class="btn btn-azul-padrao" />
+			</form>
+		</div>
+	</div>
+</section>
+</html>

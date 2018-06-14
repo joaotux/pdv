@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div id="tabProdutoVenda">
+	<div class="row">
+		<div class="col-md-10">
+			<table class="table" width="100%" id="tabelaProdutosVenda">
+				<tr id="tabtitulo">
+					<td>
+						<table width="100%">
+							<tr>
+								<th class="col-xs-1 col-md-1">#</th>
+								<th class="col-xs-6 col-md-6 text-left">Descrição</th>
+								<td class="col-xs-3 col-md-3 text-center">Válor</td>
+								<td class="col-xs-2 col-md-2"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="tabdados">
+							<table class="table table-striped table-responsive" width="100%">
+								<tbody>
+									<tr th:each="produtos : ${produtosVenda}">
+										<td class="col-xs-1 col-md-1" th:text="${produtos[0]}"></td>
+										<td class="col-xs-6 col-md-6 text-left"
+											th:text="${produtos[1]}"></td>
+										<td th:if="${produtos[4]} == 0"
+											class="col-xs-3 col-md-3 text-center"
+											th:text="|R$ ${produtos[2]}|"></td>
+										<td th:if="${produtos[4]} == 1"
+											class="col-xs-3 col-md-3 text-center"
+											th:text="|R$ ${produtos[5]}|"></td>
+										<td><a sec:authorize="hasRole('REMOVER_PRODUTO_VENDA')"
+											th:attr="data-posicaoProd=${produtos[3]}"
+											class="glyphicon glyphicon-remove js-removeproduto-venda col-xs-2 col-md-2"
+											th:href="@{/venda/removeproduto/(codigoVen=${venda.codigo},posicaoPro=)}"></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+</html>

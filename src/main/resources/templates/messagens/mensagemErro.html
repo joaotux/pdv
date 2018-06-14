@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+	<div th:each="detailedErrors : ${#fields.detailedErrors()}">
+		<span th:text="${detailedErrors.message}"></span>
+	</div>
+</div>
+
+<br />
+<div class="alert alert-danger alert-dismissable"
+	th:if="${!#strings.isEmpty(mensagemErro)}">
+	<span th:text="${mensagemErro}"></span>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+</html>

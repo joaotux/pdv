@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<div class="modal fade modalPagamento" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm modal-pagamento" role="document">
+		<div class="modal-content">
+			<div class="container" id="body-pagar">
+				<h2>Pagamento</h2>
+
+				<form th:action="@{/}" method="post" th:object="${venda}"
+					id="form_pagamento">
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="vlprod">Valor Total</label> <input id="vlprod"
+								name="valor_produtos" type="text"
+								class="form-control js-mascara" disabled="disabled" />
+						</div>
+					</div>
+					<!-- campo auxiliar para passar valor na serialização do form -->
+					<input id="vlprod" name="valor_produtos" type="hidden" />
+
+					<!-- campo auxiliar para passar valor na serialização do form -->
+					<input id="vltroco" type="hidden" name="troco" />
+
+					<!-- uso para pegar o link de pagamento no ajax -->
+					<a th:href="@{/pagamentotipo/qtdparcelas/}"
+						id="link-pagamento-venda"></a>
+						
+					<!-- uso para pegar o link do json que me retorna os titulos na requisição ajax -->
+					<a th:href="@{/venda/titulos}" id="link-titulos"></a>
+
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="pagamento">Forma Pagamento</label> <select
+								id="pagamento" class="form-control" th:field="*{pagamentotipo}">
+								<option value=""></option>
+								<option th:each="pagamento : ${formaPagamento}"
+									th:text="${pagamento.descricao}" th:value="${pagamento.codigo}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div id="tipopagamento"></div>
+
+					<div class="row">
+						<div class="form-group col-md-1">
+							<label for="desconto">Desc:</label> <input id="desconto"
+								name="valor_desconto" type="text"
+								class="form-control js-mascara-not-prefix"
+								th:field="*{valor_desconto}" />
+						</div>
+
+						<div class="form-group col-md-1">
+							<label for="acrescimo">Acre:</label> <input id="acrescimo"
+								name="valor_acrescimo" type="text"
+								class="form-control js-mascara-not-prefix"
+								th:field="*{valor_acrescimo}" />
+						</div>
+					</div>
+
+					<!-- 
+					<div class="row">
+						<div class="col-md-2">
+							<label id="valorpago">Valor Recebido</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-2">
+							<div class="input-group">
+								<input id="valorpago" name="valor_pago" type="text"
+									class="form-control js-mascara valorpago"
+									aria-describedby="vlPago" /> <span class="input-group-addon"
+									id="vlPago"><a href="/" class="btn-limpa-valor"><img
+										alt="Limpar" th:src="@{/icons/clear.png}" width="20px"></a></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="vltroco">Troco</label> <input id="vltroco"
+								type="text" name="troco" class="form-control js-mascara"
+								disabled="disabled" />
+						</div>
+					</div>
+					 -->
+
+					<div class="row btns-modal-venda">
+						<button type="button"
+							class="btn btn-danger btn-recebimento btn-padrao-venda"
+							data-dismiss="modal">Cancelar</button>
+						<a th:href="@{/venda/fechar/}"
+							class="btn btn-success btn-pagamento btn-padrao-venda">Pagar</a>
+					</div>
+					<br />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

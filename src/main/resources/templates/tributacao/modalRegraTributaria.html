@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade modalregratributaria" tabindex="-1" role="dialog"
+	aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+
+			<h2 class="text-center">Regra Fiscal</h2>
+
+			<form id="form_regra">
+				<input type="hidden" name="codigo" th:value="${tributacao.codigo}" />
+				<input type="hidden" id="codigo_regra" name="codigo_regra" />
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="tipo">E/S</label> <select id="tipo" name="tipo"
+							class="form-control">
+							<option></option>
+							<option th:each="tipo : ${tipos}" th:text="${tipo}"
+								th:value="${tipo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="uf">UF</label> <select id="uf" name="uf"
+							class="form-control">
+							<option></option>
+							<option th:each="uf : ${ufs}" th:text="${uf.sigla}"
+								th:value="${uf.codigo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cfop">CFOP</label> <select id="cfop" name="cfop"
+							class="form-control">
+							<option></option>
+							<option th:each="cfop : ${cfops}" th:text="${cfop.cfop}"
+								th:value="${cfop.codigo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cst_csosn">CST/CSOSN</label> <select id="cst_csosn"
+							name="cst_csosn" class="form-control">
+							<option value=""></option>
+							<option th:each="cc : ${cstcsosn}" th:text="${cc.cst_csosn}"
+								th:value="${cc.codigo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="aliqicms">Aliq. ICMS</label> <input id="aliqicms"
+							name="aliq_icms" type="text"
+							class="form-control js-mascara-porcento" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cst_pis">CST - PIS</label> <select id="cst_pis"
+							name="cstpis" class="form-control">
+							<option value=""></option>
+							<option th:each="cst : ${csts}" th:text="${cst.cst}"
+								th:value="${cst.codigo}"></option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="pis">Aliq. PIS</label> <input id="pis" name="pis"
+							type="text" class="form-control js-mascara-porcento" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cst_cofins">CST - COFINS</label> <select
+							id="cst_cofins" name="cstcofins" class="form-control">
+							<option value=""></option>
+							<option th:each="cst : ${csts}" th:text="${cst.cst}"
+								th:value="${cst.codigo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cofins">Aliq. COFINS</label> <input id="cofins"
+							name="cofins" type="text"
+							class="form-control js-mascara-porcento" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cst_ipi">CST - IPI</label> <select id="cst_ipi"
+							name="cstipi" class="form-control">
+							<option value=""></option>
+							<option th:each="cst : ${cstipi}" th:text="${cst.cst}"
+								th:value="${cst.codigo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="aliqipi">Aliq. IPI</label> <input id="aliqipi"
+							name="aliq_ipi" type="text"
+							class="form-control js-mascara-porcento" />
+					</div>
+
+				</div>
+
+				<div class="row btns-modal-tributacao">
+					<button class="btn btn-danger btn-cancela" data-dismiss="modal">Cancelar</button>
+					<a th:href="@{/regras}" class="btn btn-success btn-salva-regra">Salvar</a>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+</html>

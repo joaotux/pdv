@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="menu">
+	<div class="container">
+		<div class="margem-top">
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+					<div class="panel panel-success panel-pedidos">
+						<div class="panel-body text-center">
+							<p>Pedidos em Aberto</p>
+							<p th:text="${pedidosAberto}"></p>
+							<img th:src="@{/icons/car.png}" alt="..." class="img-rounded">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+					<div class="panel panel-success panel-receber">
+						<div class="panel-body text-center">
+							<p>Total a Receber</p>
+							<p th:text="|R$ ${total_a_receber}|"></p>
+							<img th:src="@{/icons/receber-menu.png}" alt="..."
+								class="img-rounded">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+					<div class="panel panel-success panel-pagar">
+						<div class="panel-body text-center">
+							<p>Total a Pagar</p>
+							<p th:text="|R$ ${total_a_pagar}|"></p>
+							<img th:src="@{/icons/pagar-menu.png}" alt="..."
+								class="img-rounded">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+					<div class="panel panel-success panel-nfe">
+						<div class="panel-body text-center">
+							<p>NFe Emitidas</p>
+							<p th:text="${total_notas_emitidas}"></p>
+							<img th:src="@{/icons/nfe-menu.png}" alt="..."
+								class="img-rounded">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

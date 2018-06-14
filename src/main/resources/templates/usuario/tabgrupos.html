@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="row">
+	<div class="col-md-6">
+		<div id="tabGrupoUsuario">
+			<table class="table trable-striped" id="tabUsuGrupos">
+				<thead>
+					<tr>
+						<td>Nome</td>
+						<td>Descrição</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="grupo : ${grupos}">
+						<td th:text="${grupo.nome}"></td>
+						<td th:text="${grupo.descricao}"></td>
+						<td><a th:attr="data-codigoGrupo=${grupo.codigo}"
+							class="btn btn-link btn-xs js-remove-grupo"
+							th:href="@{/usuario/removegrupo/(codigoUsu=${usuario.codigo},codigoGru=)}">
+								<span class="glyphicon glyphicon-remove"></span>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</html>

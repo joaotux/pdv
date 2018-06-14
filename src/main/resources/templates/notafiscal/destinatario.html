@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<form>
+	<div class="row">
+			<div class="form-group">
+				<select class="form-control selectpicker cli-selecionado" data-live-search="true" name="destinatario" th:field="*{destinatario}">
+					<option selected="selected" value=""></option>
+					<option th:each="dest : ${destinatarios}" th:text="${dest.nome}"
+						th:value="${dest.codigo}"></option>
+				</select>
+		</div>
+	</div>
+</form>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="txt/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login/login.css}" />
+<title>PDV - Login</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 col-md-offset-3">
+
+				<div class="alert alert-success" th:if="${param.logout}">
+					<span>Até mais ;)</span>
+				</div>
+
+				<div class="alert alert-danger" th:if="${param.error}">
+					<span>Usuário ou senha inválidos</span>
+				</div>
+
+				<div class="panel panel-primary" id="painelLoginPrimaio">
+					<div class="panel-heading" id="painelLogin">Entrar no Sistema</div>
+					<div class="panel-body">
+						<form th:action="@{/login}" method="post">
+							<div class="form-group">
+								<label for="user"><span class="glyphicon glyphicon-user"><b
+										id="texto">Usuário</b></span></label> <input id="user" type="text"
+									name="username" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="password"><span
+									class="glyphicon glyphicon-eye-close"><b id="texto">Senha</b></span></label>
+								<input id="password" type="password" name="password"
+									class="form-control" />
+							</div>
+							<div class="row">
+								<button type="submit"
+									class="btn col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xs-10 col-xs-offset-1" id="btn-login">Entrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

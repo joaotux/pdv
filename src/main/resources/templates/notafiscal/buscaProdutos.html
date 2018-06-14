@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<form>
+	<div class="row">
+		<div class="col-md-10">
+			<div class="form-group">
+				<select id="codigoProduto"
+					class="form-control selectpicker produtos-habilitado"
+					data-live-search="true">
+					<option selected="selected"></option>
+					<option th:each="produto : ${produtos}"
+						th:text="${'COD: ' + produto.codigo + ' - ' + produto.descricao}"
+						th:value="${produto.codigo}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="form-group" id="addproduto">
+				<a class="btn btn-info form-control btn-addnota-produto btn-azul-padrao"
+					th:href="@{/}" id="js-url">Inserir</a>
+			</div>
+		</div>
+	</div>
+</form>
+</html>

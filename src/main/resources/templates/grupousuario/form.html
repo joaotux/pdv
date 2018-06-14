@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="col-md-12" id="body-form-grup-usu">
+
+			<form th:action="@{/grupousuario}" th:method="post"
+				th:object="${grupousu}" id="form-grupusu">
+				<input type="hidden" th:field="*{codigo}" id="codgrupo" />
+
+				<div th:include="@{messagens/messageSuccess}"></div>
+				<div th:include="@{messagens/mensagemErro}"></div>
+
+				<h2 class="titulo-h1">Grupo Usuário</h2>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigo">Código</label> <input id="codigo"
+							name="codigo" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+
+					<div class="col-md-offset-8 col-md-2">
+						<a th:href="@{/grupousuario}" class="btn btn-azul-padrao"><span
+							class="fa fa-list fa-lg"> Listar</span> </a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-5">
+						<label for="nome">Nome</label> <input id="nome" name="nome"
+							type="text" class="form-control" th:field="*{nome}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label for="descricao">Descrição</label>
+						<textarea id="descricao" name="descricao" class="form-control"
+							th:field="*{descricao}" rows="2"></textarea>
+					</div>
+				</div>
+
+				<input type="submit" class="btn btn-azul-padrao" value="Salvar">
+
+				<div th:if="*{codigo}">
+					<br />
+					<hr />
+					<span><b>Permissões do grupo</b></span><br /> <br />
+					
+					<div th:include="grupousuario/buscaPermissoes"></div>
+					<div th:include="grupousuario/tabelaPermissoes"></div>
+					
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="col-md-12">
+
+			<form th:action="@{/tributacao}" method="post"
+				th:object="${tributacao}" id="form_tributacao">
+				<input type="hidden" th:field="*{codigo}" />
+
+				<div th:include="@{messagens/messageSuccess}"></div>
+				<div th:include="@{messagens/mensagemErro}"></div>
+
+				<div class="margem-top">
+					<div id="btn-padrao">
+						<a th:href="@{/tributacao}" class="btn btn-azul-padrao"><span
+							class="glyphicon glyphicon-align-justify"> Listar</span> </a>
+					</div>
+				</div>
+
+				<h2 class="text-center">Tributação</h2>
+
+				<div class="row">
+					<div class="form-group col-md-1">
+						<label for="codigo">Código</label> <input id="codigo" type="text"
+							name="codigo" class="form-control" th:field="*{codigo}"
+							disabled="disabled" />
+					</div>
+
+					<button type="submit" class="btn btn-salva-tributacao col-md-offset-10">Salvar</button>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label> <input id="st" type="checkbox"
+							name="subs_tributaria" th:field="*{subs_tributaria}" />
+							Substituição Tributaria
+						</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label for="desc">Descrição</label> <input id="desc" type="text"
+							name="descrica" class="form-control" th:field="*{descricao}" />
+					</div>
+				</div>
+			</form>
+
+			<div th:if="${tributacao.codigo}" th:insert="tributacao/regras"></div>
+		</div>
+	</div>
+</section>
+</html>

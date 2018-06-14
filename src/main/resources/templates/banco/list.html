@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+
+	<div class="container">
+		<div class="col-md-11">
+			<div class="margem-top">
+
+				 <div th:insert="banco/busca"></div>
+				 
+				<h1 class="titulo-h1">Bancos</h1>
+
+				<div id="btn-padrao">
+					<a th:href="@{/caixa/form}" class="btn btn-azul-padrao">Abrir
+						Novo</a>
+				</div>
+
+				<table class="table">
+				<thead class="cabeca-tabela-principal">
+						<tr>
+							<td class="text-center">#</td>
+							<td>Descrição</td>
+							<td class="text-center">Valor Total</td>
+							<td class="text-center">Data Abertura</td>
+							<td class="text-center">Data Fechamento</td>
+							<td></td>
+							<td></td>
+						</tr>
+				</thead>
+					<tbody class="caixa-cor">
+						<tr th:each="banco : ${bancos}">
+							<td class="text-center" th:text="${banco.codigo}"></td>
+							<td th:text="${banco.descricao}"></td>
+							<td class="text-center" th:text="|R$ ${{banco.valor_total}}|"></td>
+							<td class="text-center" th:text="${{banco.data_cadastro}}"></td>
+							<td class="text-center" th:text="${{banco.data_fechamento}}"></td>
+							<td th:if="${banco.data_fechamento}"><span
+								class="label label-danger">Fechado</span></td>
+							<td th:if="!${banco.data_fechamento}"><span
+								class="label label-success">Aberto</span></td>
+							<td th:if="!${banco.data_fechamento}" class="text-center"><a
+								sec:authorize="hasRole('ACESSAR_CAIXA')"
+								th:href="@{/caixa/gerenciar/{codigo}(codigo=${banco.codigo})}">
+								
+									<img th:src="@{/icons/confirma.png}" width="19%" />
+							</a></td>
+							<td th:if="${banco.data_fechamento}" class="text-center"><span
+								class="glyphicon glyphicon-ok"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

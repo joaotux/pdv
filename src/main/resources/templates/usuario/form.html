@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="body-usuario">
+
+			<div class="col-md-11">
+				<br />
+
+				<div th:include="@{messagens/messageSuccess}"></div>
+				
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#usuariotab">Usuário</a></li>
+					<li th:if="${usuario.codigo}"><a data-toggle="tab"
+						href="#gruposusuario">Grupos</a></li>
+				</ul>
+
+				<div class="tab-content">
+
+					<div id="usuariotab" class="tab-pane fade in active">
+						<!-- TAB USUARIO -->
+						<form th:action="@{/usuario}" method="post" th:object="${usuario}">
+
+							<div th:include="@{messagens/mensagemErro}"></div>
+
+							<h2>Usuário</h2>
+
+							<div id="btn-padrao">
+								<a th:href="@{/usuario}" class="btn btn-azul-padrao"><span
+									class="fa fa-list fa-lg"> Listar</span> </a>
+							</div>
+
+							<input type="hidden" th:field="*{codigo}" id="codigoUsuario" />
+							<input type="hidden" th:field="*{user}" id="userDado" /> <input
+								type="hidden" th:field="*{pessoa.codigo}" id="pesDado" />
+
+							<div class="row">
+								<div class="form-group col-md-2 codigoUsuario">
+									<label for="codigo">Código</label> <input id="codigo"
+										name="codigo" type="text" class="form-control"
+										th:field="*{codigo}" disabled="disabled" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label for="usuariovalor">Usuário</label> <input
+										id="usuariovalor" name="user" type="text" class="form-control"
+										th:field="*{user}" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label for="senha">Senha</label> <input id="senha" name="senha"
+										type="password" class="form-control"
+										th:value="${usuario.senha}" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-12">
+									<label for="pessoa">Pessoa</label> <select id="pessoavalor"
+										name="pessoavalor" class="form-control" th:field="*{pessoa}">
+										<option th:each="pessoa : ${pessoas}" th:text="${pessoa.nome}"
+											th:value="${pessoa.codigo}"></option>
+									</select>
+								</div>
+							</div>
+
+							<input type="submit" value="Salvar" class="btn btn-azul-padrao" />
+						</form>
+						<!-- FIM TAB USUARIO -->
+					</div>
+
+					<div id="gruposusuario" class="tab-pane fade">
+						<!-- TAB GRUPOS -->
+						<div th:if="*{codigo}">
+							<div th:include="usuario/buscaGrupos" id="buscaGrupos"></div>
+
+							<div th:include="usuario/tabgrupos" id="tabela-grupos"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

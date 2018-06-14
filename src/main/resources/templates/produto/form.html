@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="form">
+
+	<div id="mensagemErro"></div>
+
+	<div class="container">
+		<div class="col-md-11">
+
+			<div class="alert alert-success" role="alert"
+				th:if="${!#strings.isEmpty(mensagem)}">
+				<span th:text="${mensagem}"></span>
+			</div>
+
+			<h2 align="center">Produto</h2>
+
+			<div id="btn-padrao">
+				<a th:href="@{/produto}" class="btn btn-azul-padrao"><span
+					class="fa fa-list fa-lg"> Listar</span> </a>
+			</div>
+
+
+			<form method="post" th:action="@{/produto}" th:object="${produto}"
+				id="form_produto">
+
+				<input type="hidden" th:field="*{codigo}" id="codigoProduto" />
+
+				<!-- USO ESTE LINK PARA PEGAR O LINK DO PRODUTO NO AJAX -->
+				<a th:href="@{/produto}" id="link-produto"></a>
+
+				<div class="row">
+					<div class="col-md-3">
+						<section th:if="*{codigo}" id="imagemDoProduto">
+							<a class="btn btn-link btn-upload-imagem"
+								th:href="@{/imagem/upload/}" data-toggle="modal"
+								data-target=".upload-imagem-modal"> <img width="100px"
+								height="100px" alt="Carregar imagem"
+								th:src="@{|/imagens-produtos/${imagem.descricao}|}"
+								class="img-thumbnail" />
+							</a>
+						</section>
+					</div>
+
+					<div class="form-group col-md-2 col-md-offset-7">
+						<label for="codigo">Código</label> <input id="codigo"
+							name="codigo" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="descricao">Descrição</label> <input id="descricao"
+						name="descricao" type="text" class="form-control"
+						placeholder="Descrição do produto" th:field="*{descricao}" />
+				</div>
+				<br />
+
+				<div class="row">
+					<div class="form-group col-md-8">
+						<label for="fornecedor">Fornecedor</label> <select id="fornecedor"
+							name="fornecedor" th:field="*{fornecedor}" class="form-control">
+							<option th:each="fornecedor : ${fornecedores}"
+								th:value="${fornecedor.codigo}" th:text="${fornecedor.nome}"></option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label for="categoria">Categoria</label> <select id="categoria"
+							name="categoria" th:field="*{categoria}" class="form-control">
+							<option th:each="categoria : ${categorias}"
+								th:value="${categoria.codigo}" th:text="${categoria.descricao}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-3">
+						<label for="grupo">Grupo</label> <select id="grupo" name="grupo"
+							th:field="*{grupo}" class="form-control">
+							<option th:each="grupo : ${grupos}" th:value="${grupo.codigo}"
+								th:text="${grupo.descricao}"></option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="balanca">Valor da balanca?</label> <select
+							class="form-control" th:field="*{balanca}" id="balanca">
+							<option th:each="opcao : ${balanca}" th:text="${opcao}"
+								th:value="${opcao}"></option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="valorCusto">Valor Custo</label> <input id="valorCusto"
+							name="valor_custo" type="text" class="form-control js-mascara"
+							th:field="*{valor_custo}" />
+					</div>
+
+					<div class="form-group col-md-3 col-md-offset-7">
+						<label for="validade">Data Validade</label> <input id="validade"
+							name="data_validade" type="text" class="form-control"
+							th:field="*{data_validade}" data-provide="datepicker"
+							data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+							data-date-autoclose="true" data-date-today-highlight="true" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="valorVenda">Valor Venda</label> <input id="valorVenda"
+							name="valor_venda" type="text" class="form-control js-mascara"
+							th:field="*{valor_venda}" />
+					</div>
+
+					<div class="form-group col-md-2 col-md-offset-8">
+						<label for="estoque">Quantidade Estoque</label> <input
+							id="estoque" name="estoque" type="text" class="form-control"
+							th:field="*{estoque.qtd}" disabled="disabled" />
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="ativo">Ativo</label> <select id="ativo" name="ativo"
+							class="form-control">
+							<option th:each="situacao : ${ativo}" th:value="${situacao}"
+								th:text="${situacao}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-offset-8 col-md-2">
+						<label for="controle">Controla Estoque</label> <select id="ativo"
+							name="controla_estoque" class="form-control"
+							th:field="*{controla_estoque}">
+							<option th:each="opcao : ${controlaestoque}" th:value="${opcao}"
+								th:text="${opcao}"></option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="unidade">Unidade</label> <input id="unidade"
+							name="unidade" type="text" class="form-control"
+							th:field="*{unidade}" />
+					</div>
+
+					<div class="col-md-offset-8 col-md-2">
+						<label for="vendavel">Vendável </label> <select id="vendavel"
+							name="vendavel" class="form-control" th:field="*{vendavel}">
+							<option th:each="vendavel : ${produtoVendavel}"
+								th:text="${vendavel}" th:value="${vendavel}"></option>
+						</select>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-3">
+						<hr />
+						<label for="unidade">Informações que saem na nota fiscal</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="st">Substituição Tributaria</label> <select id="st"
+							name="subtributaria" class="form-control"
+							th:field="*{subtributaria}">
+							<option th:each="st : ${subtributaria}" th:text="${st}"
+								th:value="${st}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="ncm">NCM</label> <input id="ncm" type="text"
+							name="ncm" class="form-control" th:field="*{ncm}"
+							placeholder="Informe o NCM" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="cest">CEST</label> <input id="cest" type="text"
+							name="cest" class="form-control" th:field="*{cest}"
+							placeholder="Informe o CEST" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="tributacao">Tributação</label> <select
+							name="tributacao" id="tributacao" th:field="*{tributacao}"
+							class="form-control">
+							<option value=""></option>
+							<option th:each="tributacao : ${tributacoes}"
+								th:text="${tributacao.descricao}"
+								th:value="${tributacao.codigo}"></option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="modbc">Modalidade da base de calculos do
+							ICMS/ICSM-ST</label> <select name="modbc" id="modbc"
+							th:field="*{modBcIcms}" class="form-control">
+							<option value=""></option>
+							<option th:each="modbc : ${modbcs}" th:text="${modbc.descricao}"
+								th:value="${modbc.codigo}"></option>
+						</select>
+					</div>
+				</div>
+
+				<br /> <input type="submit" name="enviar" value="Salvar"
+					class="btn btn-azul-padrao" />
+			</form>
+
+			<div th:insert="produto/upload-imagem-modal"></div>
+			<br />
+		</div>
+	</div>
+</section>
+</html>

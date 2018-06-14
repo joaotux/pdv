@@ -1,0 +1,21 @@
+.table-dados-cartoes a {
+	text-decoration: none;
+}
+
+.status-info {
+	color: black;
+	border-style: ridge;
+	border-color: black;
+}
+
+.pendente {
+	background-color: white;
+}
+
+.processado {
+	background-color: #8ae234;
+}
+
+.antecipado {
+	background-color: #fcaf3e;
+}

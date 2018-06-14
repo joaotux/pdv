@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade modalFechaCaixa" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+		<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+					<h3 style="color: red">Fechamento Caixa</h3>
+					<br />
+					
+						<form>
+							<div class="form-group">
+								<label for="admsenha">Senha Administrador</label> <input
+									id="admsenha" type="password" placeholder="************" class="form-control" />
+							</div>
+
+							<div class="row btns-modal-caixa">
+								<button class="btn btn-danger btn-cancela" data-dismiss="modal">Cancelar</button>
+								<a th:attr="data-codcaixa=${caixa.codigo}" class="btn btn-success btn-fechar-caixa" th:href="@{/caixa/fechar}">Fechar</a>
+							</div>
+							<br />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

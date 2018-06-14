@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div class="totais_nota">
+	<h3>Totais</h3>
+	<div class="row">
+		<div class="form-group col-md-2">
+			<label for="vbc">Base de calculos</label> <input id="vbc" type="text"
+				th:field="*{{totais.v_bc}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vicms">ICMS</label> <input id="vicms" type="text"
+				th:field="*{{totais.v_icms}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vst">ST</label> <input id="vst" type="text"
+				th:field="*{{totais.v_st}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vii">Imposto Importação</label> <input id="vii"
+				type="text" th:field="*{{totais.v_ii}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vipi">Valor IPI</label> <input id="vipi" type="text"
+				th:field="*{{totais.v_ipi}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vpis">Valor PIS</label> <input id="vpis" type="text"
+				th:field="*{{totais.v_pis}}" class="form-control" disabled="disabled" />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-2">
+			<label for="vcofins">Valor COFINS</label> <input id="vcofins"
+				type="text" th:field="*{{totais.v_cofins}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vfrete">Valor Frete</label> <input id="vfrete"
+				type="text" th:field="*{{totais.v_frete}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vseg">Valor Seguro</label> <input id="vseg" type="text"
+				th:field="*{{totais.v_seg}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vdesc">Desconto</label> <input id="vdesc" type="text"
+				th:field="*{{totais.v_desc}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="voutros">Outros Valores</label> <input id="voutros"
+				type="text" th:field="*{{totais.v_outros}}" class="form-control" disabled="disabled" />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label for="vprod">Total Produtos</label> <input id="vprod"
+				type="text" th:field="*{{totais.v_prod}}" class="form-control" disabled="disabled" />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-md-offset-10 col-md-2">
+			<label for="vnf">Total Nota</label> <input id="vnf" type="text"
+				th:field="*{{totais.v_nf}}" class="form-control" disabled="disabled" />
+		</div>
+	</div>
+</div>
+</html>

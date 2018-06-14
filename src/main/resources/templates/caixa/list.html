@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+
+	<div class="container">
+		<div class="col-md-11">
+			<div class="margem-top">
+				<div th:insert="caixa/busca"></div>
+
+				<h1 class="titulo-h1">Caixas</h1>
+
+				<div id="btn-padrao">
+					<a th:href="@{/caixa/form}" class="btn btn-azul-padrao">Abrir
+						Novo</a>
+				</div>
+
+				<table class="table">
+					<caption>
+						<span class="caixa-info caixa-cor-info"><b>Caixa Diário</b></span>
+						<span class="caixa-info cofre-cor-info"><b>Cofre</b></span>
+					</caption>
+					<thead class="cabeca-tabela-principal">
+						<tr>
+							<th class="text-center">#</th>
+							<th>Descrição</th>
+							<th class="text-center">Valor Total</th>
+							<th class="text-center">Data Abertura</th>
+							<th class="text-center">Data Fechamento</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody th:each="caixa : ${caixas}"
+						th:class="${caixa.getTipo().toString()} == 'CAIXA' ? 'caixa-cor' : 'cofre-cor'">
+						<tr>
+							<td class="text-center" th:text="${caixa.codigo}"></td>
+							<td th:text="${caixa.descricao}"></td>
+							<td class="text-center" th:text="|R$ ${{caixa.valor_total}}|"></td>
+							<td class="text-center" th:text="${{caixa.data_cadastro}}"></td>
+							<td class="text-center" th:text="${{caixa.data_fechamento}}"></td>
+							<td th:if="${caixa.data_fechamento}"><span
+								class="label label-danger">Fechado</span></td>
+							<td th:if="!${caixa.data_fechamento}"><span
+								class="label label-success">Aberto</span></td>
+							<td th:if="!${caixa.data_fechamento}" class="text-center"><a
+								sec:authorize="hasRole('ACESSAR_CAIXA')"
+								th:href="@{/caixa/gerenciar/{codigo}(codigo=${caixa.codigo})}">
+
+									<img th:if="${caixa.isCofre()}" th:src="@{/icons/cofre.png}"
+									width="18%" /> <img th:if="!${caixa.isCofre()}"
+									th:src="@{/icons/glyphicons-459-money.png}" /> <img
+									th:if="${caixa.getTipo().toString()} == 'BANCO'"
+									th:src="@{/icons/banco.png}" width="18%" />
+							</a></td>
+							<td th:if="${caixa.data_fechamento}" class="text-center"><span
+								class="glyphicon glyphicon-ok"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

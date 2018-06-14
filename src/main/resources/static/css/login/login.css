@@ -1,0 +1,28 @@
+body {
+	background-color: #888a85;
+}
+
+#painelLoginPrimaio {
+	border-color: #1ac6ff;
+}
+
+#painelLogin {
+	background-color: #1ac6ff;
+	border-color: #1ac6ff;
+	font-size: 2.1em;
+	text-align: center;
+}
+
+.container {
+	padding-top: 14%;
+}
+
+#texto {
+	padding-left: 10%
+}
+
+#btn-login {
+	background-color: #1ac6ff;
+	font-weight: bold;
+	font-size: 1.1em;
+}

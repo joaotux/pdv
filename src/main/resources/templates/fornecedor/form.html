@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="col-md-11">
+			<div th:include="@{messagens/messageSuccess}"></div>
+
+			<h2>Fornecedor</h2>
+
+			<div id="btn-padrao">
+				<a th:href="@{/fornecedor}" class="btn btn-azul-padrao"><span
+					class="fa fa-list fa-lg"> Listar</span> </a>
+			</div>
+
+			<form th:action="@{/fornecedor}" method="post" id="form_fornecedor">
+				<div class="row">
+					<div class="form-group col-md-1">
+						<input type="hidden" th:field="*{fornecedor.codigo}" /> <input
+							type="text" name="codigo" placeholder="Código" class="form-control"
+							disabled="disabled" th:field="*{fornecedor.codigo}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-8">
+						<label for="nomefantasia">Nome Fantasia</label> <input
+							id="nomefantasia" class="form-control" name="nome_fantasia"
+							type="text" placeholder="Nome Fantasia"
+							th:field="*{fornecedor.nome_fantasia}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-8">
+						<label for="nome">Nome</label> <input id="nome" type="text"
+							name="nome" class="form-control" placeholder="Nome"
+							th:field="*{fornecedor.nome}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="cnpj">CNPJ</label> <input id="cnpj" name="cnpj"
+							type="text" class="form-control" placeholder="CNPJ"
+							th:field="*{{fornecedor.cnpj}}" />
+						<p th:if="${#fields.hasErrors('fornecedor.cnpj')}"
+							th:errors="*{fornecedor.cnpj}">Incorrect date</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="escricao">Escrição Estadual</label> <input
+							id="escricao" type="text" name="inscricao_estadual"
+							class="form-control" placeholder="Escrição Estadual"
+							th:field="*{fornecedor.inscricao_estadual}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="situacao">Ativo</label> <select id="situacao"
+							class="form-control" name="ativo" th:field="*{fornecedor.ativo}">
+							<option value="1">Ativo</option>
+							<option value="2">Inativo</option>
+						</select>
+					</div>
+				</div>
+
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#home">Observação</a></li>
+					<li><a data-toggle="tab" href="#menu1">Endereço</a></li>
+					<li><a data-toggle="tab" href="#menu2">Contato</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<!-- Cadastro observação -->
+					<div id="home" class="tab-pane fade in active">
+						<br />
+						<textarea rows="5" cols="90" name="observacao"
+							th:field="*{fornecedor.observacao}">
+					</textarea>
+					</div>
+
+					<!-- Cadastro endereço -->
+					<div id="menu1" class="tab-pane fade">
+						<br /> <input type="hidden" th:field="*{endereco.codigo}" />
+						<div class="form-group">
+							<label for="cidade">Cidade</label> <select id="cidade"
+								name="cidade" class="form-control" th:value="*{endereco.cidade}">
+								<option th:each="cidade: ${cidades}" th:text="${cidade.nome}"
+									th:value="${cidade.codigo}"></option>
+							</select><br />
+						</div>
+						<div class="form-group">
+							<label for="rua">Rua</label> <input type="text" id="rua"
+								name="rua" placeholder="Rua" class="form-control"
+								th:value="*{endereco.rua}" /><br />
+						</div>
+						<div class="form-group">
+							<label for="bairro">Bairro</label> <input type="text"
+								class="form-control" id="bairro" name="bairro"
+								placeholder="Bairro" th:value="*{endereco.bairro}" /><br />
+						</div>
+						<div class="form-group">
+							<label for="numero">Numero</label> <input type="text" id="numero"
+								name="numero" class="form-control" placeholder="Numero"
+								th:value="*{endereco.numero}" /><br />
+						</div>
+
+						<div class="form-group">
+							<label for="cep">CEP</label> <input type="text" id="cep"
+								name="cep" class="form-control" placeholder="CEP"
+								th:value="*{endereco.cep}" /><br />
+						</div>
+
+						<div class="form-group">
+							<label for="referencia">Referência</label> <input id="referencia"
+								name="referencia" class="form-control" type="text"
+								placeholder="Referência" th:value="*{endereco.referencia}" />
+						</div>
+					</div>
+
+					<!-- Cadastro contato -->
+					<div id="menu2" class="tab-pane fade">
+						<input type="hidden" th:field="*{telefone.codigo}" /> <br />
+						<div class="row">
+							<label for="fone">Telefone </label>
+							<div class="form-group col-md-2">
+								<input type="text" class="form-control" id="fone" name="fone"
+									th:value="*{telefone.fone}" th:field="*{telefone.fone}" />
+							</div>
+							<div class="col-md-2">
+								<select name="tipo" th:value="*{telefone.tipo}" class="form-control"
+									th:field="*{telefone.tipo}">
+									<option th:each="tipo : ${telefoneTipo}" th:text="${tipo}"
+										th:value="${tipo}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<hr></hr>
+				<input type="submit" value="Salvar" class="btn btn-azul-padrao" />
+			</form>
+		</div>
+	</div>
+</section>
+</html>

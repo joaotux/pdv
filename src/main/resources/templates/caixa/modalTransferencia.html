@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<div class="modal fade modalTransferencia" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="container">
+				<h2>Transferência</h2>
+
+				<form>
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="vltotal">Valor</label> <input id="vltotal"
+								name="valor" type="text" class="form-control js-mascara" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="idorigem">Origem</label> <input id="idorigem"
+								name="origem" type="text" class="form-control"
+								disabled="disabled" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="iddestino">Destino</label> <select id="iddestino"
+								class="form-control" name="destino">
+								<option th:each="destino : ${destinos}"
+									th:text="${destino.descricao + ' - ' + destino.codigo}" th:value="${destino.codigo}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="idobservacao">Observação</label>
+							<textarea rows="3" cols="6" id="idobservacao" name="observacao"
+								type="text" class="form-control"></textarea>
+						</div>
+					</div>
+
+					<div class="row btns-modal">
+						<button type="button" class="btn btn-danger btn-recebimento"
+							data-dismiss="modal">Cancelar</button>
+						<a class="btn btn-success btn-transferencia"
+							th:href="@{/transferencia}">Confirmar</a>
+					</div>
+					<br />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

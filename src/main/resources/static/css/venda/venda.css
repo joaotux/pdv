@@ -1,0 +1,110 @@
+#tabtitulo {
+	background-color: #1ac6ff;
+	font-size: 1.2em;
+}
+
+#tabdados {
+	width: 950px;
+	height: 400px;
+	overflow: auto;
+}
+
+#total_produtos {
+	text-align: center;
+	color: green;
+	font-weight: bolder;
+}
+
+.situacao-venda {
+	color: green;
+	font-size: 2em;
+}
+
+.btn-menu {
+	padding-bottom: 6%;
+	border-bottom-width: 4px;
+	width: 110px;
+	background-color: #b3b3b3;
+	color: black;
+	font-size: 1.1em;
+	background-color: #66ccff;
+}
+
+.td-menu {
+	padding: 1%;
+}
+
+#btn-venda {
+	background-color: #5cd65c;
+}
+
+.btn-comandas {
+	border-bottom-width: 4px;
+	padding-bottom: 20%;
+	padding: 1%;
+	font-size: 1.8em;
+	text-decoration: blink;
+	text-align: left;
+}
+
+.span-dados-venda {
+	font-size: 1.4em;
+	font-weight: bold;
+	color: black;
+}
+
+.panel-vendas .aberta {
+	background-color: #47d147;
+	border-color: #47d147;
+}
+
+.panel-vendas .aberta:hover {
+	background-color: #27d028;
+	border-color: #27d028;
+}
+
+.panel-vendas .fechada {
+	background-color: #ef2929;
+	border-color: #ef2929;
+}
+
+.panel-vendas .fechada:hover {
+	background-color: #f80303;
+	border-color: #dc3131
+}
+
+.panel-vendas .span-dados-pedido {
+	font-size: 1.2em;
+	color: black;
+}
+
+.panel-vendas a {
+	text-decoration: none;
+}
+
+.modal-pagamento {
+	width: 400px;
+	align-items: center;
+}
+
+.btns-modal-venda {
+	margin-left: 8%;
+}
+
+.btn-padrao-venda {
+	width: 90px;
+}
+
+.btn-azul-insere-produto {
+	background-color: #66ccff;
+	color: black;
+	font-size: 1.1em;
+	width: 90px;
+}
+
+
+.panel-dados-venda {
+	white-space: nowrap;
+	overflow: hidden;
+}
+

@@ -1,0 +1,75 @@
+.panel-pedidos {
+	background-color: #20c4fd;
+	border-color: #20c4fd; 
+	border-style: solid;
+}
+
+.panel-pedidos:hover {
+	background-color: #0c89d1;
+	border-color: #0c89d1;
+	font-size: 1.2em;
+}
+
+.panel-pedidos p {
+	color: white;
+	font-size: 1.8em;
+	font-family: cursive;
+}
+
+.panel-receber {
+	background-color: #73d216;
+	border-color: #73d216; 
+	border-style: solid;
+}
+
+.panel-receber:hover {
+	background-color: #4e9a06;
+	border-color: #4e9a06;
+	font-size: 1.2em;
+}
+
+.panel-receber p {
+	color: white;
+	font-size: 1.8em;
+	font-family: cursive;
+}
+
+.panel-pagar {
+	background-color: #f44242;
+	border-color: #20c4fd; 
+	border-style: solid;
+}
+
+.panel-pagar:hover {
+	background-color: #cc0000;
+	border-color: #cc0000;
+	font-size: 1.2em;
+}
+
+.panel-pagar p {
+	color: white;
+	font-size: 1.8em;
+	font-family: cursive;
+}
+
+.panel-nfe {
+	background-color: #fcaf3e;
+	border-color: #fcaf3e; 
+	border-style: solid;
+}
+
+.panel-nfe:hover {
+	background-color: #f57900;
+	border-color: #f57900;
+	font-size: 1.2em;
+}
+
+.panel-nfe p {
+	color: white;
+	font-size: 1.8em;
+	font-family: cursive;
+}
+
+.margem-top {
+	margin-top: 3%;	
+}

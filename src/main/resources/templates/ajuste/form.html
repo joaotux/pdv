@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="col-md-11">
+			<div th:include="@{messagens/messageSuccess}"></div>
+
+			<h2 class="titulo-h1">Ajuste Estoque</h2>
+			<br /> <br />
+			<div class="body_ajuste">
+				<form th:object="${ajuste}">
+
+					<input type="hidden" th:field="*{codigo}" id="codajuste" /> <input
+						type="hidden" th:field="*{status}" id="statusAjuste" /> <input
+						type="hidden" th:field="*{usuario}" /> <input type="hidden"
+						th:field="*{data_processamento}" />
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="codigo">Código</label> <input id="codigo" type="text"
+								class="form-control" th:field="*{codigo}" disabled="disabled" />
+						</div>
+
+						<div class="form-group col-md-offset-8 col-md-2">
+							<label for="status">Status</label> <input id="status" type="text"
+								class="form-control" th:field="*{status.descricao}"
+								disabled="disabled" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-9">
+							<label for="obs">Observação</label> <input id="obs" type="text"
+								class="form-control" th:field="*{observacao}" />
+						</div>
+
+						<div class="form-group col-md-offset-1 col-md-2">
+							<label for="data">Data Processamento</label> <input id="data"
+								type="text" class="form-control"
+								th:field="*{data_processamento}" disabled="disabled" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-offset-10 col-md-2">
+							<label for="usuario">Usuário</label> <input id="usuario"
+								type="text" class="form-control" th:field="*{usuario}"
+								disabled="disabled" />
+						</div>
+					</div>
+				</form>
+
+				<div th:insert="ajuste/buscaProduto"></div>
+
+				<div class="row">
+					<div id="tabela-produtos">
+						<div class="col-md-12">
+
+							<table>
+								<thead>
+									<tr>
+										<th class="col-md-1">#</th>
+										<th class="col-md-4">Descrição</th>
+										<th class="col-md-2 text-center">Estoque Atual</th>
+										<th class="col-md-2 text-center">Qtd. Alteração</th>
+										<th class="col-md-1 text-center">Novo Estoque</th>
+									</tr>
+								</thead>
+							</table>
+							<div class="tabela-dados-ajuste">
+								<table class="table">
+									<tbody>
+										<tr th:each="prodAjuste : ${produtosAjuste}">
+											<td class="col-md-1" th:text="${prodAjuste.produto.codigo}"></td>
+											<td class="col-md-4"
+												th:text="${prodAjuste.produto.descricao}"></td>
+											<td class="col-md-2 text-center"
+												th:text="${prodAjuste.estoque_atual}"></td>
+											<td class="col-md-2 text-center"
+												th:text="${prodAjuste.qtd_alteracao}"></td>
+											<td class="col-md-1 text-center"
+												th:text="${prodAjuste.qtd_nova}"></td>
+											<td><a th:attr="data-coditem=${prodAjuste.codigo}"
+												th:href="@{/ajustes/remove/item/}" class="btn-remove-item-ajuste"><span
+													class="glyphicon glyphicon-remove"></span></a></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+							<br />
+						</div>
+						<div class="row">
+							<a sec:authorize="hasRole('FAZ_AJUSTE')" th:href="@{/ajustes/cancelar/}"
+								class="btn btn-azul-vermelhor col-md-offset-8 col-md-2 btn-ajuste-cancelar">Cancelar</a>
+							<a sec:authorize="hasRole('FAZ_AJUSTE')" th:href="@{/ajustes/processar}"
+								class="btn btn-azul-padrao col-md-2 btn-ajuste-processar">Processar</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>
+</html>

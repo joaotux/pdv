@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade upload-imagem-modal" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Carregar imagem</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<form method="post" enctype="multipart/form-data"
+						id="imageProdutoUpload">
+						<input id="file" type="file" name="files"
+							class="form-control col-md-4" /> <br />
+
+						<button type="submit" id="btnSubmit"
+							class="glyphicon glyphicon-ok btn btn-azul-menu"></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

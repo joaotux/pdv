@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+	<div class="container">
+		<div class="col-md-11">
+			<div class="btn-group btn-group-justified" role="group"
+				aria-label="..." id="grupoPainelCaixa">
+				<div class="btn-group" role="group">
+					<a sec:authorize="hasRole('VISUALIZAR_PEDIDO_ABERTO')" th:href="@{/venda/status/ABERTA}" class="btn btn-azul-menu">Abertos</a>
+				</div>
+				<div class="btn-group" role="group">
+					<a sec:authorize="hasRole('VISUALIZAR_PEDIDO_FECHADO')" th:href="@{/venda/status/FECHADA}" class="btn btn-azul-menu">Fechados</a>
+				</div>
+				<div class="btn-group" role="group">
+					<a sec:authorize="hasRole('ABRIR_PEDIDO')" th:href="@{/venda/form}" class="btn btn-azul-menu">Novo Pedido</a>
+				</div>
+			</div>
+
+			<div th:include="venda/buscapedidos"></div>
+
+			<div class="margem-top">
+				<h1 class="titulo-h1">Pedidos</h1>
+
+				<div class="row">
+					<div th:each="venda : ${vendas}">
+						<div class="col-sm-6 col-md-4 col-lg-3 mt-4 panel-vendas">
+							<div class="panel panel-success panel-dados-venda" style="text-overflow:ellipsis;">
+								<a class="panel-body text-center"
+									th:href="@{/venda/{codigo}(codigo=${venda.codigo})}" style="display: block;"
+									th:classappend="${venda.isAberta()} ? 'aberta' : 'fechada'">
+									<span th:text="${venda.isAberta()} ? 'ABERTO' : 'FECHADO'"
+									class="span-dados-venda"></span><br/>
+									<span th:text="|Numero: ${venda.codigo}|" class="span-dados-pedido"></span><br/>
+									<span th:text="|Total: R$ ${{venda.valor_produtos}}|" class="span-dados-pedido"></span><br/>
+									<span th:text="${venda.pessoa} == null ? 'Sem cliente' : ${venda.pessoa.nome}" class="span-dados-pedido span-cliente"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-offset-5">
+					<a th:classappend="!${hasPrevious} ? 'disabled'"
+						th:href="@{/venda/status/{status}(status=${statuVenda}, page=${pagAnterior})}"
+						class="btn btn-info btn-anterior">Anterior</a> <span
+						th:text="${pagAtual+1 + '/' + qtdpaginas}"></span> <a
+						th:classappend="!${hasNext} ? 'disabled'"
+						th:attr="data-pag-proxima=${proxPagina}"
+						th:href="@{/venda/status/{status}(status=${statuVenda}, page=${proxPagina})}"
+						class="btn btn-info btn-proxima">Proxima</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

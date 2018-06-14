@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="col-md-11">
+			<div th:include="@{messagens/messageSuccess}"></div>
+
+			<h2 class="text-center">Grupo</h2>
+
+			<div id="btn-padrao">
+				<a th:href="@{/grupo}" class="btn btn-azul-padrao"><span
+					class="fa fa-list fa-lg"> Listar</span> </a>
+			</div>
+
+			<form th:action="@{/grupo}" method="post" th:object="${grupo}"
+				id="form_grupo">
+
+				<input type="hidden" th:field="*{codigo}" />
+
+				<div class="row">
+					<div class="form-group col-md-1">
+						<label for="codigo">Código</label> <input id="codigo"
+							name="codigo" th:field="*{codigo}" class="form-control"
+							disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="descricao">Descrição</label> <input id="descricao"
+						name="descricao" class="form-control" type="text"
+						th:field="*{descricao}" placeholder="Descrição" />
+					<p th:if="${#fields.hasErrors('descricao')}"
+						th:errors="*{descricao}">Incorrect date</p>
+				</div>
+				<br /> <input type="submit" value="Salvar" class="btn btn-azul-padrao" />
+			</form>
+
+		</div>
+	</div>
+</section>
+</html>

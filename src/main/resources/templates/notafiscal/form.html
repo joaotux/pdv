@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container body-itens-nota">
+
+		<div class="col-md-11">
+			<form th:object="${nota}" id="form_notafiscal">
+				<input type="hidden" th:field="*{codigo}" id="codnota" />
+				
+				<!-- USO ESTE LINK PARA PEGAR O LINK DA NOTA NO AJAX -->
+				<a th:href="@{/notafiscal}" id="link-notafiscal"></a>
+				
+				<!-- USO ESTE LINK PARA PEGAR O LINK DA NOTA NO AJAX -->
+				<a th:href="@{/notafiscalitem}" id="link-nota-item"></a>
+				
+				<h2 class="text-center">Nota Fiscal</h2>
+
+				<a th:if="*{codigo}"
+					th:href="@{/notafiscal/{codigo}(codigo=*{codigo})}"
+					class="btn-emitir-nfe">Emitir</a>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigo">Codigo</label> <input id="codigo"
+							name="codigo" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-offset-8 col-md-2">
+						<label for="dataemissao">Data emissão</label> <input
+							id="dataemissao" name="data_emissao" type="text"
+							class="form-control" th:field="*{data_emissao}"
+							disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="numero">Numero</label> <input id="numero"
+							name="numero" type="text" class="form-control"
+							th:field="*{numero}" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-1">
+						<label for="serie">Série</label> <input id="serie" name="serie"
+							type="text" class="form-control" th:field="*{serie}"
+							disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-1">
+						<label for="modelo">Modelo</label> <input id="modelo"
+							name="modelo" type="text" class="form-control"
+							th:field="*{modelo}" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="tipo">E/S</label> <select id="tipo" name="tipo"
+							class="form-control" th:field="*{tipo}">
+							<option th:each="tipo : ${tipos}" th:text="${tipo}"
+								th:value="${tipo}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-offset-4 col-md-2">
+						<label for="dataemissao">Data Saída</label> <input
+							id="dataemissao" name="data_emissao" type="text"
+							class="form-control" th:field="*{data_emissao}"
+							disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-8">
+						<label for="chave">Chave acesso</label> <input id="chave"
+							name="chave" type="text" class="form-control"
+							th:field="*{chave_acesso}" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-4">
+						<label for="natureza">Natureza operação</label> <input
+							id="natureza" name="natureza_operacao" type="text"
+							class="form-control" th:field="*{natureza_operacao}" />
+					</div>
+				</div>
+
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#destinatario">Destinatário</a></li>
+					<li><a data-toggle="tab" href="#produtos" th:if="*{codigo}">Produtos</a></li>
+					<li><a data-toggle="tab" href="#frete" th:if="*{codigo}">Frete</a></li>
+				</ul>
+
+				<div class="tab-content">
+
+					<!-- TAB DESTINATARIO -->
+					<div id="destinatario" class="tab-pane fade in active">
+						<br />
+
+						<div class="col-md-9">
+							<div class="form-group">
+								<div th:insert="notafiscal/destinatario"></div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<input id="cpfcnpj" name="cpfcnpj" type="text"
+										placeholder="CPF/CNPJ" class="form-control"
+										th:field="*{destinatario.cpfcnpj}" disabled="disabled" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="cidade">Endereço</label> <input id="cidade"
+										name="cidade" type="text" class="form-control"
+										th:field="*{destinatario.endereco.cidade.nome}"
+										disabled="disabled" />
+								</div>
+							</div>
+
+							<div class="col-md-1">
+								<div class="form-group">
+									<label for="uf">UF</label> <input id="uf" name="estado"
+										type="text" class="form-control" disabled="disabled"
+										th:field="*{destinatario.endereco.cidade.estado.sigla}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="telefone">Fone</label> <input id="telefone"
+										name="telefone" type="text" class="form-control"
+										th:each="fone : *{destinatario.telefone}"
+										th:value="${fone.fone}" disabled="disabled" /> <input
+										th:if="!*{codigo}" type="text" disabled="disabled"
+										class="form-control" />
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="email">E-mail</label> <input id="email"
+										name="email" type="email" class="form-control"
+										disabled="disabled" />
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+
+					<div id="produtos" class="tab-pane fade">
+						<br />
+						<div th:insert="notafiscal/produtos"></div>
+					</div>
+
+					<div id="frete" class="tab-pane fade">
+						<br />
+						<div class="container">
+							<div class="row">
+								<div class="form-group col-md-3">
+									<label for="frete">Frete Tipo</label> <select id="frete"
+										name="frete" class="form-control" th:field="*{freteTipo.tipo}">
+										<option th:each="frete : ${fretes}"
+											th:text="${frete.descricao}" th:value="${frete.tipo}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<a th:if="!*{codigo}" th:href="@{/}"
+					class="btn btn-azul-padrao col-md-offset-11 col-md-1 btn-cria-nota">Criar
+					Nota</a>
+
+				<hr />
+				<div th:if="${nota.codigo}" th:insert="notafiscal/totais"></div>
+			</form>
+		</div>
+	</div>
+</section>
+</html>

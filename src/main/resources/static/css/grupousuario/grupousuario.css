@@ -1,0 +1,15 @@
+.tabela-dados-permissoes {
+	height: 350px;
+	overflow: auto;
+	border-style: solid;
+}
+
+.titulo-tabela-permissoes {
+	font-weight: bold;
+	font-size: 1.5em;
+	background-color: #1ac6ff;
+	margin-left: 0px;
+	margin-right: 0px;
+	border: solid;
+	border-bottom: 5px;
+}

@@ -1,0 +1,28 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<form>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<select id="codigoPermissao"
+					class="form-control selectpicker"
+					data-live-search="true">
+					<option selected="selected"></option>
+					<option th:each="permissao : ${permissoes}" th:text="${permissao.nome}"
+						th:value="${permissao.codigo}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="form-group">
+				<a
+					th:href="@{/grupousuario/addpermissao}"
+					class="btn form-control btn-add-permissao btn-azul-padrao" id="js-url">Inserir</a>
+			</div>
+		</div>
+	</div>
+</form>
+</html>

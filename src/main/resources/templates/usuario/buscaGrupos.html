@@ -1,0 +1,28 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<form>
+	<div class="row">
+		<div class="col-md-4" id="buscaGrupo">
+			<div class="form-group">
+				<select id="codigoGrupo"
+					class="form-control selectpicker produtos-habilitado"
+					data-live-search="true">
+					<option selected="selected"></option>
+					<option th:each="grupo : ${todosGrupos}" th:text="${grupo.nome}"
+						th:value="${grupo.codigo}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="form-group">
+				<a
+					th:href="@{/usuario/addgrupo/(codigoUsu=${usuario.codigo},codigoGru=)}"
+					class="btn form-control js-add-grupo btn-azul-padrao" id="js-url">Inserir</a>
+			</div>
+		</div>
+	</div>
+</form>
+</html>

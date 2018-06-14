@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<div class="modal fade modalpagdespesa" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="container">
+				<h2>Pagamento</h2>
+
+				<form>
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="valor">Valor</label> <input id="valor"
+								name="valorTotal" class="form-control js-mascara"
+								disabled="disabled" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="acres">Acre</label> <input id="acres"
+								name="acrescimo" class="form-control js-mascara" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="desc">Desc</label> <input id="desc" name="desconto"
+								class="form-control js-mascara" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="valorpago">Valor Pago</label> <input id="valorpago"
+								name="valorpago" class="form-control js-mascara" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="caixa">Saída</label> <select id="caixa"
+								class="form-control">
+								<option th:each="caixas : ${caixasabertos}"
+									th:text="${caixas.descricao}" th:value="${caixas.codigo}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row btns-modal">
+						<button type="button" class="btn btn-danger btn-recebimento"
+							data-dismiss="modal">Cancelar</button>
+						<a class="btn btn-success btn-pag-despesa"
+							th:href="@{/pagar/quitar}">Pagar</a>
+					</div>
+					<br />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

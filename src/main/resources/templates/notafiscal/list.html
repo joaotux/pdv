@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+	<div class="container">
+		<h2 class="text-center">Notas Fiscais</h2>
+
+		<div id="btn-padrao" sec:authorize="hasRole('CRIAR_NOTAFISCAL')">
+			<a th:href="@{/notafiscal/form}" class="btn btn-azul-padrao">Nova Nota</a>
+		</div>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Número</th>
+					<th class="text-center">Modelo</th>
+					<th class="text-center">Série</th>
+					<th class="text-center">Tipo</th>
+					<th class="text-center">Data Emissão</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="nota : ${notas}">
+					<td th:text="${nota.numero}"></td>
+					<td th:text="${nota.modelo}" class="text-center"></td>
+					<td th:text="${nota.serie}" class="text-center"></td>
+					<td th:text="${nota.tipo}" class="text-center"></td>
+					<td th:text="${nota.data_emissao}" class="text-center"></td>
+					<td><a
+						th:href="@{/notafiscal/{codigo}(codigo=${nota.codigo})}"><span
+							class="glyphicon glyphicon-list-alt btn-md"></span></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+</html>

@@ -1,0 +1,131 @@
+td, th {
+	vertical-align: middle !important;
+}
+
+.left, .right {
+	float: left;
+	height: 135vh;
+}
+
+.left {
+	background: #337ab7;
+	display: inline-block;
+	white-space: nowrap;
+	width: 50px;
+	transition: width 0.8s;
+}
+
+.right {
+	background: #fff;
+	width: 350px;
+	transition: width 1s;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 1px;
+}
+
+.left:hover {
+	width: 250px;
+}
+
+.item:hover {
+	background-color: #ccc;
+}
+
+.left .glyphicon {
+	margin: 15px;
+	width: 20px;
+	color: #fff;
+}
+
+.right .glyphicon {
+	color: #a9a9a9;
+}
+
+span.glyphicon.glyphicon-refresh {
+	font-size: 17px;
+	vertical-align: middle !important;
+}
+
+.left .imagem-menu {
+	margin: 12px;
+	width: 30px;
+	color: #fff;
+}
+
+.right .imagem-menu {
+	color: #a9a9a9;
+}
+
+.left a {
+	text-decoration: none;
+}
+
+.item {
+	height: 50px;
+	overflow: hidden;
+	color: #fff;
+}
+
+.title {
+	background-color: #eee;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 1px;
+	box-sizing: border-box;
+}
+
+.item a {
+	color: white;
+}
+
+.item b {
+	margin: 6px;
+}
+
+.list-sidebar {
+	list-style-type: none;
+	padding-left: 0px
+}
+
+.item-lista:hover {
+	background-color: #ccc;
+	margin-left: 0px;
+}
+
+.item-lista {
+	overflow: hidden;
+	color: #fff;
+}
+
+.item-lista li {
+	list-style-type: none;
+}
+
+.item-lista .opcoes {
+	color: black;
+	margin-left: 15px;
+}
+
+.item-lista .opcoes:hover {
+	color: #000000;
+	font-size: 1.1em;
+}
+
+.item-lista a {
+	color: white;
+}
+
+.item-lista b {
+	margin: 6px;
+}
+
+
+
+
+
+
+
+
+
+

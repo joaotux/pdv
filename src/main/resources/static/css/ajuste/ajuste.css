@@ -1,0 +1,19 @@
+.tabela-dados-ajuste {
+	height: 350px;
+	overflow: auto;
+	border-style: solid;
+}
+
+.titulo-tabela-ajuste {
+	font-weight: bold;
+	font-size: 1.5em;
+	background-color: #1ac6ff;
+	margin-left: 0px;
+	margin-right: 0px;
+	border: solid;
+	border-bottom: 5px;
+}
+
+.ajuste-info {
+	font-size: 1em;
+}

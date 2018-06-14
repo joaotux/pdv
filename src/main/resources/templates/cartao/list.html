@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="list">
+	<div class="container" id="body-cartao">
+
+		<div class="col-md-11">
+			<div th:include="cartao/busca"></div>
+
+
+			<h1 class="text-center">Titulos</h1>
+
+			<table class="table table-hover table-dados-cartoes">
+				<caption>
+					<span class="status-info pendente">Pendente</span> <span
+						class="status-info processado">Processado</span> <span
+						class="status-info antecipado">Antecipado</span>
+				</caption>
+				<thead class="cabeca-tabela-principal">
+					<tr>
+						<th>#</th>
+						<th class="text-center">Valor Parcela</th>
+						<th class="text-center">Taxa</th>
+						<th class="text-center">Valor Taxa</th>
+						<th class="text-center">Valor liq. parcela</th>
+						<th class="text-center">Taxa Antecipação</th>
+						<th class="text-center">Valor Taxa Antecipação</th>
+						<th class="text-center">Valor Liq. Antecipação</th>
+						<th class="text-center">Situação</th>
+						<th class="text-center">Tipo</th>
+						<th class="text-center">Data Recebimento</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cartao : ${cartoes}"
+						th:class="${cartao.situacao.toString()} == 'PROCESSADO' ? 'success'"
+						th:classappend="${cartao.situacao.toString()} == 'ANTECIPADO' ? 'warning'">
+						<td th:text="${cartao.codigo}"></td>
+						<td th:text="|R$ ${{cartao.vlParcela}}|" class="text-center"></td>
+						<td th:text="|%${{cartao.taxa}}|" class="text-center"></td>
+						<td th:text="|R$ ${{cartao.vlTaxa}}|" class="text-center"></td>
+						<td th:text="|R$ ${{cartao.vlLiqParcela}}|" class="text-center"></td>
+						<td th:text="|%${{cartao.taxaAntecipacao}}|" class="text-center"></td>
+						<td th:text="|R$ ${{cartao.vlTaxaAntecipacao}}|"
+							class="text-center"></td>
+						<td th:text="|R$ ${{cartao.vlLiqAntecipacao}}|"
+							class="text-center"></td>
+						<td th:text="${cartao.situacao.descricao}" class="text-center"></td>
+						<td th:text="${cartao.tipo}" class="text-center"></td>
+						<td th:text="${{cartao.data_recebimento}}" class="text-center"></td>
+
+						<td sec:authorize="hasRole('ANTECIPAR_CARTAO')" th:if="!${cartao.isProcessado()}"><a
+							th:attr="data-codlancamento=${cartao.codigo}"
+							th:href="@{/cartaolancamentos/antecipar/}"
+							class="btn-antecipar-cartao"> <span class="label"
+								th:classappend="${cartao.isAntecipado()} ? 'label-warning' : 'label-danger'"
+								th:text="${cartao.isAntecipado()} ? 'Antecipado' : 'Antecipar'"></span></a></td>
+
+						<td sec:authorize="hasRole('PROCESSAR_CARTAO')" th:if="!${cartao.isAntecipado()}"><a
+							th:attr="data-codlancamento=${cartao.codigo}"
+							th:href="@{/cartaolancamentos/}" class="btn-processar-cartao"><span
+								class="label"
+								th:text="${cartao.isProcessado()} ? 'Processado' : 'Processar'"
+								th:classappend="${cartao.isProcessado()} ? 'label-success' : 'label-danger'"></span></a></td>
+
+						<td th:if="!${cartao.isProcessado()}"></td>
+						<td th:if="!${cartao.isAntecipado()}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+</html>

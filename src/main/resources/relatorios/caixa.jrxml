@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="caixa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68234582-2d46-45e9-a33a-8e5cbd51d58f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="pdv"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="codcaixa" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select 
+	c.codigo as codcaixa,
+    c.data_cadastro as dataabertura,
+    c.data_fechamento as datafechamento,
+    c.tipo,
+    c.valor_abertura,
+    c.valor_entrada,
+    c.valor_saida,
+    c.valor_total,
+    c.valor_fechamento,
+    cl.codigo as codlanca,
+    cl.observacao as obs_lanc,
+    cl.estilo as estilo_lanc,
+    cl.data_cadastro data_lanc,
+    cl.valor as valor_lanc
+from 
+	caixa c,
+    caixa_lancamento cl,
+    usuario usu
+where
+	cl.caixa_codigo = c.codigo
+and
+	usu.codigo = c.usuario_codigo
+and
+	c.codigo = $P{codcaixa}]]>
+	</queryString>
+	<field name="codcaixa" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="codcaixa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="dataabertura" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="dataabertura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="datafechamento" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="datafechamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="valor_abertura" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_abertura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value=""/>
+	</field>
+	<field name="valor_entrada" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_entrada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="valor_saida" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_saida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="valor_total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="valor_fechamento" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_fechamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa"/>
+	</field>
+	<field name="codlanca" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="codlanca"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa_lancamento"/>
+	</field>
+	<field name="obs_lanc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="obs_lanc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa_lancamento"/>
+	</field>
+	<field name="estilo_lanc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estilo_lanc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa_lancamento"/>
+	</field>
+	<field name="data_lanc" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="data_lanc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa_lancamento"/>
+	</field>
+	<field name="valor_lanc" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_lanc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="caixa_lancamento"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="153" y="24" width="291" height="30" uuid="706099c9-b951-4102-99e0-b526f9b104e7"/>
+				<textElement markup="none">
+					<font fontName="Calibri" size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório " + $F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="230" height="30" uuid="b6aeb5c3-7ce0-4ada-871f-d9853df44c10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}.equals("CAIXA") ? "Caixa: "  + $F{codcaixa}  : "Cofre: " + $F{codcaixa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="470" y="0" width="84" height="30" uuid="c4b079ad-5f9c-4e4e-91e3-b622958b1bfe"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataabertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="0" width="81" height="30" uuid="862d6178-4f82-427d-b8c4-4a0bd11177ab"/>
+				<textElement markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abertura: ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="470" y="30" width="84" height="30" isRemoveLineWhenBlank="true" uuid="6a5a7003-91cf-4244-a0cb-4777d7a588c2"/>
+				<textFieldExpression><![CDATA[$F{datafechamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="30" width="101" height="30" uuid="75c1f60d-eff6-4028-8e7a-b1271f136b60"/>
+				<textElement markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fechamento: ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="36" width="60" height="20" uuid="74208bb7-7b43-4c22-85cb-ff88f8a2627f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76a4f1c8-422d-4024-bb69-6fd6bf27a016"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="60" y="36" width="221" height="20" uuid="63844d94-675d-400a-8c29-7c540c10d771">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47326412-10dd-48f5-b1da-28082e10035d"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="370" y="36" width="100" height="20" uuid="22ad2684-0ccc-4d34-923f-985bf1a59dd6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d02b2bb9-edd8-4bb0-9261-c77c298f41ee"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="483" y="36" width="71" height="20" uuid="2fdb8362-a919-46cf-abc2-73af475e9bff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d902433-949b-4b6a-859f-96c1843285fe"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Lançamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="290" y="36" width="80" height="20" uuid="ccff458b-469d-44b3-8c68-17975dd7adb0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7281628e-8c46-4241-bcf5-029f78cb34f0"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estilo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="0" width="169" height="36" uuid="6cb81c44-01de-48d2-8b25-c2f4438e2ea8"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lançamentos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="60" height="22" uuid="3de23263-61d9-4d10-9aed-a39811e41524">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76a4f1c8-422d-4024-bb69-6fd6bf27a016"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codlanca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="220" height="22" uuid="132cde5b-360a-40b9-9a6d-ef97aca35cca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47326412-10dd-48f5-b1da-28082e10035d"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{obs_lanc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="370" y="1" width="100" height="20" uuid="356d4521-86a0-47da-8b11-1a700d4b50de">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d02b2bb9-edd8-4bb0-9261-c77c298f41ee"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_lanc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="470" y="1" width="84" height="20" uuid="deeea1de-3b71-4621-a26e-7190976b251e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d902433-949b-4b6a-859f-96c1843285fe"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_lanc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="90" height="21" uuid="d2bdea04-a951-4ac2-9edd-509cf66d5deb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7281628e-8c46-4241-bcf5-029f78cb34f0"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estilo_lanc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="143" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="101" y="63" width="100" height="20" uuid="64389d2f-0d91-4633-9239-17a2825e5171"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_abertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="83" width="90" height="20" uuid="8afbf610-e2a2-4aa7-8489-f1f577428ce8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entrada:  R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="103" width="90" height="20" uuid="6e473339-279a-4523-9b0a-c6074a0f0b93"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saída:      R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="123" width="90" height="20" uuid="51cb1c72-4704-4cbf-a557-4b2d942e02ca"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:       R$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="63" width="90" height="20" uuid="a008a2c3-6bc9-4710-b74a-e6ffd4527a57"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abertura: R$ ]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="100" y="83" width="101" height="20" uuid="12d22850-5ece-40a0-81f7-3a5043126a2f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_entrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="100" y="103" width="101" height="20" uuid="597c46b3-b89e-4bda-966a-5b4103b204a0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_saida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="100" y="123" width="101" height="20" uuid="b15d502e-530b-4a9e-8dcc-1d24f526b890"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="61" width="554" height="80" uuid="7bca3890-6001-42a3-9b44-81bc8271e024"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="40" width="100" height="21" uuid="7b8f81e2-5fdb-4e9f-a20b-bc1b6c10f9f0"/>
+				<textElement markup="html">
+					<font fontName="Calibri" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totais]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

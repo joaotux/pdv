@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comanda" pageWidth="251" pageHeight="187" columnWidth="211" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="2acf3655-c18d-41bb-a2ee-1676d0e0341b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="pdv"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="cm"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<parameter name="codvenda" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select 
+	codigo, 
+	valor_produtos, 
+    observacao 
+from 
+	venda 
+where 
+	codigo = $P{codvenda}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="venda"/>
+	</field>
+	<field name="valor_produtos" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_produtos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="venda"/>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="observacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="venda"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement x="49" y="-10" width="130" height="30" uuid="c3e12e38-e9b0-4e51-b796-958ceebf25da"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Controle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="-8" width="98" height="30" uuid="20dbc490-3687-4eb1-994e-b22d292858ba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c7c33ef-3640-482b-865c-24d858a83322"/>
+				</reportElement>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="-8" width="129" height="29" uuid="ae3ad013-a938-489b-bce1-985a3a7dc07d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c7c33ef-3640-482b-865c-24d858a83322"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="-8" width="80" height="22" uuid="f1deff02-5bae-4e52-bacf-cd87c0dafd7e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69c4da20-1f0f-46e6-b40a-c9fb284475b5"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[observação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="-7" width="147" height="21" uuid="e5eef994-2f60-44e8-95f2-afc4c8d62bad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69c4da20-1f0f-46e6-b40a-c9fb284475b5"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement x="9" y="20" width="207" height="20" uuid="0533db92-5662-4587-a682-50cce11dd42e"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[O Sorvetão - Telefone: 3623-2238]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

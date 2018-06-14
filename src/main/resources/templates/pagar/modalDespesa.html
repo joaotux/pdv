@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade modalDespesa" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="container">
+				<h2>Lançar despesa</h2>
+
+				<form>
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="codFornecedor">Fornecedor</label> <select
+								id="codFornecedor" name="fornecedor" class="form-control">
+								<option th:each="fornecedore : ${fornecedores}"
+									th:text="${fornecedore.nome}" th:value="${fornecedore.codigo}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="vltotalDespesa">Valor</label> <input
+								id="vltotalDespesa" name="valor_total" type="text"
+								class="form-control js-mascara" />
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="despesatipo">Tipo de Despesa</label> <select
+								id="despesatipo" name="tipo" class="form-control">
+								<option th:each="pagartipo : ${pagartipos}"
+									th:text="${pagartipo.descricao}" th:value="${pagartipo.codigo}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="dataVencimento">Vencimento</label> <input
+								id="dataVencimento" name="data_vencimento" type="text"
+								class="form-control" data-provide="datepicker"
+								data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+								data-date-autoclose="true" data-date-today-highlight="true" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="obs">Observação</label>
+							<textarea id="obs" name="observacao" rows="3" cols="6"
+								class="form-control"></textarea>
+
+						</div>
+					</div>
+
+					<div class="row btns-modal">
+						<button class="btn btn-danger btn-cancela" data-dismiss="modal" >Cancelar</button>
+						<a th:href="@{/pagar}" class="btn btn-success btn-despesa" >Lançar</a>
+					</div>
+					<br />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

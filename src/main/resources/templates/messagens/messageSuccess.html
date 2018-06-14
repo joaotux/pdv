@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<br />
+<div class="alert alert-success alert-dismissable"
+	th:if="${!#strings.isEmpty(mensagem)}">
+	<span th:text="${mensagem}"></span>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+</html>

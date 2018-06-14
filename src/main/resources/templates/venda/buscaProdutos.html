@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<form>
+	<div class="row">
+		<div class="col-md-9">
+			<div class="form-group">
+				<select id="codigoProduto"
+					class="form-control selectpicker produtos-habilitado"
+					data-live-search="true">
+					<option selected="selected"></option>
+					<option th:each="produto : ${produtosVendaveis}"
+						th:text="${'COD: ' + produto.codigo + ' - ' + produto.descricao + ' - R$' + produto.valor_venda}"
+						th:value="${produto.codigo}" th:attr="data-balanca=${produto.balanca}" ></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="form-group" id="addproduto">
+				<a sec:authorize="hasRole('INSERIR_PRODUTO_VENDA')"
+					class="btn btn-azul-insere-produto form-control js-addvenda-produto"
+					th:href="@{/venda/addproduto/(codigoVen=${venda.codigo},codigoPro=)}"
+					id="js-url">Inserir</a>
+			</div>
+		</div>
+	</div>
+</form>
+</html>

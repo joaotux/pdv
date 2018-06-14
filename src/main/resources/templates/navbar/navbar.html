@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<div class="left">
+	<div class="item" sec:authorize="hasRole('ENTRAR_NO_SISTEMA')">
+		<a th:href="@{/}"><img class="imagem-menu" alt="Pedidos"
+			th:src="@{/icons/menu/logo.png}" />Início</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('VISUALIZAR_PEDIDO_ABERTO')">
+		<a th:href="@{/venda/status/ABERTA}"><img class="imagem-menu"
+			alt="Pedidos" th:src="@{/icons/menu/pedido-menu.png}" />Pedidos</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('LISTAR_CAIXA')">
+		<a th:href="@{/caixa}"><img class="imagem-menu" alt="Caixa"
+			th:src="@{/icons/menu/caixa-menu.png}">Caixa / Cofre</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('LISTAR_BANCO')">
+		<a th:href="@{/banco}"><img class="imagem-menu" alt="Banco"
+			th:src="@{/icons/menu/banco-menu.png}">Banco</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('VISUALIZAR_RECEBER')">
+		<a th:href="@{/receber}"><img class="imagem-menu" alt="Receber"
+			th:src="@{/icons/menu/receber.png}">Receber</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('VISUALIZAR_DESPESAS')">
+		<a th:href="@{/pagar}"><img class="imagem-menu" alt="Pagar"
+			th:src="@{/icons/menu/pagar.png}" />Despesas</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('GERENCIAR_CARTOES')">
+		<a th:href="@{/cartaolancamentos}"><img class="imagem-menu"
+			alt="Pagar" th:src="@{/icons/menu/cartoes-menu.png}" />Gerenciar
+			Cartões</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('VISUALIZAR_PESSOA')">
+		<a th:href="@{/pessoa}"><img class="imagem-menu" alt="Pessoa"
+			th:src="@{/icons/menu/pessoa-menu.png}" />Pessoas</a>
+	</div>
+
+	<div class="item active"
+		sec:authorize="hasRole('VISUALIZAR_FORNECEDOR')">
+		<a th:href="@{/fornecedor}"><img class="imagem-menu"
+			alt="Fornecedor" th:src="@{/icons/menu/fornecedor-menu.png}" />Fornecedor</a>
+	</div>
+
+	<div class="sidebar item-lista">
+		<ul class="list-sidebar bg-defoult">
+			<li><a href="#" data-toggle="collapse" data-target="#dashboard"
+				class="collapsed active"> <img class="imagem-menu" alt="Produto"
+					th:src="@{/icons/menu/produto-menu.png}" />Produtos<span
+					class="fa fa-chevron-left pull-right"></span>
+			</a>
+				<ul class="sub-menu collapse" id="dashboard">
+					<li><a th:href="@{/produto}" class="opcoes">Produto</a></li>
+					<li sec:authorize="hasRole('VISUALIZAR_GRUPO')"><a
+						th:href="@{/grupo}" class="opcoes">Grupo</a></li>
+					<li sec:authorize="hasRole('VISUALIZAR_CATEGORIA')"><a
+						th:href="@{/categoria}" class="opcoes">Categoria</a></li>
+					<li sec:authorize="hasRole('LISTA_TRIBUTAÇÃO')"><a
+						th:href="@{/tributacao}" class="opcoes">Tributação</a></li>
+						<li sec:authorize="hasRole('LISTA_AJUSTE')"><a
+						th:href="@{/ajustes}" class="opcoes">Ajuste Estoque</a></li>
+				</ul></li>
+		</ul>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('VISUALIZAR_FORMA_PAGAMENTO')">
+		<a th:href="@{/pagamentotipo}"><img class="imagem-menu"
+			alt="forma pagamento"
+			th:src="@{/icons/menu/forma-pagamento-menu.png}" />Forma Pagamento</a>
+	</div>
+
+	<div class="item" sec:authorize="hasRole('VISUALIZA_NOTAFISCAL')">
+		<a th:href="@{/notafiscal}"><img class="imagem-menu" alt="NFe"
+			th:src="@{/icons/menu/nfe.png}" />NF-e</a>
+	</div>
+
+	<div class="sidebar item-lista">
+		<ul class="list-sidebar bg-defoult">
+			<li><a href="#" data-toggle="collapse" data-target="#usuario"
+				class="collapsed active"> <img class="imagem-menu"
+					alt="Usuários" th:src="@{/icons/menu/usuario-menu.png}" />Gerenciar
+					Usuários<span class="fa fa-chevron-left pull-right"></span>
+			</a>
+				<ul class="sub-menu collapse" id="usuario">
+					<li sec:authorize="hasRole('VISUALIZAR_USUARIO')"><a
+						th:href="@{/usuario}" class="opcoes">Usuários</a></li>
+					<li sec:authorize="hasRole('VISUALIZAR_USUARIO')"><a
+						th:href="@{/grupousuario}" class="opcoes">Grupo Usuários</a></li>
+				</ul></li>
+		</ul>
+	</div>
+
+	<div class="sidebar item-lista">
+		<ul class="list-sidebar bg-defoult">
+			<li><a href="#" data-toggle="collapse" data-target="#parametros"
+				class="collapsed active"> <img class="imagem-menu"
+					alt="Parâmetros" th:src="@{/icons/menu/parametro-menu.png}" />Configurações<span
+					class="fa fa-chevron-left pull-right"></span>
+			</a>
+				<ul class="sub-menu collapse" id="parametros">
+					<li sec:authorize="hasRole('EDITAR_PARAMETROS')"><a
+						th:href="@{/empresa}" class="opcoes">Empresa</a></li>
+					<li sec:authorize="hasRole('EDITAR_CARTAO')"><a
+						th:href="@{/maquinacartao}" class="opcoes">Máquina Cartão</a></li>
+					<li sec:authorize="hasRole('EDITAR_TITULO')"><a
+						th:href="@{/titulos}" class="opcoes">Titulos</a></li>
+				</ul></li>
+		</ul>
+	</div>
+
+</div>
+</html>

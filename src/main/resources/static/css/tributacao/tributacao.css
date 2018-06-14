@@ -1,0 +1,31 @@
+#fiscal-regras {
+	height: 200px;
+	overflow: auto;
+	
+}
+
+#dados-regras {
+	background-color: #1ac6ff;
+	font-size: 1em;
+	border-style: solid;
+}
+
+#fiscal-regras {
+	border-style: solid;
+}
+
+#form_regra {
+	padding-bottom: 2%;
+	padding-left: 2%;
+	padding-right: 2%;
+}
+
+.btns-modal-tributacao {
+	margin-left: 40%
+}
+
+.btn-salva-tributacao {
+	background-color: #66ccff;
+	color: black;
+	font-size: 1.1em;
+}

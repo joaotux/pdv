@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list">
+
+	<div class="container">
+	
+		<div class="col-md-11">
+		
+			<div th:include="fornecedor/busca"></div>
+			<h1 class="text-center">Fornecedores</h1>
+
+			<div id="btn-padrao">
+				<a th:href="@{/fornecedor/form}" class="btn btn-azul-padrao">Novo</a>
+			</div>
+
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<td class="text-center">#</td>
+						<td>Nome</td>
+						<td>Nome Fantasia</td>
+						<td class="text-center">CNPJ</td>
+						<td class="text-center">IE</td>
+						<td class="text-center">Ativo</td>
+						<td></td>
+					</tr>
+					<tr th:each="fornecedor : ${todosFornecedores}">
+						<td class="text-center" th:text="${fornecedor.codigo}"></td>
+						<td th:text="${fornecedor.nome}"></td>
+						<td th:text="${fornecedor.nome_fantasia}"></td>
+						<td class="text-center" th:text="${fornecedor.cnpj}"></td>
+						<td class="text-center" th:text="${fornecedor.inscricao_estadual}"></td>
+						<td class="text-center" th:text="${fornecedor.ativo}"></td>
+						<td><a
+							th:href="@{fornecedor/{codigo}(codigo=${fornecedor.codigo})}"><span
+								class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-hover tabela-padrao">
+			<caption>Lançamentos</caption>
+			<thead>
+				<tr>
+					<th class="col-xs-2">#</th>
+					<th class="col-xs-4" id="descricaoTab">Descrição</th>
+					<th class="col-xs-2">Valor</th>
+					<th class="col-xs-2">E/S</th>
+					<th class="col-xs-2">Data Lançamento</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lancamento : ${lancamentos}" th:classappend="${lancamento.isEntrada()} ? 'success' : 'danger'">
+					<td class="col-xs-2" th:text="${lancamento.codigo}"></td>
+					<td class="col-xs-4" id="descricaoTab"
+						th:text="${lancamento.observacao}"></td>
+					<td class="col-xs-2" th:text="|R$ ${{lancamento.valor}}|"></td>
+					<td class="col-xs-2" th:text="${lancamento.estilo}"></td>
+					<td class="col-xs-2" th:text="${{lancamento.data_cadastro}}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</html>

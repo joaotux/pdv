@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container formdavenda">
+		<div class="col-md-11">
+			<form th:action="@{/venda}" method="post" th:object="${venda}"
+				id="formPrincipal">
+				<input type="hidden" th:field="*{codigo}" id="codigoVenda" /> <input
+					type="hidden" th:field="*{situacao}" id="statusPedido" />
+
+				<div th:include="@{messagens/messageSuccess}"></div>
+				<div th:include="@{messagens/mensagemErro}"></div>
+
+				<h2 class="titulo-h1">Pedido</h2>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigo">Pedido</label> <input id="codigo"
+							name="codigo" type="text" class="form-control"
+							th:field="*{codigo}" disabled="disabled" />
+					</div>
+
+					<div class="form-group col-md-2 col-md-offset-8 situacao-venda"
+						th:if="*{codigo}">
+						<span th:text="*{situacao}"
+							th:class="${venda.isAberta()} ? 'label-sucess' : 'label-danger'"></span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-8">
+						<label for="cliente">Cliente</label> <select id="cliente"
+							name="cliente" class="form-control" th:field="*{pessoa}">
+							<option value=""></option>
+							<option th:each="cliente : ${clientes}" th:text="${cliente.nome}"
+								th:value="${cliente.codigo}"></option>
+						</select> <br /> <label for="observacao">Observação</label> <input
+							id="observacao" name="observacao" type="text"
+							class="form-control" th:field="*{observacao}" />
+					</div>
+
+					<!-- INICIO MENU -->
+					<div class="col-md-2 col-md-offset-2">
+						<table id="tabela-botoes-venda">
+							<tr>
+								<td class="td-menu">
+									<button type="submit"
+										class="btn col-md-12 btn-menu" id="btn-salva">Salvar
+									</button>
+									<!-- <img alt="abrir" th:src="@{/icons/glyphicons-207-ok.png}" /> -->
+								</td>
+							</tr>
+							<tr>
+								<td class="td-menu">
+									<div th:if="*{codigo}">
+										<a th:href="@{/venda/relatorio/controle/{codigo}(codigo=*{codigo})}"
+											target="_blank" class="btn col-md-12 btn-menu btn-relatorio-controle" >Controle
+										</a>
+										<!-- <img alt="controle"
+											th:src="@{/icons/glyphicons-16-print.png}" /> -->
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td-menu">
+									<div th:if="*{codigo}">
+										<a class="btn col-md-12 btn-menu"
+											th:href="@{/venda/relatorio/comanda/{codigo}(codigo=*{codigo})}"
+											target="_blank">Comanda
+										</a>
+										<!-- <img alt="imprimir"
+											th:src="@{/icons/glyphicons-16-print.png}" /> -->
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td-menu">
+									<div th:if="*{codigo}" sec:authorize="hasRole('GERAR_VENDA')"> 
+										<button class="btn col-md-12 btn-menu btn-venda"
+											type="button" data-toggle="modal" id="btn-venda"
+											data-target=".modalPagamento">Gerar Venda</button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td-menu" th:if="*{codigo}">
+									<div id="total_produtos">
+										<h4 th:text="|R$ *{{valor_produtos}}|"></h4>
+										<input type="hidden" th:field="*{{valor_produtos}}"
+											id="totalid">
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!-- FIM MENU -->
+				</div>
+			</form>
+
+			<br />
+			<div th:if="${venda.codigo}" id="formPrincipal">
+				<div th:include="venda/buscaProdutos"></div>
+				<div th:include="venda/tabProdutos"></div>
+			</div>
+
+			<div th:insert="venda/modalPagamento"></div>
+		</div>
+	</div>
+</section>
+</html>

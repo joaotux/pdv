@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<section layout:fragment="list" class="secDespesas">
+	<div class="container bodypagar">
+
+		<div class="col-md-11">
+
+			<div th:insert="ajuste/buscaAjuste"></div>
+
+			<h1 class="titulo-h1">Ajustes</h1>
+
+			<div id="btn-padrao">
+				<a th:href="@{/ajustes}" class="btn btn-azul-padrao btn-novo-ajuste">Novo</a>
+			</div>
+
+			<table class="table table-hover">
+				<caption>
+					<span class="label label-danger ajuste-info"><b>Não Processado</b></span>
+					<span class="label label-success ajuste-info"><b>Processado</b></span>
+				</caption>
+				<thead class="cabeca-tabela-principal">
+					<tr>
+						<th>#</th>
+						<th>Observação</th>
+						<th class="text-center">Statu</th>
+						<th class="text-center">Data Ajuste</th>
+						<th class="text-center"></th>
+					</tr>
+				</thead>
+				<tbody th:each="ajuste : ${ajustes}">
+					<tr
+						th:classappend="${ajuste.status.toString()} == 'PROCESSADO' ? 'success' : 'danger'">
+						<td th:text="${ajuste.codigo}"></td>
+						<td th:text="${ajuste.observacao}"></td>
+						<td class="text-center" th:text="${ajuste.status.descricao}"></td>
+						<td class="text-center" th:text="${{ajuste.data_cadastro}}"></td>
+						<td class="text-center"><a
+							th:href="@{/ajustes/{codigo}(codigo=${ajuste.codigo})}"><span
+								class="glyphicon glyphicon-pencil"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row">
+				<div class="col-md-offset-5">
+					<a th:classappend="!${hasPrevious} ? 'disabled'"
+						th:href="@{/ajustes(page=${pagAnterior})}"
+						class="btn btn-info btn-anterior">Anterior</a> <span
+						th:text="${pagAtual+1 + '/' + qtdpaginas}"></span> <a
+						th:classappend="!${hasNext} ? 'disabled'"
+						th:attr="data-pag-proxima=${proxPagina}"
+						th:href="@{/ajustes(page=${proxPagina})}"
+						class="btn btn-info btn-proxima">Proxima</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

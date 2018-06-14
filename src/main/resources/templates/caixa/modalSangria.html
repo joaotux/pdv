@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<div class="modal fade modalSangria" tabindex="-1" role="dialog"
+	aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="container">
+				<h2>Retirada de Caixa</h2>
+
+				<form>
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="idvl">Valor da Sangria</label> <input id="idvl"
+								name="valor" type="text" class="form-control js-mascara" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label for="idobs">Observação</label> <input id="idobs"
+								name="observacao" type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="row btns-modal">
+						<button type="button" class="btn btn-danger btn-recebimento"
+							data-dismiss="modal">Cancelar</button>
+						<a th:attr="data-codcaixa=${caixa.codigo}" class="btn btn-success btn-Sangria-Sangria" th:href="@{/caixa/lancamento/sangria}">Confirmar</a>
+					</div>
+					<br />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

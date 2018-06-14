@@ -1,0 +1,24 @@
+#table-parcelas-cliente {
+	height: 560px;
+	overflow: auto;
+	border-style: solid;
+}
+
+.tabela-receber {
+	border: 0px
+}
+
+.btn-busca-cliente-receber {
+	background-color: #66ccff;
+	color: black;
+	font-size: 1.1em;
+	width: 90px;
+	margin-bottom: 13px;
+}
+
+.total_receber {
+	color: green;
+	text-align: right;
+	font-weight: bold;
+	font-size: 2em;
+}

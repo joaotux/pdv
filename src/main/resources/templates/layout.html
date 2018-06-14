@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="txt/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>PDV</title>
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-datepicker.standalone.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-select.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/estilo-validacao-form.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/estilo.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/caixa/caixa.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/venda/venda.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/receber/receber.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/recebimento/recebimento.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/tributacao/tributacao.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/notafiscal/notafiscal.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/dashboard/dashboard.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/navbar/navbar.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/usuario/usuario.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/cartao/cartao.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/grupousuario/grupousuario.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/ajuste/ajuste.css}" />
+</head>
+
+<body>
+
+	<!-- responsável por carregar o load -->
+	<div class="carrega"></div>
+
+	<div class="info-usuario">
+		<div th:inline="text">
+
+			<form th:action="@{/logout}" method="post">
+				Usuário: [[${#httpServletRequest.remoteUser}]]
+				<button type="submit" class="btn btn-link btn-sair">
+					<img class="sair-menu" alt="Sair"
+						th:src="@{/icons/menu/sair-menu.png}" width="20px" /><b> Sair</b>
+				</button>
+			</form>
+
+		</div>
+	</div>
+
+	<div th:insert="navbar/navbar"></div>
+	<section layout:fragment="form"></section>
+	<section layout:fragment="list"></section>
+	<section layout:fragment="menu"></section>
+
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/jquery.inputmask.bundle.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+	<script th:src="@{/js/bootstrap-datepicker.pt-BR.min.js}"></script>
+	<script th:src="@{/js/jquery.maskMoney.min.js}"></script>
+	<script th:src="@{/js/mascara-inputs.js}"></script>
+	<script th:src="@{/js/bootstrap-select.min.js}"></script>
+	<script th:src="@{/js/jquery.validate.js}"></script>
+	<script th:src="@{/js/jquery.validate.pt-BR.js}"></script>
+	<script th:src="@{/js/valida.formulario-fornecedor.js}"></script>
+	<script th:src="@{/js/valida.formulario-categoria.js}"></script>
+	<script th:src="@{/js/valida.formulario-grupo.js}"></script>
+	<script th:src="@{/js/valida.formulario-produto.js}"></script>
+	<script th:src="@{/js/pessoa/pessoa.js}"></script>
+	<script th:src="@{/js/usuario/valida.formulario-usuario.js}"></script>
+	<script th:src="@{/js/imagemProduto/uploadImagemProduto.js}"></script>
+	<script th:src="@{/js/usuario/usuario.js}"></script>
+	<script th:src="@{/js/caixa/caixa.js}"></script>
+	<script th:src="@{/js/venda/venda.js}"></script>
+	<script th:src="@{/js/receber/receber.js}"></script>
+	<script th:src="@{/js/pagar/pagar.js}"></script>
+	<script th:src="@{/js/transferencia/transferencia.js}"></script>
+	<script th:src="@{/js/recebimento/recebimento.js}"></script>
+	<script th:src="@{/js/produto/produto.js}"></script>
+	<script th:src="@{/js/tributacao/tributacao.js}"></script>
+	<script th:src="@{/js/notafiscal/notafiscal.js}"></script>
+	<script th:src="@{/js/empresa/empresa.js}"></script>
+	<script th:src="@{/js/titulo/titulo.js}"></script>
+	<script th:src="@{/js/maquinacartao/maquinacartao.js}"></script>
+	<script
+		th:src="@{/js/maquinacartao/valida.formulario-maquinacartao.js}"></script>
+	<script th:src="@{/js/cartao/cartao.js}"></script>
+	<script th:src="@{/js/grupousuario/grupousuario.js}"></script>
+	<script th:src="@{/js/grupousuario/valida-grupousuario.js}"></script>
+	<script th:src="@{/js/ajuste/ajuste.js}"></script>
+
+</body>
+</html>

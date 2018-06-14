@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="form">
+	<div class="container">
+		<div class="col-md-11">
+			<div th:include="@{messagens/messageSuccess}"></div>
+
+			<h2 class="text-center">Forma Pagamento</h2>
+
+			<div id="btn-padrao">
+				<a th:href="@{/pagamentotipo}" class="btn btn-azul-padrao"><span
+					class="fa fa-list fa-lg"> Listar</span> </a>
+			</div>
+
+			<form th:action="@{/pagamentotipo}" method="post" id="form_categoria"
+				th:object="${tipopagamento}">
+				<input type="hidden" th:field="*{codigo}" />
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						<label for="codigo">Código</label> <input id="codigo"
+							name="codigo" th:field="*{codigo}" class="form-control"
+							disabled="disabled" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="descricao">Descrição</label> <input type="text"
+							id="descricao" name="descricao" class="form-control"
+							placeholder="Descrição" th:field="*{descricao}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label for="formaPagamento">Forma Pagamento</label> <input
+							type="text" id="formaPagamento" name="formaPagamento"
+							class="form-control" placeholder="Ex: 00/30"
+							th:field="*{formaPagamento}" />
+					</div>
+				</div>
+
+				<input type="submit" value="Salvar" class="btn btn-azul-padrao" />
+			</form>
+		</div>
+	</div>
+</section>
+</html>

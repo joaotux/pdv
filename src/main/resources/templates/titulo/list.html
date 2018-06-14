@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<section layout:fragment="list">
+	<div class="container" id="body-titulos">
+
+		<h1 class="text-center">Titulos</h1>
+
+		<div id="btn-padrao">
+			<a sec:authorize="hasRole('EDITAR_TITULO')"
+				th:href="@{/titulos/form}" class="btn btn-azul-padrao">Novo</a>
+		</div>
+
+		<table class="table table-hover table-titulos">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Descrição</th>
+					<th>Tipo</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="titulo : ${titulos}">
+					<td th:text="${titulo.codigo}"></td>
+					<td th:text="${titulo.descricao}"></td>
+					<td th:text="${titulo.tipo.descricao}"></td>
+					<td sec:authorize="hasRole('EDITAR_TITULO')"><a
+						th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"><span
+							class="glyphicon glyphicon-pencil"></span></a></td>
+					<td sec:authorize="hasRole('EDITAR_TITULO')"><a
+						id="btn-excluir-titulo"
+						th:href="@{/titulos/excluir/{codigo}(codigo=${titulo.codigo})}"><span
+							class="glyphicon glyphicon-remove"></span></a></td>
+					<td><a class="testebtn"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+</html>
