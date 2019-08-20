@@ -17,6 +17,9 @@ Sistema de ERP web desenvolvido em Java com Spring Framework
 Para instalar o sistema, você deve criar o banco de dado "pdv" no mysql e configurar o arquivo application.properties
 com os dados do seu usuário root do mysql e rodar o projeto pelo Eclipse ou gerar o jar do mesmo e execultar.
 
+# Logando no sistema
+Para logar no sistema, use o usuário "adm" e a senha "123".
+
 # Tecnologias utilizadas
 - Spring Framework 5
 - Thymeleaf 3
