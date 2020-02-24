@@ -18,7 +18,7 @@ Para instalar o sistema, você deve criar o banco de dado "pdv" no mysql e confi
 com os dados do seu usuário root do mysql e rodar o projeto pelo Eclipse ou gerar o jar do mesmo e execultar.
 
 # Logando no sistema
-Para logar no sistema, use o usuário "adm" e a senha "123".
+Para logar no sistema, use o usuário "gerente" e a senha "123".
 
 # Tecnologias utilizadas
 - Spring Framework 5
