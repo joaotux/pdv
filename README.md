@@ -21,6 +21,7 @@ com os dados do seu usuário root do mysql e rodar o projeto pelo Eclipse ou ger
 Para logar no sistema, use o usuário "gerente" e a senha "123".
 
 # Tecnologias utilizadas
+- Java SDK 8
 - Spring Framework 5
 - Thymeleaf 3
 - MySQL
