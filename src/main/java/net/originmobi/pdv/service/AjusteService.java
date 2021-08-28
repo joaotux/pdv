@@ -73,7 +73,7 @@ public class AjusteService {
 
 		ajuste.get().setStatus(AjusteStatus.PROCESSADO);
 		ajuste.get().setObservacao(obs);
-		ajuste.get().setData_processamento(Date.valueOf(dataAtual));
+		ajuste.get().setDataProcessamento(Date.valueOf(dataAtual));
 		try {
 			ajustes.save(ajuste.get());
 		} catch (Exception e) {
