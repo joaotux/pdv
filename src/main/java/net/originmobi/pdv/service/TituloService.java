@@ -1,16 +1,19 @@
-package net.originmobi.pdv.controller;
+package net.originmobi.pdv.service;
+
+import net.originmobi.pdv.model.Titulo;
+import net.originmobi.pdv.repository.TituloRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import net.originmobi.pdv.model.Titulo;
-import net.originmobi.pdv.repository.TituloRepository;
-
 @Service
 public class TituloService {
+
+	private Logger logger = LoggerFactory.getLogger(TituloService.class);
 
 	@Autowired
 	private TituloRepository titulos;
@@ -27,7 +30,7 @@ public class TituloService {
 		try {
 			titulos.save(titulo);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -35,7 +38,7 @@ public class TituloService {
 		try {
 			titulos.deleteById(codigo);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage());
 			throw new RuntimeException("Erro ao tentar remover este registro, chame o suporte");
 		}
 

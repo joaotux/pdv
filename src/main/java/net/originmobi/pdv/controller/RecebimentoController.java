@@ -3,6 +3,7 @@ package net.originmobi.pdv.controller;
 import net.originmobi.pdv.model.Recebimento;
 import net.originmobi.pdv.model.Titulo;
 import net.originmobi.pdv.service.RecebimentoService;
+import net.originmobi.pdv.service.TituloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

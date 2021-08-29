@@ -3,6 +3,7 @@ package net.originmobi.pdv.controller;
 import net.originmobi.pdv.model.Titulo;
 import net.originmobi.pdv.model.TituloTipo;
 import net.originmobi.pdv.model.cartao.MaquinaCartao;
+import net.originmobi.pdv.service.TituloService;
 import net.originmobi.pdv.service.TituloTipoService;
 import net.originmobi.pdv.service.cartao.MaquinaCartaoService;
 import org.springframework.beans.factory.annotation.Autowired;

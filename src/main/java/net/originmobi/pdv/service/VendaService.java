@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.originmobi.pdv.controller.TituloService;
 import net.originmobi.pdv.enumerado.EntradaSaida;
 import net.originmobi.pdv.enumerado.TituloTipo;
 import net.originmobi.pdv.enumerado.VendaSituacao;
