@@ -40,7 +40,6 @@ public class Receber implements Serializable {
 	@OneToOne
 	private Venda venda;
 
-	@Deprecated
 	public Receber() {
 	}
 

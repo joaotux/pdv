@@ -1,27 +1,19 @@
 package net.originmobi.pdv.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import net.originmobi.pdv.model.GrupoUsuario;
 import net.originmobi.pdv.model.Permissoes;
 import net.originmobi.pdv.service.GrupoUsuarioService;
 import net.originmobi.pdv.service.PermissoesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/grupousuario")
@@ -72,11 +64,10 @@ public class GrupoUsuarioController {
 	@GetMapping("/remove/{codigo}")
 	public String remover(@PathVariable("codigo") Long codigo, RedirectAttributes attributes) {
 
-		// attributes.addFlashAttribute();
 		return gruposUsuarios.remove(codigo, attributes);
 	}
 	
-	@RequestMapping(value = "/addpermissao", method = RequestMethod.POST)
+	@PostMapping("/addpermissao")
 	public @ResponseBody String addPermissao(@RequestParam Map<String, String> request) {
 		Long codgrupo = Long.decode(request.get("grupo"));
 		Long codpermissao = Long.decode(request.get("permissao"));
@@ -84,7 +75,7 @@ public class GrupoUsuarioController {
 		return gruposUsuarios.addPermissao(codgrupo, codpermissao);
 	}
 	
-	@RequestMapping(value = "/remove/", method = RequestMethod.DELETE)
+	@DeleteMapping("/remove/")
 	public @ResponseBody String removePermissao(@RequestParam Map<String, String> request) {
 		Long codigo = Long.decode(request.get("codigo"));
 		Long codgrupo = Long.decode(request.get("codgrupo"));

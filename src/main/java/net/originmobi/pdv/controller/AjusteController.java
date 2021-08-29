@@ -1,31 +1,24 @@
 package net.originmobi.pdv.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import net.originmobi.pdv.filter.AjusteFilter;
 import net.originmobi.pdv.model.Ajuste;
 import net.originmobi.pdv.model.Produto;
 import net.originmobi.pdv.service.AjusteProdutoService;
 import net.originmobi.pdv.service.AjusteService;
 import net.originmobi.pdv.service.ProdutoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/ajustes")
@@ -33,6 +26,10 @@ public class AjusteController {
 
 	private static final String AJUSTE_FORM = "ajuste/form";
 	private static final String AJUSTE_LIST = "ajuste/list";
+	public static final String COD_AJUSTE = "codajuste";
+	public static final String COD_PROD = "codprod";
+	public static final String QTD_ALTERAR = "qtd_alterar";
+	public static final String COD_ITEM = "coditem";
 
 	@Autowired
 	private AjusteService ajustes;
@@ -59,7 +56,7 @@ public class AjusteController {
 		return mv;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public @ResponseBody String cadastra(UriComponentsBuilder builder) {
 		UriComponents uri = builder.path("/ajustes/").build();
 
@@ -78,25 +75,25 @@ public class AjusteController {
 		mv.addObject("produtosAjuste", ajusteProdutos.listaProdutosAjuste(ajuste.getCodigo()));
 		return mv;
 	}
-	
-	@RequestMapping(value = "/addproduto", method = RequestMethod.POST)
+
+	@PostMapping("/addproduto")
 	public @ResponseBody String addProduto(@RequestParam Map<String, String> request) {
-		Long codajuste = Long.decode(request.get("codajuste"));
-		Long codprod = Long.decode(request.get("codprod"));
-		int qtd_alterar = Integer.parseInt(request.get("qtd_alterar"));
+		Long codajuste = Long.decode(request.get(COD_AJUSTE));
+		Long codprod = Long.decode(request.get(COD_PROD));
+		int qtdAlterar = Integer.parseInt(request.get(QTD_ALTERAR));
 		
-		return ajusteProdutos.addProduto(codajuste, codprod, qtd_alterar);
+		return ajusteProdutos.addProduto(codajuste, codprod, qtdAlterar);
 	}
-	
-	@RequestMapping(value = "/processar", method = RequestMethod.POST)
+
+	@PostMapping("/processar")
 	public @ResponseBody String processar(@RequestParam Map<String, String> request) {
-		Long codajuste = Long.decode(request.get("codajuste"));
+		Long codajuste = Long.decode(request.get(COD_AJUSTE));
 		String obs = request.get("obs");
 		
 		return ajustes.processar(codajuste, obs);
 	}
 	
-	@RequestMapping(value = "/cancelar/{codigo}", method = RequestMethod.DELETE)
+	@DeleteMapping("/cancelar/{codigo}")
 	public @ResponseBody String remover(@PathVariable("codigo") Ajuste ajuste, UriComponentsBuilder builder) {
 		UriComponents component = builder.path("/ajustes").build();
 		
@@ -108,10 +105,10 @@ public class AjusteController {
 		return component.toString();
 	}
 	
-	@RequestMapping(value = "/remove/item", method = RequestMethod.DELETE)
+	@DeleteMapping("/remove/item")
 	public @ResponseBody String removeItem(@RequestParam Map<String, String> request) {
-		Long codajuste = Long.decode(request.get("codajuste"));
-		Long coditem = Long.decode(request.get("coditem"));
+		Long codajuste = Long.decode(request.get(COD_AJUSTE));
+		Long coditem = Long.decode(request.get(COD_ITEM));
 		
 		return ajusteProdutos.removeProduto(codajuste, coditem);
 	}

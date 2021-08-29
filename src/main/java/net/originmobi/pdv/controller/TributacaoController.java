@@ -1,40 +1,29 @@
 package net.originmobi.pdv.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
+import net.originmobi.pdv.enumerado.EntradaSaida;
+import net.originmobi.pdv.model.*;
+import net.originmobi.pdv.service.*;
+import net.originmobi.pdv.service.notafiscal.CstIpiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.originmobi.pdv.enumerado.EntradaSaida;
-import net.originmobi.pdv.model.CFOP;
-import net.originmobi.pdv.model.Cst;
-import net.originmobi.pdv.model.CstCsosn;
-import net.originmobi.pdv.model.CstIPI;
-import net.originmobi.pdv.model.Estado;
-import net.originmobi.pdv.model.Tributacao;
-import net.originmobi.pdv.service.CfopService;
-import net.originmobi.pdv.service.CstCsosnService;
-import net.originmobi.pdv.service.CstService;
-import net.originmobi.pdv.service.EstadoService;
-import net.originmobi.pdv.service.TributacaoRegraService;
-import net.originmobi.pdv.service.TributacaoService;
-import net.originmobi.pdv.service.notafiscal.CstIpiService;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tributacao")
 public class TributacaoController {
 
 	private static final String TRIBUTACAO_FORM = "tributacao/form";
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private TributacaoService tributacoes;
@@ -86,18 +75,20 @@ public class TributacaoController {
 			return TRIBUTACAO_FORM;
 
 		String codTributacao = null;
+
+		String atributoMensagem = "mensagem";
 		
 		try {
 			codTributacao = tributacoes.cadastro(tributacao);
-			attributes.addFlashAttribute("mensagem", "Tributação cadastrada com sucesso");
+			attributes.addFlashAttribute(atributoMensagem, "Tributação cadastrada com sucesso");
 		} catch (Exception e) {
-			attributes.addFlashAttribute("mensagem", "Erro ao tentar cadastrada tributação, chame o suporte");
-			System.out.println(e.getStackTrace());
+			attributes.addFlashAttribute(atributoMensagem, "Erro ao tentar cadastrada tributação, chame o suporte");
+			logger.error(e.getMessage());
 		}
 
-		if (codTributacao.equals("sem empresa")) {
+		if (codTributacao != null && codTributacao.equals("sem empresa")) {
 			attributes.addFlashAttribute("mensagemErro", "Nenhuma empresa cadastrada, verifique");
-			attributes.addFlashAttribute("mensagem", "");
+			attributes.addFlashAttribute(atributoMensagem, "");
 			return "redirect:/tributacao/form";
 		}
 

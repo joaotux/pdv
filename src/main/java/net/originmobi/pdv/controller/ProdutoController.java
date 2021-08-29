@@ -1,46 +1,29 @@
 package net.originmobi.pdv.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import net.originmobi.pdv.enumerado.Ativo;
 import net.originmobi.pdv.enumerado.produto.ProdutoBalanca;
 import net.originmobi.pdv.enumerado.produto.ProdutoControleEstoque;
 import net.originmobi.pdv.enumerado.produto.ProdutoSubstTributaria;
 import net.originmobi.pdv.enumerado.produto.ProdutoVendavel;
 import net.originmobi.pdv.filter.ProdutoFilter;
-import net.originmobi.pdv.model.Categoria;
-import net.originmobi.pdv.model.Fornecedor;
-import net.originmobi.pdv.model.Grupo;
-import net.originmobi.pdv.model.ModBcIcms;
-import net.originmobi.pdv.model.Produto;
-import net.originmobi.pdv.model.Tributacao;
-import net.originmobi.pdv.service.CategoriaService;
-import net.originmobi.pdv.service.FornecedorService;
-import net.originmobi.pdv.service.GrupoService;
-import net.originmobi.pdv.service.ImagemProdutoService;
-import net.originmobi.pdv.service.ProdutoService;
-import net.originmobi.pdv.service.TributacaoService;
+import net.originmobi.pdv.model.*;
+import net.originmobi.pdv.service.*;
 import net.originmobi.pdv.service.notafiscal.ModBcIcmsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/produto")
@@ -100,7 +83,7 @@ public class ProdutoController {
 		return mv;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public String cadastrar(@RequestParam Map<String, String> request, RedirectAttributes attributes) {
 
 		String prod = request.get("codigo");
@@ -122,9 +105,9 @@ public class ProdutoController {
 		String codModbc = request.get("modBcIcms");
 		String vendavel = request.get("vendavel");
 
-		Long codigoprod = prod.isEmpty() ? 0 : Long.decode(prod);
-		Double valorCusto = vlcusto.isEmpty() ? 0.0 : Double.valueOf(vlcusto.replace(",", "."));
-		Double valorVenda = vlvenda.isEmpty() ? 0.0 : Double.valueOf(vlvenda.replace(",", "."));
+		long codigoprod = prod.isEmpty() ? 0 : Long.decode(prod);
+		Double valorCusto = vlcusto.isEmpty() ? 0.0 : Double.parseDouble(vlcusto.replace(",", "."));
+		Double valorVenda = vlvenda.isEmpty() ? 0.0 : Double.parseDouble(vlvenda.replace(",", "."));
 		Long tributacao = vlTributacao.isEmpty() ? null : Long.decode(vlTributacao);
 		Long modbc = codModbc.isEmpty() ? null : Long.decode(codModbc);
 
@@ -143,16 +126,14 @@ public class ProdutoController {
 		ProdutoSubstTributaria substituicao = subtribu.equals("SIM") ? ProdutoSubstTributaria.SIM
 				: ProdutoSubstTributaria.NAO;
 
-		String mensagem = "";
-		System.out.println(controleEstoque);
-		mensagem = produtos.merger(codigoprod, codforne, categoria, grupo, usaBalanca, descricao, valorCusto,
-				valorVenda, dataValidade, controleEstoque, situacao.toString(), unitario, substituicao, ncm, cest, tributacao,
-				modbc, vendavel);
+		String mensagem = produtos.merger(codigoprod, codforne, categoria, grupo, usaBalanca, descricao, valorCusto,
+				valorVenda, dataValidade, controleEstoque, situacao.toString(), unitario, substituicao, ncm, cest,
+				tributacao, modbc, vendavel);
 
 		attributes.addFlashAttribute("mensagem", mensagem);
 		
 		if(codigoprod != 0)
-			return "redirect:/produto/" + codigoprod.toString();
+			return "redirect:/produto/" + codigoprod;
 		
 		return "redirect:/produto";
 
