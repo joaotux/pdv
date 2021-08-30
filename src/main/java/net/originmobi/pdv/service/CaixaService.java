@@ -154,10 +154,10 @@ public class CaixaService {
 	}
 
 	public List<Caixa> listarCaixas(CaixaFilter filter) {
-		if (filter.getData_cadastro() != null) {
-			if (!filter.getData_cadastro().equals("")) {
-				filter.setData_cadastro(filter.getData_cadastro().replace("/", "-"));
-				return caixas.buscaCaixasPorDataAbertura(Date.valueOf(filter.getData_cadastro()));
+		if (filter.getDataCadastro() != null) {
+			if (!filter.getDataCadastro().equals("")) {
+				filter.setDataCadastro(filter.getDataCadastro().replace("/", "-"));
+				return caixas.buscaCaixasPorDataAbertura(Date.valueOf(filter.getDataCadastro()));
 			}
 		}
 		
@@ -192,10 +192,10 @@ public class CaixaService {
 	}
 
 	public List<Caixa> listaBancosAbertosTipoFilterBanco(CaixaTipo tipo, BancoFilter filter) {
-		if (filter.getData_cadastro() != null) {
-			if (!filter.getData_cadastro().equals("")) {
-				filter.setData_cadastro(filter.getData_cadastro().replace("/", "-"));
-				return caixas.buscaCaixaTipoData(tipo, Date.valueOf(filter.getData_cadastro()));
+		if (filter.getDataCadastro() != null) {
+			if (!filter.getDataCadastro().equals("")) {
+				filter.setDataCadastro(filter.getDataCadastro().replace("/", "-"));
+				return caixas.buscaCaixaTipoData(tipo, Date.valueOf(filter.getDataCadastro()));
 			}
 		}
 

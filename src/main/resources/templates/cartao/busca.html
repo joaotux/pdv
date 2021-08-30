@@ -5,13 +5,14 @@
 
 <div class="row">
 	<div class="margem-top">
+		<!--/*@thymesVar id="filterCartao" type="net.originmobi.pdv.filter.CartaoFilter"*/-->
 		<form th:action="@{/cartaolancamentos}" th:object="${filterCartao}"
 			method="GET">
 
 			<div class="row">
 				<div class="col-md-2">
 					<input type="text" class="form-control"
-						placeholder="Data Recebimento" th:field="*{data_recebimento}"
+						placeholder="Data Recebimento" th:field="*{dataRecebimento}"
 						data-provide="datepicker" data-date-format="yyyy/mm/dd"
 						data-date-language="pt-BR" data-date-autoclose="true"
 						data-date-today-highlight="true" name="data_recebimento" />

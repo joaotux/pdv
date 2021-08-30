@@ -94,8 +94,8 @@ public class CartaoLancamentoService {
 	public List<CartaoLancamento> listar(CartaoFilter filter) {
 		String situacao = filter.getSituacao() == null ? "%" : filter.getSituacao().toString();
 		String tipo = filter.getTipo() == null ? "%" : filter.getTipo().toString();
-		String data_recebimento = filter.getData_recebimento() == null || filter.getData_recebimento().isEmpty() ? "%"
-				: filter.getData_recebimento().toString().replace("/", "-");
+		String data_recebimento = filter.getDataRecebimento() == null || filter.getDataRecebimento().isEmpty() ? "%"
+				: filter.getDataRecebimento().toString().replace("/", "-");
 		return repository.buscaLancamentos(situacao, tipo, data_recebimento);
 	}
 
