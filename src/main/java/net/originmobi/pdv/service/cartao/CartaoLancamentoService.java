@@ -77,7 +77,7 @@ public class CartaoLancamentoService {
 
 		DataAtual data = new DataAtual();
 		dataAtual = LocalDate.now();
-		String data_recebimento = data.DataAtualIncrementa(dias);
+		String data_recebimento = data.dataAtualIncrementa(dias);
 
 		CartaoLancamento lancamento = new CartaoLancamento(vl_parcela, taxa, vl_taxa, vl_liq_parcela, taxa_ante,
 				vl_taxa_ante, vl_liq_ant, maquinaCartao, tipo, CartaoSituacao.APROCESSAR,

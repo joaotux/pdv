@@ -265,7 +265,7 @@ public class VendaService {
 			Double valor_parcela = (Double.valueOf(vlParcelas[i]) + acre) - desc;
 			parcelas.gerarParcela(valor_parcela, 0.00, 0.00, 0.0, valor_parcela, receber, 0, sequencia,
 					dataAtual.dataAtualTimeStamp(),
-					Date.valueOf(dataAtual.DataAtualIncrementa(Integer.parseInt(formaPagar[i]))));
+					Date.valueOf(dataAtual.dataAtualIncrementa(Integer.parseInt(formaPagar[i]))));
 
 		} catch (Exception e) {
 			e.getMessage();
