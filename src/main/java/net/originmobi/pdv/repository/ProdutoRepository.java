@@ -53,7 +53,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	@Query(value = "insert into estoque_movimentacao (produto_codigo, tipo, qtd, origem_operacao, data_movimentacao) "
 			+ "values (:codprod, :tipo, :qtd, :origem, :data_movimentacao)", nativeQuery = true)
 	public void movimentaEstoque(@Param("codprod") Long codprod, @Param("tipo") String tipo, @Param("qtd") int qtd,
-			@Param("origem") String origem, @Param("data_movimentacao") java.sql.Date data_movimentacao);
+			@Param("origem") String origem, @Param("data_movimentacao") java.sql.Date dataMovimentacao);
 
 	@Query(value = "select pe.qtd from produto p, produto_estoque pe where pe.produto_codigo = p.codigo and p.codigo = :codprod", nativeQuery = true)
 	public int saldoEstoque(@Param("codprod") Long codprod);

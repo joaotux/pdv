@@ -28,7 +28,7 @@ public interface CaixaRepository extends JpaRepository<Caixa, Long> {
 	public Caixa findByCaixaAbertoUsuario(Long codigoUsu);
 	
 	@Query("select c from Caixa c where c.tipo in ('CAIXA', 'COFRE') and c.dataCadastro like ?1 order by c.codigo desc")
-	public List<Caixa> buscaCaixasPorDataAbertura(Date data_cadastro);
+	public List<Caixa> buscaCaixasPorDataAbertura(Date dataCadastro);
 	
 	@Query("select c from Caixa c where c.tipo in ('CAIXA', 'COFRE') and c.dataFechamento is null order by c.tipo")
 	public List<Caixa> listaCaixasAbertos();
@@ -40,6 +40,6 @@ public interface CaixaRepository extends JpaRepository<Caixa, Long> {
 	public List<Caixa> buscaCaixaTipo(CaixaTipo tipo);
 
 	@Query("select c from Caixa c where c.tipo = :tipo and c.dataCadastro = :data_cadastro order by c.codigo desc")
-	public List<Caixa> buscaCaixaTipoData(@Param("tipo") CaixaTipo tipo, @Param("data_cadastro") Date data_cadastro);
+	public List<Caixa> buscaCaixaTipoData(@Param("tipo") CaixaTipo tipo, @Param("data_cadastro") Date dataCadastro);
 
 }
