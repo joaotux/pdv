@@ -48,9 +48,9 @@ public class NotaFiscalItemImpostoService {
 
 	public NotaFiscalItemImposto calcula(Long codimposto, Double vlTotal, TributacaoRegra regra, char origin,
 			int modBcIcms) {
-		int cst_csosn = Integer.parseInt(regra.getCst_csosn().getCst_csosn());
+		int cst_csosn = Integer.parseInt(regra.getCst_csosn().getCodCstCsosn());
 		Cst cst_cofins = regra.getCst_cofins();
-		String cst_pis = regra.getCst_pis().getCst();
+		String cst_pis = regra.getCst_pis().getCodCst();
 		
 		Double bc_icms = vlTotal;
 		Double aliq_icms = regra.getAliq_icms();
@@ -72,7 +72,7 @@ public class NotaFiscalItemImpostoService {
 		// cadastra os impostos do produto
 		NotaFiscalItemImposto imposto = null;
 		try {
-			imposto = merger(codimposto, origin, cst_cofins.getCst(), modBcIcms, bc_icms, aliq_icms, vlIcms, cst_pis,
+			imposto = merger(codimposto, origin, cst_cofins.getCodCst(), modBcIcms, bc_icms, aliq_icms, vlIcms, cst_pis,
 					bc_pis, pis, vlPis, bc_cofins, aliqCofins, vlCofins, cst_csosn, cst_ipi, bcIPI, aliqIPI, vlIPI);
 		} catch (Exception e) {
 			System.out.println(e);

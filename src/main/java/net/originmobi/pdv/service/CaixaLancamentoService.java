@@ -34,17 +34,17 @@ public class CaixaLancamentoService {
 		dataHoraAtual = new Timestamp(System.currentTimeMillis());
 
 		try {
-			lancamento.setData_cadastro(dataHoraAtual);
+			lancamento.setDataCadastro(dataHoraAtual);
 
 			if (!lancamento.getCaixa().isPresent()
-					&& lancamento.getCaixa().map(Caixa::getData_fechamento).isPresent()) {
+					&& lancamento.getCaixa().map(Caixa::getDataFechamento).isPresent()) {
 				throw new RuntimeException("Nenhum caixa aberto");
 			}
 
 			// se for realizar uma saida de caixa, verifica se tem saldo
 			// suficiente para isso
 			if (lancamento.getEstilo().equals(EstiloLancamento.SAIDA)) {
-				Optional<Double> vlTotalCaixa = lancamento.getCaixa().map(Caixa::getValor_total);
+				Optional<Double> vlTotalCaixa = lancamento.getCaixa().map(Caixa::getValorTotal);
 				
 				if (lancamento.getValor() > vlTotalCaixa.get()) {
 					return "Saldo insuficiente para realizar esta operação";

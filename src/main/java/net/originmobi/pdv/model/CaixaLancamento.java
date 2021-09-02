@@ -4,15 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,10 +47,10 @@ public class CaixaLancamento implements Serializable {
 	@ManyToOne
 	private PagarParcela parcelaPagar;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
-	@Deprecated
 	public CaixaLancamento() {
 	}
 
@@ -124,12 +116,12 @@ public class CaixaLancamento implements Serializable {
 		this.caixa = caixa;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Usuario getUsuario() {

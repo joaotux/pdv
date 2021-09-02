@@ -56,20 +56,20 @@ public class CartaoLancamentoService {
 
 		// verifica se é debito ou crédito e pega os valores corretos do titulo
 		if (titulo.get().getTipo().getSigla().equals(TituloTipo.CARTDEB.toString())) {
-			taxa = titulo.get().getMaquina().getTaxa_debito();
-			dias = titulo.get().getMaquina().getDias_debito();
+			taxa = titulo.get().getMaquina().getTaxaDebito();
+			dias = titulo.get().getMaquina().getDiasDebito();
 			tipo = CartaoTipo.DEBITO;
 
 		} else if (titulo.get().getTipo().getSigla().equals(TituloTipo.CARTCRED.toString())) {
-			taxa = titulo.get().getMaquina().getTaxa_credito();
-			dias = titulo.get().getMaquina().getDias_credito();
+			taxa = titulo.get().getMaquina().getTaxaCredito();
+			dias = titulo.get().getMaquina().getDiasCredito();
 			tipo = CartaoTipo.CREDITO;
 		}
 
 		vl_taxa = (vl_parcela * taxa) / 100;
 		vl_liq_parcela = vl_parcela - vl_taxa;
 
-		taxa_ante = titulo.get().getMaquina().getTaxa_antecipacao();
+		taxa_ante = titulo.get().getMaquina().getTaxaAntecipacao();
 		vl_taxa_ante = (vl_parcela * taxa_ante) / 100;
 		vl_liq_ant = vl_parcela - vl_taxa_ante;
 
@@ -111,7 +111,7 @@ public class CartaoLancamentoService {
 		Double valor = cartaoLancamento.getVlLiqParcela();
 		TipoLancamento tipo = TipoLancamento.RECEBIMENTO;
 		EstiloLancamento estilo = EstiloLancamento.ENTRADA;
-		Caixa banco = cartaoLancamento.getMaquina_cartao().getBanco();
+		Caixa banco = cartaoLancamento.getMaquinaCartao().getBanco();
 
 		Aplicacao aplicacao = Aplicacao.getInstancia();
 		Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
@@ -144,7 +144,7 @@ public class CartaoLancamentoService {
 		Double valor = cartaoLancamento.getVlLiqAntecipacao();
 		TipoLancamento tipo = TipoLancamento.RECEBIMENTO;
 		EstiloLancamento estilo = EstiloLancamento.ENTRADA;
-		Caixa banco = cartaoLancamento.getMaquina_cartao().getBanco();
+		Caixa banco = cartaoLancamento.getMaquinaCartao().getBanco();
 
 		Aplicacao aplicacao = Aplicacao.getInstancia();
 		Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());

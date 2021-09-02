@@ -31,9 +31,9 @@
 					<tr th:each="fornecedor : ${todosFornecedores}">
 						<td class="text-center" th:text="${fornecedor.codigo}"></td>
 						<td th:text="${fornecedor.nome}"></td>
-						<td th:text="${fornecedor.nome_fantasia}"></td>
+						<td th:text="${fornecedor.nomeFantasia}"></td>
 						<td class="text-center" th:text="${fornecedor.cnpj}"></td>
-						<td class="text-center" th:text="${fornecedor.inscricao_estadual}"></td>
+						<td class="text-center" th:text="${fornecedor.inscricaoEstadual}"></td>
 						<td class="text-center" th:text="${fornecedor.ativo}"></td>
 						<td><a
 							th:href="@{fornecedor/{codigo}(codigo=${fornecedor.codigo})}"><span

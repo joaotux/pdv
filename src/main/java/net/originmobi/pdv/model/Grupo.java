@@ -3,10 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -24,16 +21,17 @@ public class Grupo implements Serializable {
 	@Size(max = 50)
 	private String descricao;
 	
-	private Date data_cadastro;
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	public Grupo() {
 	}
 
-	public Grupo(Long codigo, String descricao, Date data_cadastro) {
+	public Grupo(Long codigo, String descricao, Date dataCadastro) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Long getCodigo() {
@@ -52,12 +50,12 @@ public class Grupo implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 }

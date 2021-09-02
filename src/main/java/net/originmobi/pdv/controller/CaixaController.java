@@ -83,7 +83,7 @@ public class CaixaController {
 		Caixa caixa = new Caixa();
 		caixa.setDescricao(descricao);
 		caixa.setTipo(caixaTipo);
-		caixa.setValor_abertura(valorAbertura);
+		caixa.setValorAbertura(valorAbertura);
 		caixa.setAgencia(agencia);
 		caixa.setConta(conta);
 

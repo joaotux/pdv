@@ -17,8 +17,10 @@ public class FreteTipo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long codigo;
-	public int tipo;
-	public String descricao;
+
+	private int tipo;
+
+	private String descricao;
 
 	public FreteTipo() {
 		super();

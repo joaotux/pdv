@@ -36,20 +36,20 @@
 						<tr th:each="banco : ${bancos}">
 							<td class="text-center" th:text="${banco.codigo}"></td>
 							<td th:text="${banco.descricao}"></td>
-							<td class="text-center" th:text="|R$ ${{banco.valor_total}}|"></td>
-							<td class="text-center" th:text="${{banco.data_cadastro}}"></td>
-							<td class="text-center" th:text="${{banco.data_fechamento}}"></td>
-							<td th:if="${banco.data_fechamento}"><span
+							<td class="text-center" th:text="|R$ ${{banco.valorTotal}}|"></td>
+							<td class="text-center" th:text="${{banco.dataCadastro}}"></td>
+							<td class="text-center" th:text="${{banco.dataFechamento}}"></td>
+							<td th:if="${banco.dataFechamento}"><span
 								class="label label-danger">Fechado</span></td>
-							<td th:if="!${banco.data_fechamento}"><span
+							<td th:if="!${banco.dataFechamento}"><span
 								class="label label-success">Aberto</span></td>
-							<td th:if="!${banco.data_fechamento}" class="text-center"><a
+							<td th:if="!${banco.dataFechamento}" class="text-center"><a
 								sec:authorize="hasRole('ACESSAR_CAIXA')"
 								th:href="@{/caixa/gerenciar/{codigo}(codigo=${banco.codigo})}">
 								
 									<img th:src="@{/icons/confirma.png}" width="19%" />
 							</a></td>
-							<td th:if="${banco.data_fechamento}" class="text-center"><span
+							<td th:if="${banco.dataFechamento}" class="text-center"><span
 								class="glyphicon glyphicon-ok"></span></td>
 						</tr>
 					</tbody>

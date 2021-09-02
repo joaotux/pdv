@@ -2,11 +2,7 @@ package net.originmobi.pdv.model.cartao;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,6 +11,7 @@ import org.springframework.format.annotation.NumberFormat;
 import net.originmobi.pdv.model.Caixa;
 
 @Entity
+@Table(name = "maquina_cartao")
 public class MaquinaCartao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,16 +24,23 @@ public class MaquinaCartao implements Serializable {
 	@Size(min = 4, message = "Descrição deve ter no minimo 4 caracteres")
 	private String descricao;
 
+	@Column(name = "taxa_debito")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double taxa_debito;
+	private Double taxaDebito;
 
+	@Column(name = "taxa_credito")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double taxa_credito;
-	private int dias_debito;
-	private int dias_credito;
+	private Double taxaCredito;
 
+	@Column(name = "dias_debito")
+	private int diasDebito;
+
+	@Column(name = "dias_credito")
+	private int diasCredito;
+
+	@Column(name = "taxa_antecipacao")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double taxa_antecipacao;
+	private Double taxaAntecipacao;
 
 	@ManyToOne
 	private Caixa banco;
@@ -61,36 +65,36 @@ public class MaquinaCartao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Double getTaxa_debito() {
-		return taxa_debito;
+	public Double getTaxaDebito() {
+		return taxaDebito;
 	}
 
-	public void setTaxa_debito(Double taxa_debito) {
-		this.taxa_debito = taxa_debito;
+	public void setTaxaDebito(Double taxaDebito) {
+		this.taxaDebito = taxaDebito;
 	}
 
-	public Double getTaxa_credito() {
-		return taxa_credito;
+	public Double getTaxaCredito() {
+		return taxaCredito;
 	}
 
-	public void setTaxa_credito(Double taxa_credito) {
-		this.taxa_credito = taxa_credito;
+	public void setTaxaCredito(Double taxaCredito) {
+		this.taxaCredito = taxaCredito;
 	}
 
-	public int getDias_debito() {
-		return dias_debito;
+	public int getDiasDebito() {
+		return diasDebito;
 	}
 
-	public void setDias_debito(int dias_debito) {
-		this.dias_debito = dias_debito;
+	public void setDiasDebito(int diasDebito) {
+		this.diasDebito = diasDebito;
 	}
 
-	public int getDias_credito() {
-		return dias_credito;
+	public int getDiasCredito() {
+		return diasCredito;
 	}
 
-	public void setDias_credito(int dias_credito) {
-		this.dias_credito = dias_credito;
+	public void setDiasCredito(int diasCredito) {
+		this.diasCredito = diasCredito;
 	}
 
 	public Caixa getBanco() {
@@ -101,12 +105,12 @@ public class MaquinaCartao implements Serializable {
 		this.banco = banco;
 	}
 
-	public Double getTaxa_antecipacao() {
-		return taxa_antecipacao;
+	public Double getTaxaAntecipacao() {
+		return taxaAntecipacao;
 	}
 
-	public void setTaxa_antecipacao(Double taxa_antecipacao) {
-		this.taxa_antecipacao = taxa_antecipacao;
+	public void setTaxaAntecipacao(Double taxaAntecipacao) {
+		this.taxaAntecipacao = taxaAntecipacao;
 	}
 
 }

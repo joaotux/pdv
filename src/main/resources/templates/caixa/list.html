@@ -40,14 +40,14 @@
 						<tr>
 							<td class="text-center" th:text="${caixa.codigo}"></td>
 							<td th:text="${caixa.descricao}"></td>
-							<td class="text-center" th:text="|R$ ${{caixa.valor_total}}|"></td>
-							<td class="text-center" th:text="${{caixa.data_cadastro}}"></td>
-							<td class="text-center" th:text="${{caixa.data_fechamento}}"></td>
-							<td th:if="${caixa.data_fechamento}"><span
+							<td class="text-center" th:text="|R$ ${{caixa.valorTotal}}|"></td>
+							<td class="text-center" th:text="${{caixa.dataCadastro}}"></td>
+							<td class="text-center" th:text="${{caixa.dataFechamento}}"></td>
+							<td th:if="${caixa.dataFechamento}"><span
 								class="label label-danger">Fechado</span></td>
-							<td th:if="!${caixa.data_fechamento}"><span
+							<td th:if="!${caixa.dataFechamento}"><span
 								class="label label-success">Aberto</span></td>
-							<td th:if="!${caixa.data_fechamento}" class="text-center"><a
+							<td th:if="!${caixa.dataFechamento}" class="text-center"><a
 								sec:authorize="hasRole('ACESSAR_CAIXA')"
 								th:href="@{/caixa/gerenciar/{codigo}(codigo=${caixa.codigo})}">
 
@@ -57,7 +57,7 @@
 									th:if="${caixa.getTipo().toString()} == 'BANCO'"
 									th:src="@{/icons/banco.png}" width="18%" />
 							</a></td>
-							<td th:if="${caixa.data_fechamento}" class="text-center"><span
+							<td th:if="${caixa.dataFechamento}" class="text-center"><span
 								class="glyphicon glyphicon-ok"></span></td>
 						</tr>
 					</tbody>

@@ -86,7 +86,7 @@ public class EmpresaService {
 
 			try {
 				parametro.setAmbiente(ambiente);
-				parametro.setSerie_nfe(serie);
+				parametro.setSerieNfe(serie);
 				parametro.setpCredSN(aliqCalcCredito);
 				parametros.save(parametro);
 			} catch (Exception e) {

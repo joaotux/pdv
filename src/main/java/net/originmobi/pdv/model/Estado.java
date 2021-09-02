@@ -25,9 +25,6 @@ public class Estado implements Serializable {
 	@JoinColumn(name = "pais_codigo")
 	private Pais pais;
 
-	public Estado() {
-	}
-
 	public Long getCodigo() {
 		return codigo;
 	}

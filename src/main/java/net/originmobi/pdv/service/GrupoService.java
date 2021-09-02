@@ -20,7 +20,7 @@ public class GrupoService {
 	private LocalDate dataAtual = LocalDate.now();
 
 	public void cadastrar(Grupo grupo) {
-		grupo.setData_cadastro(Date.valueOf(dataAtual));
+		grupo.setDataCadastro(Date.valueOf(dataAtual));
 		grupos.save(grupo);
 	}
 

@@ -3,12 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "produto_imagem")
@@ -21,7 +16,9 @@ public class ImagemProduto implements Serializable {
 	private Long codigo;
 	private String descricao;
 	private String uri;
-	private Date data_cadastro;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	@ManyToOne
 	private Produto produto;
@@ -29,11 +26,11 @@ public class ImagemProduto implements Serializable {
 	public ImagemProduto() {
 	}
 
-	public ImagemProduto(String descricao, String uri, Date data_cadastro, Produto produto) {
+	public ImagemProduto(String descricao, String uri, Date dataCadastro, Produto produto) {
 		super();
 		this.descricao = descricao;
 		this.uri = uri;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 		this.produto = produto;
 	}
 
@@ -53,12 +50,12 @@ public class ImagemProduto implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Produto getProduto() {

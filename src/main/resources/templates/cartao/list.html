@@ -53,7 +53,7 @@
 							class="text-center"></td>
 						<td th:text="${cartao.situacao.descricao}" class="text-center"></td>
 						<td th:text="${cartao.tipo}" class="text-center"></td>
-						<td th:text="${{cartao.data_recebimento}}" class="text-center"></td>
+						<td th:text="${{cartao.dataRecebimento}}" class="text-center"></td>
 
 						<td sec:authorize="hasRole('ANTECIPAR_CARTAO')" th:if="!${cartao.isProcessado()}"><a
 							th:attr="data-codlancamento=${cartao.codigo}"

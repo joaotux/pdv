@@ -39,11 +39,19 @@ public class NotaFiscal implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	private NotaFiscalTipo tipo;
 
-	private String chave_acesso;
-	private String natureza_operacao;
+	@Column(name = "chave_acesso")
+	private String chaveAcesso;
+
+	@Column(name = "natureza_operacao")
+	private String naturezaOperacao;
+
 	private String situacao;
-	private int tipo_emissao;
-	private int tipo_impressao;
+
+	@Column(name = "tipo_emissao")
+	private int tipoEmissao;
+
+	@Column(name = "tipo_impressao")
+	private int tipoImpressao;
 
 	@Column(name = "cdv")
 	private Long dv;
@@ -55,17 +63,21 @@ public class NotaFiscal implements Serializable {
 	@Column(name = "verproc")
 	private String verProc;
 
+	@Column(name = "data_emissao")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_emissao;
+	private Date dataEmissao;
 
+	@Column(name = "data_saida")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_saida;
+	private Date dataSaida;
 
+	@Column(name = "hora_saida")
 	@DateTimeFormat(pattern = "hh:mm:ss")
-	private Time hora_saida;
+	private Time horaSaida;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_cadastro;
+	private Date dataCadastro;
 
 	@ManyToOne
 	@JoinColumn(name = "emissor_codigo")
@@ -90,29 +102,30 @@ public class NotaFiscal implements Serializable {
 	@OneToMany(mappedBy = "notaFiscal")
 	private List<NotaFiscalItem> itens;
 
-	private int tipo_ambiente;
+	@Column(name = "tipo_ambiente")
+	private int tipoAmbiente;
 
 	public NotaFiscal() {
 		super();
 	}
 
 	public NotaFiscal(Long numeroNota, int modelo, NotaFiscalTipo tipoNota, String natureza, int serie, Empresa emissor,
-			Pessoa destinatario, int tipoEmissao, String verProc, FreteTipo tipoFrete, NotaFiscalFinalidade finalidade,
-			NotaFiscalTotais totais, int tipo_ambiente, Date cadastro) {
+					  Pessoa destinatario, int tipoEmissao, String verProc, FreteTipo tipoFrete, NotaFiscalFinalidade finalidade,
+					  NotaFiscalTotais totais, int tipoAmbiente, Date cadastro) {
 		this.numero = numeroNota;
 		this.modelo = modelo;
 		this.tipo = tipoNota;
-		this.natureza_operacao = natureza;
+		this.naturezaOperacao = natureza;
 		this.serie = serie;
 		this.emissor = emissor;
 		this.destinatario = destinatario;
-		this.tipo_emissao = tipoEmissao;
+		this.tipoEmissao = tipoEmissao;
 		this.verProc = verProc;
 		this.freteTipo = tipoFrete;
 		this.finalidade = finalidade;
 		this.totais = totais;
-		this.tipo_ambiente = tipo_ambiente;
-		this.data_cadastro = cadastro;
+		this.tipoAmbiente = tipoAmbiente;
+		this.dataCadastro = cadastro;
 
 	}
 
@@ -156,20 +169,20 @@ public class NotaFiscal implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getChave_acesso() {
-		return chave_acesso;
+	public String getChaveAcesso() {
+		return chaveAcesso;
 	}
 
-	public void setChave_acesso(String chave_acesso) {
-		this.chave_acesso = chave_acesso;
+	public void setChaveAcesso(String chaveAcesso) {
+		this.chaveAcesso = chaveAcesso;
 	}
 
-	public String getNatureza_operacao() {
-		return natureza_operacao;
+	public String getNaturezaOperacao() {
+		return naturezaOperacao;
 	}
 
-	public void setNatureza_operacao(String natureza_operacao) {
-		this.natureza_operacao = natureza_operacao;
+	public void setNaturezaOperacao(String naturezaOperacao) {
+		this.naturezaOperacao = naturezaOperacao;
 	}
 
 	public String getSituacao() {
@@ -180,20 +193,20 @@ public class NotaFiscal implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public int getTipo_emissao() {
-		return tipo_emissao;
+	public int getTipoEmissao() {
+		return tipoEmissao;
 	}
 
-	public void setTipo_emissao(int tipo_emissao) {
-		this.tipo_emissao = tipo_emissao;
+	public void setTipoEmissao(int tipoEmissao) {
+		this.tipoEmissao = tipoEmissao;
 	}
 
-	public int getTipo_impressao() {
-		return tipo_impressao;
+	public int getTipoImpressao() {
+		return tipoImpressao;
 	}
 
-	public void setTipo_impressao(int tipo_impressao) {
-		this.tipo_impressao = tipo_impressao;
+	public void setTipoImpressao(int tipoImpressao) {
+		this.tipoImpressao = tipoImpressao;
 	}
 
 	public Long getDv() {
@@ -220,36 +233,36 @@ public class NotaFiscal implements Serializable {
 		this.verProc = verProc;
 	}
 
-	public Date getData_emissao() {
-		return data_emissao;
+	public Date getDataEmissao() {
+		return dataEmissao;
 	}
 
-	public void setData_emissao(Date data_emissao) {
-		this.data_emissao = data_emissao;
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
 	}
 
-	public Date getData_saida() {
-		return data_saida;
+	public Date getDataSaida() {
+		return dataSaida;
 	}
 
-	public void setData_saida(Date data_saida) {
-		this.data_saida = data_saida;
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
 	}
 
-	public Time getHora_saida() {
-		return hora_saida;
+	public Time getHoraSaida() {
+		return horaSaida;
 	}
 
-	public void setHora_saida(Time hora_saida) {
-		this.hora_saida = hora_saida;
+	public void setHoraSaida(Time horaSaida) {
+		this.horaSaida = horaSaida;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Empresa getEmissor() {
@@ -300,12 +313,12 @@ public class NotaFiscal implements Serializable {
 		this.itens = itens;
 	}
 
-	public int getTipo_ambiente() {
-		return tipo_ambiente;
+	public int getTipoAmbiente() {
+		return tipoAmbiente;
 	}
 
-	public void setTipo_ambiente(int tipo_ambiente) {
-		this.tipo_ambiente = tipo_ambiente;
+	public void setTipoAmbiente(int tipoAmbiente) {
+		this.tipoAmbiente = tipoAmbiente;
 	}
 
 }

@@ -2,11 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Cidade implements Serializable {
@@ -17,13 +13,12 @@ public class Cidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	private String nome;
-	private String codigo_municipio;
+
+	@Column(name = "codigo_municipio")
+	private String codigoMunicipio;
 
 	@ManyToOne
 	private Estado estado;
-
-	public Cidade() {
-	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -49,12 +44,12 @@ public class Cidade implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getCodigo_municipio() {
-		return codigo_municipio;
+	public String getCodigoMunicipio() {
+		return codigoMunicipio;
 	}
 
-	public void setCodigo_municipio(String codigo_minicipio) {
-		this.codigo_municipio = codigo_minicipio;
+	public void setCodigoMunicipio(String codigoMunicipio) {
+		this.codigoMunicipio = codigoMunicipio;
 	}
 
 }

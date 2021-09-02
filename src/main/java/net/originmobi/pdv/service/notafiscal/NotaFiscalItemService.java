@@ -61,7 +61,7 @@ public class NotaFiscalItemService {
 			}
 		}
 
-		char origin = tributacao.getRegra().get(0).getCst_csosn().getCst_csosn().toString().charAt(0);
+		char origin = tributacao.getRegra().get(0).getCst_csosn().getCodCstCsosn().toString().charAt(0);
 		Double vlTotal = produto.map(Produto::getValor_venda).get() * qtd;
 		String uniTribu = produto.map(Produto::getUnidade).get();
 		int modBcIcms = produto.map(Produto::getModBcIcms).get().getTipo();
@@ -91,7 +91,7 @@ public class NotaFiscalItemService {
 		if (regra == null)
 			throw new RuntimeException("Nenhuma regra de tributação cadastrada para a UF do destinatário");
 
-		String cfop = regra.getCfop().getCfop();
+		String cfop = regra.getCfop().getCodCfop();
 
 		// calcula impostos da nota
 		NotaFiscalItemImposto imposto = impostos.calcula(codImposto, vlTotal, regra, origin, modBcIcms);

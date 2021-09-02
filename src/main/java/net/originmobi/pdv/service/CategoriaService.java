@@ -20,7 +20,7 @@ public class CategoriaService {
 	private CategoriaRepository categorias;
 
 	public void cadastrar(Categoria categoria) {
-		categoria.setData_cadastro(Date.valueOf(dataAtual));
+		categoria.setDataCadastro(Date.valueOf(dataAtual));
 		categorias.save(categoria);
 	}
 

@@ -3,14 +3,7 @@ package net.originmobi.pdv.model.cartao;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -19,6 +12,7 @@ import net.originmobi.pdv.enumerado.cartao.CartaoSituacao;
 import net.originmobi.pdv.enumerado.cartao.CartaoTipo;
 
 @Entity
+@Table(name = "cartao_lancamento")
 public class CartaoLancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,7 +50,8 @@ public class CartaoLancamento implements Serializable {
 	private Double vlLiqAntecipacao;
 
 	@ManyToOne
-	private MaquinaCartao maquina_cartao;
+	@JoinColumn(name = "maquina_cartao_codigo")
+	private MaquinaCartao maquinaCartao;
 
 	@Enumerated(EnumType.STRING)
 	private CartaoTipo tipo;
@@ -64,20 +59,21 @@ public class CartaoLancamento implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private CartaoSituacao situacao;
 
+	@Column(name = "data_recebimento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_recebimento;
+	private Date dataRecebimento;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_cadastro;
+	private Date dataCadastro;
 
-	@Deprecated
 	public CartaoLancamento() {
 		super();
 	}
 
 	public CartaoLancamento(Double vlParcela, Double taxa, Double vlTaxa, Double vlLiqParcela, Double taxaAntecipacao,
-			Double vlTaxaAntecipacao, Double vlLiqAntecipacao, MaquinaCartao maquina_cartao, CartaoTipo tipo,
-			CartaoSituacao situacao, Date data_recebimento, Date data_cadastro) {
+							Double vlTaxaAntecipacao, Double vlLiqAntecipacao, MaquinaCartao maquinaCartao, CartaoTipo tipo,
+							CartaoSituacao situacao, Date dataRecebimento, Date dataCadastro) {
 		super();
 		this.vlParcela = vlParcela;
 		this.taxa = taxa;
@@ -86,11 +82,11 @@ public class CartaoLancamento implements Serializable {
 		this.taxaAntecipacao = taxaAntecipacao;
 		this.vlTaxaAntecipacao = vlTaxaAntecipacao;
 		this.vlLiqAntecipacao = vlLiqAntecipacao;
-		this.maquina_cartao = maquina_cartao;
+		this.maquinaCartao = maquinaCartao;
 		this.tipo = tipo;
 		this.situacao = situacao;
-		this.data_recebimento = data_recebimento;
-		this.data_cadastro = data_cadastro;
+		this.dataRecebimento = dataRecebimento;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public boolean isProcessado() {
@@ -165,12 +161,12 @@ public class CartaoLancamento implements Serializable {
 		this.vlLiqAntecipacao = vlLiqAntecipacao;
 	}
 
-	public MaquinaCartao getMaquina_cartao() {
-		return maquina_cartao;
+	public MaquinaCartao getMaquinaCartao() {
+		return maquinaCartao;
 	}
 
-	public void setMaquina_cartao(MaquinaCartao maquina_cartao) {
-		this.maquina_cartao = maquina_cartao;
+	public void setMaquinaCartao(MaquinaCartao maquinaCartao) {
+		this.maquinaCartao = maquinaCartao;
 	}
 
 	public CartaoTipo getTipo() {
@@ -189,20 +185,20 @@ public class CartaoLancamento implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public Date getData_recebimento() {
-		return data_recebimento;
+	public Date getDataRecebimento() {
+		return dataRecebimento;
 	}
 
-	public void setData_recebimento(Date data_recebimento) {
-		this.data_recebimento = data_recebimento;
+	public void setDataRecebimento(Date dataRecebimento) {
+		this.dataRecebimento = dataRecebimento;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 }

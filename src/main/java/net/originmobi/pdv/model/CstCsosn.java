@@ -2,12 +2,10 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "cst_csosn")
 public class CstCsosn implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,8 +13,12 @@ public class CstCsosn implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private String cst_csosn;
-	private int simples_nacional;
+
+	@Column(name = "cst_csosn")
+	private String codCstCsosn;
+
+	@Column(name = "simples_nacional")
+	private int simplesNacional;
 
 	public CstCsosn() {
 		super();
@@ -30,20 +32,20 @@ public class CstCsosn implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getCst_csosn() {
-		return cst_csosn;
+	public String getCodCstCsosn() {
+		return codCstCsosn;
 	}
 
-	public void setCst_csosn(String cst_csosn) {
-		this.cst_csosn = cst_csosn;
+	public void setCodCstCsosn(String codCstCsosn) {
+		this.codCstCsosn = codCstCsosn;
 	}
 
-	public int getSimples_nacional() {
-		return simples_nacional;
+	public int getSimplesNacional() {
+		return simplesNacional;
 	}
 
-	public void setSimples_nacional(int simples_nacial) {
-		this.simples_nacional = simples_nacial;
+	public void setSimplesNacional(int simplesNacional) {
+		this.simplesNacional = simplesNacional;
 	}
 
 }

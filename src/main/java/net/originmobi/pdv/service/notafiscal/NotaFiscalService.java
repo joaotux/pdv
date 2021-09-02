@@ -68,9 +68,9 @@ public class NotaFiscalService {
 		NotaFiscalFinalidade finalidade = new NotaFiscalFinalidade();
 		finalidade.setCodigo(1L);
 		int modelo = 55;
-		int serie = empresa.map(Empresa::getParametro).get().getSerie_nfe();
+		int serie = empresa.map(Empresa::getParametro).get().getSerieNfe();
 
-		if (empresa.map(Empresa::getParametro).get().getSerie_nfe() == 0)
+		if (empresa.map(Empresa::getParametro).get().getSerieNfe() == 0)
 			throw new RuntimeException("Não existe série cadastrada para o modelo 55, verifique");
 
 		// opção 1 é emissão normal, as outras opções (2, 3, 4, 5) são para contigência
@@ -182,7 +182,7 @@ public class NotaFiscalService {
 		String chaveNfe = geraXmlNfe.gerarXML(notaFiscal);
 
 		// seta a chave de acesso na nota fiscal para gravala no banco
-		notaFiscal.setChave_acesso(chaveNfe);
+		notaFiscal.setChaveAcesso(chaveNfe);
 
 		notasFiscais.save(notaFiscal);
 	}

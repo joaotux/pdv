@@ -58,7 +58,7 @@ public class AjusteService {
 
 		for (int i = 0; i < ajuste.get().getProdutos().size(); i++) {
 			Long codprod = ajuste.get().getProdutos().get(i).getProduto().getCodigo();
-			int qtd_alteracao = ajuste.get().getProdutos().get(i).getQtd_alteracao();
+			int qtd_alteracao = ajuste.get().getProdutos().get(i).getQtdAlteracao();
 
 			EntradaSaida tipo = qtd_alteracao > 0 ? EntradaSaida.ENTRADA : EntradaSaida.SAIDA;
 			String origem_operacao = "Referente ao ajuste de estoque " + codajuste;

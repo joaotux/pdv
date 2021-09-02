@@ -46,10 +46,10 @@ public class CaixaService {
 
 		// caso o valor de abertura seja null, modifica o mesmo para 0.0, esse valor é
 		// adicionado tambem no valor_total
-		Double vlbertura = caixa.getValor_abertura() == null ? 0.0 : caixa.getValor_abertura();
-		caixa.setValor_abertura(vlbertura);
+		Double vlbertura = caixa.getValorAbertura() == null ? 0.0 : caixa.getValorAbertura();
+		caixa.setValorAbertura(vlbertura);
 
-		if (caixa.getValor_abertura() < 0)
+		if (caixa.getValorAbertura() < 0)
 			throw new RuntimeException("Valor informado é inválido");
 
 		Aplicacao aplicacao = Aplicacao.getInstancia();
@@ -66,7 +66,7 @@ public class CaixaService {
 
 		caixa.setDescricao(descricao);
 		caixa.setUsuario(usuario);
-		caixa.setData_cadastro(java.sql.Date.valueOf(dataAtual));
+		caixa.setDataCadastro(java.sql.Date.valueOf(dataAtual));
 
 		// se for BANCO, limpa os valores especiais de agencia e conta
 		if (caixa.getTipo().equals(CaixaTipo.BANCO)) {
@@ -83,13 +83,13 @@ public class CaixaService {
 			throw new RuntimeException("Erro no processo de abertura, chame o suporte técnico");
 		}
 
-		if (caixa.getValor_abertura() > 0) {
+		if (caixa.getValorAbertura() > 0) {
 			try {
 
 				String observacao = caixa.getTipo().equals(CaixaTipo.CAIXA) ? "Abertura de caixa"
 						: caixa.getTipo().equals(CaixaTipo.COFRE) ? "Abertura de cofre" : "Abertura de banco";
 
-				CaixaLancamento lancamento = new CaixaLancamento(observacao, caixa.getValor_abertura(),
+				CaixaLancamento lancamento = new CaixaLancamento(observacao, caixa.getValorAbertura(),
 						TipoLancamento.SALDOINICIAL, EstiloLancamento.ENTRADA, caixa, usuario);
 
 				lancamentos.lancamento(lancamento);
@@ -101,7 +101,7 @@ public class CaixaService {
 		} else {
 			// se não for realizado o lançamento de caixa então joga o valor total do caixa
 			// para 0.0
-			caixa.setValor_total(0.0);
+			caixa.setValorTotal(0.0);
 		}
 
 		return caixa.getCodigo();
@@ -122,15 +122,15 @@ public class CaixaService {
 			// busca caixa atual
 			Optional<Caixa> caixaAtual = caixas.findById(caixa);
 
-			if (caixaAtual.map(Caixa::getData_fechamento).isPresent())
+			if (caixaAtual.map(Caixa::getDataFechamento).isPresent())
 				throw new RuntimeException("Caixa já esta fechado");
 
-			Double valorTotal = !caixaAtual.map(Caixa::getValor_total).isPresent() ? 0.0
-					: caixaAtual.map(Caixa::getValor_total).get();
+			Double valorTotal = !caixaAtual.map(Caixa::getValorTotal).isPresent() ? 0.0
+					: caixaAtual.map(Caixa::getValorTotal).get();
 
 			Timestamp dataHoraAtual = new Timestamp(System.currentTimeMillis());
-			caixaAtual.get().setData_fechamento(dataHoraAtual);
-			caixaAtual.get().setValor_fechamento(valorTotal);
+			caixaAtual.get().setDataFechamento(dataHoraAtual);
+			caixaAtual.get().setValorFechamento(valorTotal);
 
 			try {
 				caixas.save(caixaAtual.get());

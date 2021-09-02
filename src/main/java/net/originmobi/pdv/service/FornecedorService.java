@@ -38,8 +38,8 @@ public class FornecedorService {
 
 			dadosFornecedor.setCnpj(cnpj);
 			dadosFornecedor.setNome(fornecedor.getNome());
-			dadosFornecedor.setNome_fantasia(fornecedor.getNome_fantasia());
-			dadosFornecedor.setInscricao_estadual(fornecedor.getInscricao_estadual());
+			dadosFornecedor.setNomeFantasia(fornecedor.getNomeFantasia());
+			dadosFornecedor.setInscricaoEstadual(fornecedor.getInscricaoEstadual());
 			dadosFornecedor.setAtivo(fornecedor.getAtivo());
 			dadosFornecedor.setObservacao(fornecedor.getObservacao());
 
@@ -48,7 +48,7 @@ public class FornecedorService {
 
 			if (fornecedores.findByCnpjIn(fornecedor.getCnpj()) == null) {
 				fornecedor.setCnpj(cnpj);
-				fornecedor.setData_cadastro(Date.valueOf(dataAtual));
+				fornecedor.setDataCadastro(Date.valueOf(dataAtual));
 				fornecedores.save(fornecedor);
 			} else {
 				return "CNPJ já cadastrado";

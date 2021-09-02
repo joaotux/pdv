@@ -36,8 +36,8 @@ public class GeraXmlNfe {
 		
 		nfServer = new NotaFiscalService();
 		
-		if(notaFiscal.getChave_acesso() != null) {
-			nfServer.removeXml(notaFiscal.getChave_acesso());
+		if(notaFiscal.getChaveAcesso() != null) {
+			nfServer.removeXml(notaFiscal.getChaveAcesso());
 		}
 		
 		nfServer.salvaXML(xml, chaveNfe);

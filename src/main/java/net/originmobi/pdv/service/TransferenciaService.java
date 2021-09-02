@@ -36,13 +36,13 @@ public class TransferenciaService {
 		if (caiOrigem.equals(caiDestino))
 			throw new RuntimeException("Destino é inválido");
 
-		if (!caiOrigem.isPresent() || caiOrigem.map(Caixa::getData_fechamento).isPresent())
+		if (!caiOrigem.isPresent() || caiOrigem.map(Caixa::getDataFechamento).isPresent())
 			throw new RuntimeException("Conta origem não esta aberta, verifique");
 
-		if (!caiDestino.isPresent() || caiDestino.map(Caixa::getData_fechamento).isPresent())
+		if (!caiDestino.isPresent() || caiDestino.map(Caixa::getDataFechamento).isPresent())
 			throw new RuntimeException("Conta destino não esta aberta, verifique");
 
-		if (caiOrigem.map(Caixa::getValor_total).get() < valor)
+		if (caiOrigem.map(Caixa::getValorTotal).get() < valor)
 			throw new RuntimeException("Saldo insuficiente para realizar a transferência");
 
 		Transferencia transferencia = new Transferencia(valor, dataAtual.dataAtualTimeStamp(), caiOrigem.get(),

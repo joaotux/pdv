@@ -117,7 +117,7 @@ public class PagarService {
 		Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 		Optional<Caixa> caixa = caixas.busca(codCaixa);
 
-		if (vlPago + vlacre > caixa.map(Caixa::getValor_total).get())
+		if (vlPago + vlacre > caixa.map(Caixa::getValorTotal).get())
 			throw new RuntimeException("Saldo insuficiente para realizar este pagamento");
 
 		try {

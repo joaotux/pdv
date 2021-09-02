@@ -23,7 +23,7 @@ public class EnderecoService {
 	}
 
 	public Endereco cadastrar(Endereco endereco) {
-		endereco.setData_cadastro(Date.valueOf(dataAtual));
+		endereco.setDataCadastro(Date.valueOf(dataAtual));
 
 		try {
 			enderecos.save(endereco);
