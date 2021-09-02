@@ -163,7 +163,7 @@ public class RecebimentoService {
 
 		// verifica se é um lançamento do tipo cartão para lançar o cartao_lancamento
 		if (sigla.equals(TituloTipo.CARTDEB.toString()) || sigla.equals(TituloTipo.CARTCRED.toString())) {
-			cartaoLancamentos.lancamento(vllancamento, titulo);
+			cartaoLancamentos.lancamento(vllancamento, titulo.get());
 
 		} else {
 			Optional<Caixa> caixa = caixas.caixaAberto();

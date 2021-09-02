@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,6 +21,8 @@ import net.originmobi.pdv.repository.EmpresaRepository;
 
 @Service
 public class EmpresaService {
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private EmpresaRepository empresas;
@@ -40,45 +44,28 @@ public class EmpresaService {
 		try {
 			empresas.save(empresa);
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage(), e);
 		}
 	}
 
 	public Optional<Empresa> verificaEmpresaCadastrada() {
-		Optional<Empresa> empresa = empresas.buscaEmpresaCadastrada();
 
-		if (empresa.isPresent())
-			return empresa;
+		return empresas.buscaEmpresaCadastrada();
 
-		Optional<Empresa> empresaOptiona = Optional.empty();
-
-		return empresaOptiona;
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public String merger(Long codigo, String nome, String nome_fantasia, String cnpj, String ie, int serie,
+	public String merger(Long codigo, String nome, String nomeFantasia, String cnpj, String ie, int serie,
 			int ambiente, Long codRegime, Long codendereco, Long codcidade, String rua, String bairro, String numero,
 			String cep, String referencia, Double aliqCalcCredito) {
 
 		if (codigo != null) {
 			try {
-				empresas.update(codigo, nome, nome_fantasia, cnpj, ie, codRegime);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
-
-			try {
+				empresas.update(codigo, nome, nomeFantasia, cnpj, ie, codRegime);
 				parametros.update(serie, ambiente, aliqCalcCredito);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
-
-			try {
 				enderecos.update(codendereco, codcidade, rua, bairro, numero, cep, referencia);
 			} catch (Exception e) {
-				System.out.println(e);
+				logger.error(e.getMessage(), e);
 				return "Erro ao salvar dados da empresa, chame o suporte";
 			}
 		} else {
@@ -90,7 +77,7 @@ public class EmpresaService {
 				parametro.setpCredSN(aliqCalcCredito);
 				parametros.save(parametro);
 			} catch (Exception e) {
-				System.out.println(e);
+				logger.error(e.getMessage(), e);
 				return "Erro ao salvar dados da empresa, chame o suporte";
 			}
 
@@ -99,20 +86,14 @@ public class EmpresaService {
 
 			LocalDate dataAtual = LocalDate.now();
 			Endereco endereco = new Endereco(rua, bairro, numero, cep, referencia, Date.valueOf(dataAtual),
-					cidade.get());
+					cidade.orElse(null));
 
 			try {
 				enderecos.cadastrar(endereco);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
-
-			try {
-				Empresa empresa = new Empresa(nome, nome_fantasia, cnpj, ie, tributario.get(), endereco, parametro);
+				Empresa empresa = new Empresa(nome, nomeFantasia, cnpj, ie, tributario.orElse(null), endereco, parametro);
 				empresas.save(empresa);
 			} catch (Exception e) {
-				System.out.println(e);
+				logger.error(e.getMessage(), e);
 				return "Erro ao salvar dados da empresa, chame o suporte";
 			}
 		}

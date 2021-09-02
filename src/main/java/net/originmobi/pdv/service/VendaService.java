@@ -218,7 +218,7 @@ public class VendaService {
 
 					Double vl_parcela = Double.valueOf(vlParcelas[i]);
 
-					cartaoLancamento.lancamento(vl_parcela, titulo);
+					cartaoLancamento.lancamento(vl_parcela, titulo.get());
 				}
 
 			} else {
