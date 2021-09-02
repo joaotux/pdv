@@ -74,7 +74,7 @@ public class RecebimentoService {
 			try {
 				lista.add(parcela);
 
-				vlTotal = vlTotal + parcela.getValor_restante();
+				vlTotal = vlTotal + parcela.getValorRestante();
 
 			} catch (Exception e) {
 				e.getMessage();
@@ -107,7 +107,7 @@ public class RecebimentoService {
 		if (codtitulo == 0 || codtitulo == null)
 			throw new RuntimeException("Selecione um título para realizar o recebimento");
 
-		if (recebimento.map(Recebimento::getData_processamento).isPresent())
+		if (recebimento.map(Recebimento::getDataProcessamento).isPresent())
 			throw new RuntimeException("Recebimento já esta fechado");
 
 		// vincula o titulo ao recebimento
@@ -115,7 +115,7 @@ public class RecebimentoService {
 
 		DecimalFormat formata = new DecimalFormat("0.00");
 		Double vlrecebimento = Double
-				.valueOf(formata.format(recebimento.map(Recebimento::getValor_total).get()).replaceAll(",", "."));
+				.valueOf(formata.format(recebimento.map(Recebimento::getValorTotal).get()).replaceAll(",", "."));
 
 		if (vlrecebido > vlrecebimento)
 			throw new RuntimeException("Valor de recebimento é superior aos títulos");
@@ -135,7 +135,7 @@ public class RecebimentoService {
 		for (int i = 0; i < listParcelas.size(); i++) {
 
 			if (vlrecebido > 0) {
-				Double vlsobra = vlrecebido - listParcelas.get(i).getValor_restante();
+				Double vlsobra = vlrecebido - listParcelas.get(i).getValorRestante();
 				vlsobra = vlsobra < 0 ? 0 : vlsobra;
 
 				Double vlquitado = vlsobra - vlrecebido;
@@ -185,10 +185,10 @@ public class RecebimentoService {
 		try {
 			DataAtual dataAtual = new DataAtual();
 
-			recebimento.get().setValor_recebido(vllancamento);
-			recebimento.get().setValor_acrescimo(vlacrescimo);
-			recebimento.get().setValor_desconto(vldesconto);
-			recebimento.get().setData_processamento(dataAtual.dataAtualTimeStamp());
+			recebimento.get().setValorRecebido(vllancamento);
+			recebimento.get().setValorAcrescimo(vlacrescimo);
+			recebimento.get().setValorDesconto(vldesconto);
+			recebimento.get().setDataProcessamento(dataAtual.dataAtualTimeStamp());
 
 			recebimentos.save(recebimento.get());
 		} catch (Exception e) {
@@ -202,7 +202,7 @@ public class RecebimentoService {
 	public String remover(Long codigo) {
 		Optional<Recebimento> recebimento = recebimentos.findById(codigo);
 
-		if (recebimento.map(Recebimento::getData_processamento).isPresent())
+		if (recebimento.map(Recebimento::getDataProcessamento).isPresent())
 			throw new RuntimeException("Esse recebimento não pode ser removido, pois ele já esta processado");
 
 		try {

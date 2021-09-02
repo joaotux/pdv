@@ -48,12 +48,12 @@ public class NotaFiscalItemImpostoService {
 
 	public NotaFiscalItemImposto calcula(Long codimposto, Double vlTotal, TributacaoRegra regra, char origin,
 			int modBcIcms) {
-		int cst_csosn = Integer.parseInt(regra.getCst_csosn().getCodCstCsosn());
-		Cst cst_cofins = regra.getCst_cofins();
-		String cst_pis = regra.getCst_pis().getCodCst();
+		int cst_csosn = Integer.parseInt(regra.getCstCsosn().getCodCstCsosn());
+		Cst cst_cofins = regra.getCstCofins();
+		String cst_pis = regra.getCstPis().getCodCst();
 		
 		Double bc_icms = vlTotal;
-		Double aliq_icms = regra.getAliq_icms();
+		Double aliq_icms = regra.getAliqIcms();
 		Double vlIcms = (vlTotal * aliq_icms) / 100;
 
 		Double bc_pis = vlTotal;
@@ -64,9 +64,9 @@ public class NotaFiscalItemImpostoService {
 		Double aliqCofins = regra.getCofins();
 		Double vlCofins = (bc_cofins * aliqCofins) / 100;
 
-		int cst_ipi = Integer.parseInt(regra.getCst_ipi().getCst());
+		int cst_ipi = Integer.parseInt(regra.getCstIpi().getCst());
 		Double bcIPI = vlTotal;
-		Double aliqIPI = regra.getAliq_ipi();
+		Double aliqIPI = regra.getAliqIpi();
 		Double vlIPI = (bcIPI * aliqIPI) / 100;
 
 		// cadastra os impostos do produto

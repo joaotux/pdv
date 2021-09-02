@@ -76,10 +76,10 @@ public class VendaService {
 			Aplicacao aplicacao = Aplicacao.getInstancia();
 			Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
-			venda.setData_cadastro(dataHoraAtual);
+			venda.setDataCadastro(dataHoraAtual);
 			venda.setSituacao(VendaSituacao.ABERTA);
 			venda.setUsuario(usuario);
-			venda.setValor_produtos(0.00);
+			venda.setValorProdutos(0.00);
 
 			try {
 				vendas.save(venda);

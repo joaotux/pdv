@@ -106,9 +106,9 @@ public class PessoaService {
 
 		SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataNascimento = new Date(formata.parse(data_nascimento).getTime());
-		pessoa.setData_nascimento(dataNascimento);
+		pessoa.setDataNascimento(dataNascimento);
 		pessoa.setObservacao(observacao);
-		pessoa.setData_cadastro(Date.valueOf(dataAtual));
+		pessoa.setDataCadastro(Date.valueOf(dataAtual));
 
 		// Vincula endereço
 		pessoa.setEndereco(ende);

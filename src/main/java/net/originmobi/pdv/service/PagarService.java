@@ -84,13 +84,13 @@ public class PagarService {
 
 		DecimalFormat df = new DecimalFormat("#0.00");
 
-		if (vlPago > Double.valueOf(df.format(parcela.map(PagarParcela::getValor_restante).get()).replace(",", ".")))
+		if (vlPago > Double.valueOf(df.format(parcela.map(PagarParcela::getValorRestante).get()).replace(",", ".")))
 			throw new RuntimeException("Valor de pagamento inválido");
 
-		Double vlquitado = (vlPago + vlacre) + parcela.map(PagarParcela::getValor_pago).get();
-		Double vlRestante = (parcela.map(PagarParcela::getValor_restante).get() - (vlPago + vldesc));
-		Double vlDesconto = parcela.map(PagarParcela::getValor_desconto).get() + vldesc;
-		Double vlAcrescimo = parcela.map(PagarParcela::getValor_acrescimo).get() + vlacre;
+		Double vlquitado = (vlPago + vlacre) + parcela.map(PagarParcela::getValorPago).get();
+		Double vlRestante = (parcela.map(PagarParcela::getValorRestante).get() - (vlPago + vldesc));
+		Double vlDesconto = parcela.map(PagarParcela::getValorDesconto).get() + vldesc;
+		Double vlAcrescimo = parcela.map(PagarParcela::getValorAcrescimo).get() + vlacre;
 
 		vlRestante = vlRestante < 0 ? 0.0 : vlRestante;
 
@@ -98,12 +98,12 @@ public class PagarService {
 
 		DataAtual dataAtual = new DataAtual();
 
-		parcela.get().setValor_pago(vlquitado);
-		parcela.get().setValor_restante(vlRestante);
-		parcela.get().setValor_desconto(vlDesconto);
-		parcela.get().setValor_acrescimo(vlAcrescimo);
+		parcela.get().setValorPago(vlquitado);
+		parcela.get().setValorRestante(vlRestante);
+		parcela.get().setValorDesconto(vlDesconto);
+		parcela.get().setValorAcrescimo(vlAcrescimo);
 		parcela.get().setQuitado(quitado);
-		parcela.get().setData_pagamento(dataAtual.dataAtualTimeStamp());
+		parcela.get().setDataPagamento(dataAtual.dataAtualTimeStamp());
 
 		try {
 			pagarParcelaServ.merger(parcela.get());

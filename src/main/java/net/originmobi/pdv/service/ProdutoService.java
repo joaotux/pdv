@@ -90,7 +90,7 @@ public class ProdutoService {
 
 			Produto produto = produtos.findByCodigoIn(codprod);
 
-			if (produto.getControla_estoque().equals(ProdutoControleEstoque.SIM)) {
+			if (produto.getControlaEstoque().equals(ProdutoControleEstoque.SIM)) {
 
 				// estoque atual do produto
 				int qtd_estoque = produtos.saldoEstoque(codprod);
@@ -113,7 +113,7 @@ public class ProdutoService {
 	public void ajusteEstoque(Long codprod, int qtd, EntradaSaida tipo, String origem_operacao, Date data_movimentacao) {
 		Produto produto = produtos.findByCodigoIn(codprod);
 		
-		if (produto.getControla_estoque().equals(ProdutoControleEstoque.NAO))
+		if (produto.getControlaEstoque().equals(ProdutoControleEstoque.NAO))
 			throw new RuntimeException("O produto de código " + codprod + " não controla estoque, verifique");
 		
 		produtos.movimentaEstoque(codprod, tipo.toString(), qtd, origem_operacao, data_movimentacao);

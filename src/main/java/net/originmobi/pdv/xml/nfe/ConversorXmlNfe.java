@@ -210,7 +210,7 @@ public class ConversorXmlNfe implements Converter {
 
 		writer.startNode("cPais");
 		context.convertAnother(
-				notaFiscal.getEmissor().getEndereco().getCidade().getEstado().getPais().getCodigo_pais());
+				notaFiscal.getEmissor().getEndereco().getCidade().getEstado().getPais().getCodigoPais());
 		writer.endNode();
 
 		writer.startNode("xPais");
@@ -278,7 +278,7 @@ public class ConversorXmlNfe implements Converter {
 
 		writer.startNode("cPais");
 		context.convertAnother(
-				notaFiscal.getDestinatario().getEndereco().getCidade().getEstado().getPais().getCodigo_pais());
+				notaFiscal.getDestinatario().getEndereco().getCidade().getEstado().getPais().getCodigoPais());
 		writer.endNode();
 
 		writer.startNode("xPais");
@@ -483,7 +483,7 @@ public class ConversorXmlNfe implements Converter {
 
 		writer.startNode("ICMSTot");
 
-		String vBc = formato.format(notaFiscal.getTotais().getV_bc()).replace(",", ".");
+		String vBc = formato.format(notaFiscal.getTotais().getVBc()).replace(",", ".");
 
 		if (tipoRegime == 1)
 			vBc = "0.00";
@@ -493,7 +493,7 @@ public class ConversorXmlNfe implements Converter {
 		writer.endNode();
 
 		writer.startNode("vICMS");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_icms()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVIcms()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vICMSDeson");
@@ -509,43 +509,43 @@ public class ConversorXmlNfe implements Converter {
 		writer.endNode();
 
 		writer.startNode("vProd");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_prod()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVProd()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vFrete");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_frete()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVFrete()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vSeg");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_seg()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVSeg()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vDesc");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_desc()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVDesc()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vII");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_ii()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVIi()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vIPI");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_ipi()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVIpi()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vPIS");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_pis()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVPis()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vCOFINS");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_cofins()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVCofins()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vOutro");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_outros()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVOutros()).replace(",", "."));
 		writer.endNode();
 
 		writer.startNode("vNF");
-		context.convertAnother(formato.format(notaFiscal.getTotais().getV_nf()).replace(",", "."));
+		context.convertAnother(formato.format(notaFiscal.getTotais().getVNf()).replace(",", "."));
 		writer.endNode();
 
 		writer.endNode(); // fim nod ICMSTot

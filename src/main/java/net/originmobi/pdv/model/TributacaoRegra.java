@@ -3,20 +3,14 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import net.originmobi.pdv.enumerado.EntradaSaida;
 
 @Entity
+@Table(name = "tributacao_regra")
 public class TributacaoRegra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,14 +21,16 @@ public class TributacaoRegra implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "cst_csosn_codigo")
-	private CstCsosn cst_csosn;
+	private CstCsosn cstCsosn;
 
 	private Double pis;
 	private Double cofins;
 
-	private Double aliq_ipi;
+	@Column(name = "aliq_ipi")
+	private Double aliqIpi;
 
-	private Double aliq_icms;
+	@Column(name = "aliq_icms")
+	private Double aliqIcms;
 
 	@Enumerated(EnumType.STRING)
 	private EntradaSaida tipo;
@@ -53,17 +49,18 @@ public class TributacaoRegra implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "cst_pis")
-	private Cst cst_pis;
+	private Cst cstPis;
 
 	@ManyToOne
 	@JoinColumn(name = "cst_cofins")
-	private Cst cst_cofins;
+	private Cst cstCofins;
 
 	@ManyToOne
 	@JoinColumn(name = "cst_ipi_codigo")
-	private CstIPI cst_ipi;
+	private CstIPI cstIpi;
 
-	private Date data_cadastro;
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	public TributacaoRegra() {
 		super();
@@ -71,10 +68,10 @@ public class TributacaoRegra implements Serializable {
 
 	@Override
 	public String toString() {
-		return "{regra: [codigo=" + codigo + ", cst_csosn=" + cst_csosn.getCodigo() + ", pis=" + pis + ", cofins=" + cofins + ", aliq_ipi="
-				+ aliq_ipi + ", aliq_icms=" + aliq_icms + ", tipo=" + tipo + ", tributacao=" + tributacao.getCodigo()
-				+ ", uf=" + uf.getCodigo() + ", cfop=" + cfop.getCodigo() + ", cst_pis=" + cst_pis.getCodigo()
-			+ ", cst_cofins=" + cst_cofins.getCodigo() + ", cst_ipi=" + cst_ipi.getCodigo() + "]}";
+		return "{regra: [codigo=" + codigo + ", cst_csosn=" + cstCsosn.getCodigo() + ", pis=" + pis + ", cofins=" + cofins + ", aliq_ipi="
+				+ aliqIpi + ", aliq_icms=" + aliqIcms + ", tipo=" + tipo + ", tributacao=" + tributacao.getCodigo()
+				+ ", uf=" + uf.getCodigo() + ", cfop=" + cfop.getCodigo() + ", cst_pis=" + cstPis.getCodigo()
+			+ ", cst_cofins=" + cstCofins.getCodigo() + ", cst_ipi=" + cstIpi.getCodigo() + "]}";
 	}
 
 	public Long getCodigo() {
@@ -101,20 +98,20 @@ public class TributacaoRegra implements Serializable {
 		this.cofins = cofins;
 	}
 
-	public Double getAliq_ipi() {
-		return aliq_ipi;
+	public Double getAliqIpi() {
+		return aliqIpi;
 	}
 
-	public void setAliq_ipi(Double aliq_ipi) {
-		this.aliq_ipi = aliq_ipi;
+	public void setAliqIpi(Double aliqIpi) {
+		this.aliqIpi = aliqIpi;
 	}
 
-	public Double getAliq_icms() {
-		return aliq_icms;
+	public Double getAliqIcms() {
+		return aliqIcms;
 	}
 
-	public void setAliq_icms(Double aliq_icms) {
-		this.aliq_icms = aliq_icms;
+	public void setAliqIcms(Double aliqIcms) {
+		this.aliqIcms = aliqIcms;
 	}
 
 	public EntradaSaida getTipo() {
@@ -149,43 +146,43 @@ public class TributacaoRegra implements Serializable {
 		this.cfop = cfop;
 	}
 
-	public Cst getCst_pis() {
-		return cst_pis;
+	public Cst getCstPis() {
+		return cstPis;
 	}
 
-	public void setCst_pis(Cst cst_pis) {
-		this.cst_pis = cst_pis;
+	public void setCstPis(Cst cstPis) {
+		this.cstPis = cstPis;
 	}
 
-	public Cst getCst_cofins() {
-		return cst_cofins;
+	public Cst getCstCofins() {
+		return cstCofins;
 	}
 
-	public void setCst_cofins(Cst cst_cofins) {
-		this.cst_cofins = cst_cofins;
+	public void setCstCofins(Cst cstCofins) {
+		this.cstCofins = cstCofins;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public CstCsosn getCst_csosn() {
-		return cst_csosn;
+	public CstCsosn getCstCsosn() {
+		return cstCsosn;
 	}
 
-	public void setCst_csosn(CstCsosn cst_csosn) {
-		this.cst_csosn = cst_csosn;
+	public void setCstCsosn(CstCsosn cstCsosn) {
+		this.cstCsosn = cstCsosn;
 	}
 
-	public CstIPI getCst_ipi() {
-		return cst_ipi;
+	public CstIPI getCstIpi() {
+		return cstIpi;
 	}
 
-	public void setCst_ipi(CstIPI cst_ipi) {
-		this.cst_ipi = cst_ipi;
+	public void setCstIpi(CstIPI cstIPI) {
+		this.cstIpi = cstIPI;
 	}
 }

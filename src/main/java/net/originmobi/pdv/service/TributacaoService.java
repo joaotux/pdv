@@ -33,7 +33,7 @@ public class TributacaoService {
 
 		try {
 			tributacao.setEmpresa(empresa.get());
-			tributacao.setData_cadastro(Date.valueOf(dataAtual));
+			tributacao.setDataCadastro(Date.valueOf(dataAtual));
 			tribut = tributacoes.save(tributacao);
 		} catch (Exception e) {
 			System.out.println("Erro " + e.getMessage());

@@ -4,12 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,52 +20,59 @@ public class PagarParcela implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "valor_total")
 	@NotNull
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
+	@Column(name = "valor_desconto")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_desconto;
+	private Double valorDesconto;
 
+	@Column(name = "valor_acrescimo")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_acrescimo;
+	private Double valorAcrescimo;
 
+	@Column(name = "valor_pago")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_pago;
+	private Double valorPago;
 
+	@Column(name = "valor_restante")
 	@NotNull
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_restante;
+	private Double valorRestante;
 
 	private int quitado;
 
+	@Column(name = "data_cadastro")
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
+	@Column(name = "data_vencimento")
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate data_vencimento;
+	private LocalDate dataVencimento;
 
+	@Column(name = "data_pagamento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_pagamento;
+	private Timestamp dataPagamento;
 
 	@ManyToOne
 	private Pagar pagar;
 
-	@Deprecated
 	public PagarParcela() {
 		super();
 	}
 
-	public PagarParcela(Double valor_total, Double valor_restante, int quitado, Timestamp data_cadastro,
-			LocalDate data_vencimento, Pagar pagar) {
+	public PagarParcela(Double valorTotal, Double valorRestante, int quitado, Timestamp dataCadastro,
+						LocalDate dataVencimento, Pagar pagar) {
 		super();
-		this.valor_total = valor_total;
-		this.valor_restante = valor_restante;
+		this.valorTotal = valorTotal;
+		this.valorRestante = valorRestante;
 		this.quitado = quitado;
-		this.data_cadastro = data_cadastro;
-		this.data_vencimento = data_vencimento;
+		this.dataCadastro = dataCadastro;
+		this.dataVencimento = dataVencimento;
 		this.pagar = pagar;
 	}
 	
@@ -86,44 +88,44 @@ public class PagarParcela implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public Double getValor_desconto() {
-		return valor_desconto;
+	public Double getValorDesconto() {
+		return valorDesconto;
 	}
 
-	public void setValor_desconto(Double valor_desconto) {
-		this.valor_desconto = valor_desconto;
+	public void setValorDesconto(Double valorDesconto) {
+		this.valorDesconto = valorDesconto;
 	}
 
-	public Double getValor_acrescimo() {
-		return valor_acrescimo;
+	public Double getValorAcrescimo() {
+		return valorAcrescimo;
 	}
 
-	public void setValor_acrescimo(Double valor_acrescimo) {
-		this.valor_acrescimo = valor_acrescimo;
+	public void setValorAcrescimo(Double valorAcrescimo) {
+		this.valorAcrescimo = valorAcrescimo;
 	}
 
-	public Double getValor_pago() {
-		return valor_pago;
+	public Double getValorPago() {
+		return valorPago;
 	}
 
-	public void setValor_pago(Double valor_pago) {
-		this.valor_pago = valor_pago;
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
 	}
 
-	public Double getValor_restante() {
-		return valor_restante;
+	public Double getValorRestante() {
+		return valorRestante;
 	}
 
-	public void setValor_restante(Double valor_restante) {
-		this.valor_restante = valor_restante;
+	public void setValorRestante(Double valorRestante) {
+		this.valorRestante = valorRestante;
 	}
 
 	public int getQuitado() {
@@ -134,28 +136,28 @@ public class PagarParcela implements Serializable {
 		this.quitado = quitado;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public LocalDate getData_vencimento() {
-		return data_vencimento;
+	public LocalDate getDataVencimento() {
+		return dataVencimento;
 	}
 
-	public void setData_vencimento(LocalDate data_vencimento) {
-		this.data_vencimento = data_vencimento;
+	public void setDataVencimento(LocalDate dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 
-	public Timestamp getData_pagamento() {
-		return data_pagamento;
+	public Timestamp getDataPagamento() {
+		return dataPagamento;
 	}
 
-	public void setData_pagamento(Timestamp data_pagamento) {
-		this.data_pagamento = data_pagamento;
+	public void setDataPagamento(Timestamp dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
 	public Pagar getPagar() {

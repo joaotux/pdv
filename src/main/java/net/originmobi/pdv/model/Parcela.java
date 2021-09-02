@@ -4,11 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -22,20 +18,25 @@ public class Parcela implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "valor_total")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
+	@Column(name = "valor_acrescimo")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_acrescimo;
+	private Double valorAcrescimo;
 
+	@Column(name = "valor_desconto")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_desconto;
+	private Double valorDesconto;
 
+	@Column(name = "valor_recebido")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_recebido;
+	private Double valorRecebido;
 
+	@Column(name = "valor_restante")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_restante;
+	private Double valorRestante;
 
 	private int quitado;
 
@@ -44,33 +45,35 @@ public class Parcela implements Serializable {
 	@ManyToOne
 	private Receber receber;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
+	@Column(name = "data_vencimento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_vencimento;
+	private Date dataVencimento;
 
+	@Column(name = "data_pagamento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_pagamento;
+	private Timestamp dataPagamento;
 
-	@Deprecated
 	public Parcela() {
 	}
 
-	public Parcela(Double valor_total, Double valor_acrescimo, Double valor_desconto, Double valor_recebido,
-			Double valor_restante, int quitado, int sequencia, Receber receber,
-			Timestamp data_cadastro, Date data_vencimento) {
+	public Parcela(Double valorTotal, Double valorAcrescimo, Double valorDesconto, Double valorRecebido,
+				   Double valorRestante, int quitado, int sequencia, Receber receber,
+				   Timestamp dataCadastro, Date dataVencimento) {
 		super();
-		this.valor_total = valor_total;
-		this.valor_acrescimo = valor_acrescimo;
-		this.valor_desconto = valor_desconto;
-		this.valor_recebido = valor_recebido;
-		this.valor_restante = valor_restante;
+		this.valorTotal = valorTotal;
+		this.valorAcrescimo = valorAcrescimo;
+		this.valorDesconto = valorDesconto;
+		this.valorRecebido = valorRecebido;
+		this.valorRestante = valorRestante;
 		this.quitado = quitado;
 		this.sequencia = sequencia;
 		this.receber = receber;
-		this.data_cadastro = data_cadastro;
-		this.data_vencimento = data_vencimento;
+		this.dataCadastro = dataCadastro;
+		this.dataVencimento = dataVencimento;
 	}
 	
 	public Boolean isQuitado() {
@@ -85,36 +88,36 @@ public class Parcela implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Double getValor_acrescimo() {
-		return valor_acrescimo;
+	public Double getValorAcrescimo() {
+		return valorAcrescimo;
 	}
 
-	public void setValor_acrescimo(Double valor_acrescimo) {
-		this.valor_acrescimo = valor_acrescimo;
+	public void setValorAcrescimo(Double valorAcrescimo) {
+		this.valorAcrescimo = valorAcrescimo;
 	}
 
-	public Double getValor_desconto() {
-		return valor_desconto;
+	public Double getValorDesconto() {
+		return valorDesconto;
 	}
 
-	public void setValor_desconto(Double valor_desconto) {
-		this.valor_desconto = valor_desconto;
+	public void setValorDesconto(Double valorDesconto) {
+		this.valorDesconto = valorDesconto;
 	}
 
-	public Double getValor_recebido() {
-		return valor_recebido;
+	public Double getValorRecebido() {
+		return valorRecebido;
 	}
 
-	public void setValor_recebido(Double valor_recebido) {
-		this.valor_recebido = valor_recebido;
+	public void setValorRecebido(Double valorRecebido) {
+		this.valorRecebido = valorRecebido;
 	}
 
-	public Double getValor_restante() {
-		return valor_restante;
+	public Double getValorRestante() {
+		return valorRestante;
 	}
 
-	public void setValor_restante(Double valor_restante) {
-		this.valor_restante = valor_restante;
+	public void setValorRestante(Double valorRestante) {
+		this.valorRestante = valorRestante;
 	}
 
 	public int getQuitado() {
@@ -133,36 +136,36 @@ public class Parcela implements Serializable {
 		this.receber = receber;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Date getData_vencimento() {
-		return data_vencimento;
+	public Date getDataVencimento() {
+		return dataVencimento;
 	}
 
-	public void setData_vencimento(Date data_vencimento) {
-		this.data_vencimento = data_vencimento;
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 
-	public Timestamp getData_pagamento() {
-		return data_pagamento;
+	public Timestamp getDataPagamento() {
+		return dataPagamento;
 	}
 
-	public void setData_pagamento(Timestamp data_pagamento) {
-		this.data_pagamento = data_pagamento;
+	public void setDataPagamento(Timestamp dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public int getSequencia() {

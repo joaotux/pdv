@@ -29,7 +29,7 @@ public class UsuarioService {
 	 * vinculado a outro usuário.
 	 */
 	public String cadastrar(Usuario usuario) {
-		usuario.setData_cadastro(Date.valueOf(dataAtual));
+		usuario.setDataCadastro(Date.valueOf(dataAtual));
 		String mensagem = "";
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

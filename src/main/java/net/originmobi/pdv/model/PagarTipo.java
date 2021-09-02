@@ -3,11 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,17 +23,18 @@ public class PagarTipo implements Serializable {
 	@Size(min = 4, max = 200, message = "Favor, informe no minimo 4 caracteres")
 	private String descricao;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
 	public PagarTipo() {
 		super();
 	}
 
-	public PagarTipo(String descricao, Timestamp data_cadastro) {
+	public PagarTipo(String descricao, Timestamp dataCadastro) {
 		super();
 		this.descricao = descricao;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Long getCodigo() {
@@ -56,12 +53,12 @@ public class PagarTipo implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 }

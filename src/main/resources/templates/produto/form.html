@@ -100,15 +100,15 @@
 					<div class="form-group col-md-2">
 						<label for="valorCusto">Valor Custo</label> <input id="valorCusto"
 							name="valor_custo" type="text" class="form-control js-mascara"
-							th:field="*{valor_custo}" />
+							th:field="*{valorCusto}" />
 					</div>
 
 					<div class="form-group col-md-3 col-md-offset-7">
 						<label for="validade">Data Validade</label> <input id="validade"
-							name="data_validade" type="text" class="form-control"
-							th:field="*{data_validade}" data-provide="datepicker"
-							data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
-							data-date-autoclose="true" data-date-today-highlight="true" />
+																															 name="data_validade" type="text" class="form-control"
+																															 th:field="*{dataValidade}" data-provide="datepicker"
+																															 data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+																															 data-date-autoclose="true" data-date-today-highlight="true" />
 					</div>
 				</div>
 
@@ -116,7 +116,7 @@
 					<div class="form-group col-md-2">
 						<label for="valorVenda">Valor Venda</label> <input id="valorVenda"
 							name="valor_venda" type="text" class="form-control js-mascara"
-							th:field="*{valor_venda}" />
+							th:field="*{valorVenda}" />
 					</div>
 
 					<div class="form-group col-md-2 col-md-offset-8">
@@ -139,7 +139,7 @@
 					<div class="form-group col-md-offset-8 col-md-2">
 						<label for="controle">Controla Estoque</label> <select id="ativo"
 							name="controla_estoque" class="form-control"
-							th:field="*{controla_estoque}">
+							th:field="*{controlaEstoque}">
 							<option th:each="opcao : ${controlaestoque}" th:value="${opcao}"
 								th:text="${opcao}"></option>
 						</select>

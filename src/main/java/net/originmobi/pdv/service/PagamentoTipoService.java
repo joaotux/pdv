@@ -19,11 +19,11 @@ public class PagamentoTipoService {
 	private LocalDate dataAtual = LocalDate.now();
 
 	public void cadastrar(PagamentoTipo tipo) {
-		tipo.setData_cadastro(Date.valueOf(dataAtual));
+		tipo.setDataCadastro(Date.valueOf(dataAtual));
 		
 		String[] quantidade = tipo.getFormaPagamento().replaceAll("/", " ").split(" ");
 		
-		tipo.setQtd_parcelas(quantidade.length);
+		tipo.setQtdParcelas(quantidade.length);
 
 		pagamentotipo.save(tipo);
 	}

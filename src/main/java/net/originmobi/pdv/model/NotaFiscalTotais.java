@@ -2,15 +2,12 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
+@Table(name = "nota_fiscal_totais")
 public class NotaFiscalTotais implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,67 +16,78 @@ public class NotaFiscalTotais implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "v_bc")
 	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_bc;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_icms;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_st;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_prod;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_frete;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_seg;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_desc;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_ii;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_ipi;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_pis;
+	private Double vBc;
 
+	@Column(name = "v_icms")
 	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vIcms;
+
+	@Column(name = "v_st")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vSt;
+
+	@Column(name = "v_prod")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vProd;
+
+	@Column(name = "v_frete")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vFrete;
+
+	@Column(name = "v_seg")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vSeg;
+
+	@Column(name = "v_desc")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vDesc;
+
+	@Column(name = "v_ii")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vIi;
+
+	@Column(name = "v_ipi")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vIpi;
+
+	@Column(name = "v_pis")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vPis;
+
 	@Column(name = "v_cofins")
-	private Double v_cofins;
-	
 	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_outros;
-	
-	@NumberFormat(pattern = "R$ #,##0.00")
-	private Double v_nf;
+	private Double vCofins;
 
-	@Deprecated
+	@Column(name = "v_outros")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vOutros;
+
+	@Column(name = "v_nf")
+	@NumberFormat(pattern = "R$ #,##0.00")
+	private Double vNf;
+
 	public NotaFiscalTotais() {
 		super();
 	}
 
-	public NotaFiscalTotais(Double v_bc, Double v_icms, Double v_st, Double v_prod, Double v_frete, Double v_seg,
-			Double v_desc, Double v_ii, Double v_ipi, Double v_pis, Double v_cofins, Double v_outros, Double v_nf) {
+	public NotaFiscalTotais(Double vBc, Double vIcms, Double vSt, Double vProd, Double vFrete, Double vSeg,
+							Double vDesc, Double vIi, Double vIpi, Double vPis, Double vCofins, Double vOutros, Double vNf) {
 		super();
-		this.v_bc = v_bc;
-		this.v_icms = v_icms;
-		this.v_st = v_st;
-		this.v_prod = v_prod;
-		this.v_frete = v_frete;
-		this.v_seg = v_seg;
-		this.v_desc = v_desc;
-		this.v_ii = v_ii;
-		this.v_ipi = v_ipi;
-		this.v_pis = v_pis;
-		this.v_cofins = v_cofins;
-		this.v_outros = v_outros;
-		this.v_nf = v_nf;
+		this.vBc = vBc;
+		this.vIcms = vIcms;
+		this.vSt = vSt;
+		this.vProd = vProd;
+		this.vFrete = vFrete;
+		this.vSeg = vSeg;
+		this.vDesc = vDesc;
+		this.vIi = vIi;
+		this.vIpi = vIpi;
+		this.vPis = vPis;
+		this.vCofins = vCofins;
+		this.vOutros = vOutros;
+		this.vNf = vNf;
 	}
 
 	public Long getCodigo() {
@@ -90,108 +98,108 @@ public class NotaFiscalTotais implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Double getV_bc() {
-		return v_bc;
+	public Double getVBc() {
+		return vBc;
 	}
 
-	public void setV_bc(Double v_bc) {
-		this.v_bc = v_bc;
+	public void setVBc(Double vBc) {
+		this.vBc = vBc;
 	}
 
-	public Double getV_icms() {
-		return v_icms;
+	public Double getVIcms() {
+		return vIcms;
 	}
 
-	public void setV_icms(Double v_icms) {
-		this.v_icms = v_icms;
+	public void setVIcms(Double vIcms) {
+		this.vIcms = vIcms;
 	}
 
-	public Double getV_st() {
-		return v_st;
+	public Double getVSt() {
+		return vSt;
 	}
 
-	public void setV_st(Double v_st) {
-		this.v_st = v_st;
+	public void setVSt(Double vSt) {
+		this.vSt = vSt;
 	}
 
-	public Double getV_prod() {
-		return v_prod;
+	public Double getVProd() {
+		return vProd;
 	}
 
-	public void setV_prod(Double v_prod) {
-		this.v_prod = v_prod;
+	public void setVProd(Double vProd) {
+		this.vProd = vProd;
 	}
 
-	public Double getV_frete() {
-		return v_frete;
+	public Double getVFrete() {
+		return vFrete;
 	}
 
-	public void setV_frete(Double v_frete) {
-		this.v_frete = v_frete;
+	public void setVFrete(Double vFrete) {
+		this.vFrete = vFrete;
 	}
 
-	public Double getV_seg() {
-		return v_seg;
+	public Double getVSeg() {
+		return vSeg;
 	}
 
-	public void setV_seg(Double v_seg) {
-		this.v_seg = v_seg;
+	public void setVSeg(Double vSeg) {
+		this.vSeg = vSeg;
 	}
 
-	public Double getV_desc() {
-		return v_desc;
+	public Double getVDesc() {
+		return vDesc;
 	}
 
-	public void setV_desc(Double v_desc) {
-		this.v_desc = v_desc;
+	public void setVDesc(Double vDesc) {
+		this.vDesc = vDesc;
 	}
 
-	public Double getV_ii() {
-		return v_ii;
+	public Double getVIi() {
+		return vIi;
 	}
 
-	public void setV_ii(Double v_ii) {
-		this.v_ii = v_ii;
+	public void setVIi(Double vIi) {
+		this.vIi = vIi;
 	}
 
-	public Double getV_ipi() {
-		return v_ipi;
+	public Double getVIpi() {
+		return vIpi;
 	}
 
-	public void setV_ipi(Double v_ipi) {
-		this.v_ipi = v_ipi;
+	public void setVIpi(Double vIpi) {
+		this.vIpi = vIpi;
 	}
 
-	public Double getV_pis() {
-		return v_pis;
+	public Double getVPis() {
+		return vPis;
 	}
 
-	public void setV_pis(Double v_pis) {
-		this.v_pis = v_pis;
+	public void setVPis(Double vPis) {
+		this.vPis = vPis;
 	}
 
-	public Double getV_cofins() {
-		return v_cofins;
+	public Double getVCofins() {
+		return vCofins;
 	}
 
-	public void setV_cofins(Double v_cofins) {
-		this.v_cofins = v_cofins;
+	public void setVCofins(Double vCofins) {
+		this.vCofins = vCofins;
 	}
 
-	public Double getV_outros() {
-		return v_outros;
+	public Double getVOutros() {
+		return vOutros;
 	}
 
-	public void setV_outros(Double v_outros) {
-		this.v_outros = v_outros;
+	public void setVOutros(Double vOutros) {
+		this.vOutros = vOutros;
 	}
 
-	public Double getV_nf() {
-		return v_nf;
+	public Double getVNf() {
+		return vNf;
 	}
 
-	public void setV_nf(Double v_nf) {
-		this.v_nf = v_nf;
+	public void setVNf(Double vNf) {
+		this.vNf = vNf;
 	}
 
 }

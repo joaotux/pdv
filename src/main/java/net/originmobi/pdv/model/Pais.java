@@ -2,10 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Pais implements Serializable {
@@ -15,8 +12,11 @@ public class Pais implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+
 	private String nome;
-	private String pais_codigo;
+
+	@Column(name = "pais_codigo")
+	private String paisCodigo;
 
 	public Pais() {
 		super();
@@ -38,12 +38,12 @@ public class Pais implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getCodigo_pais() {
-		return pais_codigo;
+	public String getCodigoPais() {
+		return paisCodigo;
 	}
 
-	public void setCodigo_pais(String codigo_pais) {
-		this.pais_codigo = codigo_pais;
+	public void setCodigoPais(String codigoPais) {
+		this.paisCodigo = codigoPais;
 	}
 
 }

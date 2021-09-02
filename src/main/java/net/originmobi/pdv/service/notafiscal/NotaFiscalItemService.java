@@ -61,11 +61,11 @@ public class NotaFiscalItemService {
 			}
 		}
 
-		char origin = tributacao.getRegra().get(0).getCst_csosn().getCodCstCsosn().toString().charAt(0);
-		Double vlTotal = produto.map(Produto::getValor_venda).get() * qtd;
+		char origin = tributacao.getRegra().get(0).getCstCsosn().getCodCstCsosn().toString().charAt(0);
+		Double vlTotal = produto.map(Produto::getValorVenda).get() * qtd;
 		String uniTribu = produto.map(Produto::getUnidade).get();
 		int modBcIcms = produto.map(Produto::getModBcIcms).get().getTipo();
-		Double vlUnidade = produto.map(Produto::getValor_venda).get();
+		Double vlUnidade = produto.map(Produto::getValorVenda).get();
 
 		// pega uf do destinatário
 		String ufDestinatario = notaFiscal.map(NotaFiscal::getDestinatario).get().getEndereco().getCidade().getEstado()

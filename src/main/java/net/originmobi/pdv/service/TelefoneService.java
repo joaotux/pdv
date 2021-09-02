@@ -18,7 +18,7 @@ public class TelefoneService {
 	LocalDate dataAtual = LocalDate.now();
 
 	public Telefone cadastrar(Telefone telefone) {
-		telefone.setData_cadastro(Date.valueOf(dataAtual));
+		telefone.setDataCadastro(Date.valueOf(dataAtual));
 		try {
 			telefones.save(telefone);
 		} catch (Exception e) {

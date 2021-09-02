@@ -53,10 +53,10 @@ public class ParcelaService {
 
 		DecimalFormat df = new DecimalFormat("#.00");
 
-		Double vlRecebido = (totalPago + acrescimo) + parcelaAtual.map(Parcela::getValor_recebido).get();
-		Double vlRestante = (parcelaAtual.map(Parcela::getValor_restante).get() - (totalPago + desconto));
-		Double vlDesconto = (parcelaAtual.map(Parcela::getValor_desconto)).get() + desconto;
-		Double vlAcrescimo = (parcelaAtual.map(Parcela::getValor_acrescimo)).get() + acrescimo;
+		Double vlRecebido = (totalPago + acrescimo) + parcelaAtual.map(Parcela::getValorRecebido).get();
+		Double vlRestante = (parcelaAtual.map(Parcela::getValorRestante).get() - (totalPago + desconto));
+		Double vlDesconto = (parcelaAtual.map(Parcela::getValorDesconto)).get() + desconto;
+		Double vlAcrescimo = (parcelaAtual.map(Parcela::getValorAcrescimo)).get() + acrescimo;
 
 		vlRestante = vlRestante < 0 ? 0.00 : vlRestante;
 		int quitado = Double.valueOf(df.format(vlRestante).replace(",", ".")) <= 0 ? 1 : 0;

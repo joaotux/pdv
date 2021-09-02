@@ -39,22 +39,26 @@ public class Produto implements Serializable {
 	@Size(min = 3, max = 50)
 	private String descricao;
 
+	@Column(name = "valor_custo")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_custo;
+	private Double valorCusto;
 
+	@Column(name = "valor_venda")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_venda;
+	private Double valorVenda;
 
+	@Column(name = "valor_balanca")
 	@NumberFormat(pattern = "#,##0.00")
 	@Transient
-	private Double valor_balanca;
+	private Double valorBalanca;
 
 	@Column(name = "balanca")
 	@Enumerated(EnumType.ORDINAL)
 	private ProdutoBalanca balanca;
 
+	@Column(name = "data_validade")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private java.util.Date data_validade;
+	private java.util.Date dataValidade;
 
 	@Enumerated(EnumType.STRING)
 	private ProdutoVendavel vendavel;
@@ -74,10 +78,12 @@ public class Produto implements Serializable {
 	@Size(max = 7)
 	private String cest;
 
-	private Date data_cadastro;
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
+	@Column(name = "controla_estoque")
 	@Enumerated(EnumType.STRING)
-	private ProdutoControleEstoque controla_estoque;
+	private ProdutoControleEstoque controlaEstoque;
 
 	@ManyToOne
 	private Fornecedor fornecedor;
@@ -98,9 +104,6 @@ public class Produto implements Serializable {
 	@OneToOne(mappedBy = "produto")
 	private ProdutoEstoque estoque;
 
-	public Produto() {
-	}
-
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -117,48 +120,48 @@ public class Produto implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Double getValor_custo() {
-		return valor_custo;
+	public Double getValorCusto() {
+		return valorCusto;
 	}
 
-	public void setValor_custo(Double valor_custo) {
-		this.valor_custo = valor_custo;
+	public void setValorCusto(Double valorCusto) {
+		this.valorCusto = valorCusto;
 	}
 
-	public Double getValor_venda() {
-		return valor_venda;
+	public Double getValorVenda() {
+		return valorVenda;
 	}
 
-	public void setValor_venda(Double valor_venda) {
-		this.valor_venda = valor_venda;
+	public void setValorVenda(Double valorVenda) {
+		this.valorVenda = valorVenda;
 	}
 
-	public Double getValor_balanca() {
-		return valor_balanca;
+	public Double getValorBalanca() {
+		return valorBalanca;
 	}
 
-	public void setValor_balanca(Double valor_balanca) {
-		this.valor_balanca = valor_balanca;
+	public void setValorBalanca(Double valorBalanca) {
+		this.valorBalanca = valorBalanca;
 	}
 
-	public java.util.Date getData_validade() {
-		return data_validade;
+	public java.util.Date getDataValidade() {
+		return dataValidade;
 	}
 
-	public void setData_validade(java.util.Date data_validade) {
-		this.data_validade = data_validade;
+	public void setDataValidade(java.util.Date dataValidade) {
+		this.dataValidade = dataValidade;
 	}
 
 	public void setAtivo(Ativo ativo) {
 		this.ativo = ativo;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Fornecedor getFornecedor() {
@@ -261,12 +264,12 @@ public class Produto implements Serializable {
 		this.estoque = estoque;
 	}
 
-	public ProdutoControleEstoque getControla_estoque() {
-		return controla_estoque;
+	public ProdutoControleEstoque getControlaEstoque() {
+		return controlaEstoque;
 	}
 
-	public void setControla_estoque(ProdutoControleEstoque controla_estoque) {
-		this.controla_estoque = controla_estoque;
+	public void setControlaEstoque(ProdutoControleEstoque controleEstoque) {
+		this.controlaEstoque = controleEstoque;
 	}
 
 }

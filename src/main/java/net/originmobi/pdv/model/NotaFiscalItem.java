@@ -35,7 +35,7 @@ public class NotaFiscalItem implements Serializable {
 	@Column(name = "unidade_tribu")
 	private String unidadeTribu;
 
-	@Column(name = "unidade_tribu")
+	@Column(name = "qtd_tribu")
 	private int qtdTribu;
 
 	private String cfop;

@@ -34,13 +34,13 @@ public class NotaFiscalTotaisServer {
 		Double totalIpi = Double.valueOf(array[4]);
 		Double totalNota = totalProdutos + totalIpi;
 
-		total.setV_bc(totalProdutos);
-		total.setV_prod(totalProdutos);
-		total.setV_icms(totalIcms);
-		total.setV_pis(totalPis);
-		total.setV_cofins(totalCofins);
-		total.setV_ipi(totalIpi);
-		total.setV_nf(totalNota);
+		total.setVBc(totalProdutos);
+		total.setVProd(totalProdutos);
+		total.setVIcms(totalIcms);
+		total.setVPis(totalPis);
+		total.setVCofins(totalCofins);
+		total.setVIpi(totalIpi);
+		total.setVNf(totalNota);
 
 		try {
 			totais.save(total);

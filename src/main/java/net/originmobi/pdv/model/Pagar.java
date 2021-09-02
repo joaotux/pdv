@@ -3,12 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,13 +22,15 @@ public class Pagar implements Serializable {
 	@Size(max = 255, message = "O tamanho da observação deve conter apenas 255 caracteres")
 	private String observacao;
 
+	@Column(name = "valor_total")
 	@NotNull
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
+	@Column(name = "data_cadastro")
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate data_cadastro;
+	private LocalDate dataCadastro;
 
 	@ManyToOne
 	private Fornecedor fornecedor;
@@ -42,17 +39,16 @@ public class Pagar implements Serializable {
 	@JoinColumn(name="pagartipo_codigo")
 	private PagarTipo tipo;
 
-	@Deprecated
 	public Pagar() {
 		super();
 	}
 
-	public Pagar(String observacao, Double valor_total, LocalDate data_cadastro, Fornecedor fornecedor,
+	public Pagar(String observacao, Double valorTotal, LocalDate dataCadastro, Fornecedor fornecedor,
 			PagarTipo tipo) {
 		super();
 		this.observacao = observacao;
-		this.valor_total = valor_total;
-		this.data_cadastro = data_cadastro;
+		this.valorTotal = valorTotal;
+		this.dataCadastro = dataCadastro;
 		this.fornecedor = fornecedor;
 		this.tipo = tipo;
 	}
@@ -73,20 +69,20 @@ public class Pagar implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public LocalDate getData_cadastro() {
-		return data_cadastro;
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(LocalDate data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Fornecedor getFornecedor() {

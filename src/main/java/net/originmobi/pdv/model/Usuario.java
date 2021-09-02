@@ -4,14 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -30,13 +23,17 @@ public class Usuario implements Serializable {
 
 	@NotBlank(message = "Senha não pode ser vazia")
 	private String senha;
-	private Date data_cadastro;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	@OneToOne
 	private Pessoa pessoa;
 
 	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "usuario_codigo"), inverseJoinColumns = @JoinColumn(name = "grupo_usuario_codigo"))
+	@JoinTable(name = "usuario_grupousuario",
+			joinColumns = @JoinColumn(name = "usuario_codigo"),
+			inverseJoinColumns = @JoinColumn(name = "grupo_usuario_codigo"))
 	private List<GrupoUsuario> grupousuario;
 
 	@ManyToMany
@@ -45,12 +42,12 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 
-	public Usuario(Long codigo, String user, String senha, Date data_cadastro, Pessoa pessoa,
-			List<GrupoUsuario> grupousuario, List<Permissoes> permissoes) {
+	public Usuario(Long codigo, String user, String senha, Date dataCadastro, Pessoa pessoa,
+                   List<GrupoUsuario> grupousuario, List<Permissoes> permissoes) {
 		this.codigo = codigo;
 		this.user = user;
 		this.senha = senha;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 		this.pessoa = pessoa;
 		this.grupousuario = grupousuario;
 		this.permissoes = permissoes;
@@ -80,12 +77,12 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Pessoa getPessoa() {
