@@ -1,92 +1,95 @@
 package net.originmobi.pdv.service;
 
-import java.util.List;
-
+import net.originmobi.pdv.model.GrupoUsuario;
+import net.originmobi.pdv.model.Usuario;
+import net.originmobi.pdv.repository.GrupoUsuarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.originmobi.pdv.model.GrupoUsuario;
-import net.originmobi.pdv.model.Usuario;
-import net.originmobi.pdv.repository.GrupoUsuarioRepository;
+import java.util.List;
 
 @Service
 public class GrupoUsuarioService {
 
-	@Autowired
-	private GrupoUsuarioRepository grupousuarios;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public List<GrupoUsuario> buscaGrupos(Usuario usuario) {
-		return grupousuarios.findByUsuarioIn(usuario);
-	}
+    @Autowired
+    private GrupoUsuarioRepository grupousuarios;
 
-	public List<GrupoUsuario> lista() {
-		return grupousuarios.findAll();
-	}
+    public List<GrupoUsuario> buscaGrupos(Usuario usuario) {
+        return grupousuarios.findByUsuarioIn(usuario);
+    }
 
-	public GrupoUsuario buscaGrupo(Long codigoGru) {
-		return grupousuarios.findByCodigoIn(codigoGru);
-	}
+    public List<GrupoUsuario> lista() {
+        return grupousuarios.findAll();
+    }
 
-	public void merge(GrupoUsuario grupoUsuario, RedirectAttributes attributes) {
+    public GrupoUsuario buscaGrupo(Long codigoGru) {
+        return grupousuarios.findByCodigoIn(codigoGru);
+    }
 
-		if (grupoUsuario.getCodigo() == null) {
-			try {
-				attributes.addFlashAttribute("mensagem", "Grupo adicionado com sucesso");
-				grupousuarios.save(grupoUsuario);
-			} catch (Exception e) {
-				System.out.println(e);
-			}
+    public void merge(GrupoUsuario grupoUsuario, RedirectAttributes attributes) {
 
-		} else {
-			attributes.addFlashAttribute("mensagem", "Grupo atualizado com sucesso");
-			grupousuarios.update(grupoUsuario.getNome(), grupoUsuario.getDescricao(), grupoUsuario.getCodigo());
-		}
+        if (grupoUsuario.getCodigo() == null) {
+            try {
+                attributes.addFlashAttribute("mensagem", "Grupo adicionado com sucesso");
+                grupousuarios.save(grupoUsuario);
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
 
-	}
+        } else {
+            attributes.addFlashAttribute("mensagem", "Grupo atualizado com sucesso");
+            grupousuarios.update(grupoUsuario.getNome(), grupoUsuario.getDescricao(), grupoUsuario.getCodigo());
+        }
 
-	public String remove(Long codigo, RedirectAttributes attributes) {
-		// verifico se o grupo esta vinculado a algum usuário
-		int aux = grupousuarios.grupoTemUsuaio(codigo);
+    }
 
-		if (aux > 0) {
-			attributes.addFlashAttribute("mensagemErro", "Este grupo possue usuários vinculados a ele, verifique");
-			return "redirect:/grupousuario/" + codigo;
-		}
+    public String remove(Long codigo, RedirectAttributes attributes) {
+        // verifico se o grupo esta vinculado a algum usuário
+        int aux = grupousuarios.grupoTemUsuaio(codigo);
 
-		try {
-			grupousuarios.deleteById(codigo);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+        if (aux > 0) {
+            attributes.addFlashAttribute("mensagemErro", "Este grupo possue usuários vinculados a ele, verifique");
+            return "redirect:/grupousuario/" + codigo;
+        }
 
-		return "redirect:/grupousuario";
-	}
+        try {
+            grupousuarios.deleteById(codigo);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
 
-	public String addPermissao(Long codgrupo, Long codpermissao) {
+        return "redirect:/grupousuario";
+    }
 
-		int aux = grupousuarios.grupoTemPermissao(codgrupo, codpermissao);
-		
-		if (aux > 0)
-			throw new RuntimeException("Esta permissão já esta adicionada a este grupo");
+    public String addPermissao(Long codgrupo, Long codpermissao) {
 
-		try {
-			grupousuarios.addPermissao(codgrupo, codpermissao);
-		} catch (Exception e) {
-			System.out.println(e);
-			throw new RuntimeException("Erro ao tentar adicionar permissão, chame o suporte");
-		}
+        int aux = grupousuarios.grupoTemPermissao(codgrupo, codpermissao);
 
-		return "Permissao adicionada com sucesso";
-	}
+        if (aux > 0)
+            throw new RuntimeException("Esta permissão já esta adicionada a este grupo");
 
-	public String removePermissao(Long codigo, Long codgrupo) {
-		try {
-			grupousuarios.removePermissao(codigo, codgrupo);
-		} catch (Exception e) {
-			throw new RuntimeException("Erro ao tentar remover permissão, chame o suporte");
-		}
-		return "Permissão removida com sucesso";
-	}
+        try {
+            grupousuarios.addPermissao(codgrupo, codpermissao);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException("Erro ao tentar adicionar permissão, chame o suporte");
+        }
+
+        return "Permissao adicionada com sucesso";
+    }
+
+    public String removePermissao(Long codigo, Long codgrupo) {
+        try {
+            grupousuarios.removePermissao(codigo, codgrupo);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao tentar remover permissão, chame o suporte");
+        }
+        return "Permissão removida com sucesso";
+    }
 
 }
