@@ -4,16 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -30,29 +21,36 @@ public class Venda implements Serializable {
 	private Long codigo;
 	private String observacao;
 
+	@Column(name = "valor_produtos")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_produtos;
+	private Double valorProdutos;
 
+	@Column(name = "valor_desconto")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_desconto;
+	private Double valorDesconto;
 
+	@Column(name = "valor_acrescimo")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_acrescimo;
+	private Double valorAcrescimo;
 
+	@Column(name = "valor_total")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
 	@Enumerated(EnumType.STRING)
 	private VendaSituacao situacao;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
+	@Column(name = "data_finalizado")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_finalizado;
+	private Timestamp dataFinalizado;
 
+	@Column(name = "data_cancelado")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_cancelado;
+	private Timestamp dataCancelado;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -61,7 +59,9 @@ public class Venda implements Serializable {
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinTable(name = "pagamento_tipo_venda", joinColumns = @JoinColumn(name = "ven_codigo"), inverseJoinColumns = @JoinColumn(name = "pag_tipo_codigo"))
+	@JoinTable(name = "pagamento_tipo_venda",
+			joinColumns = @JoinColumn(name = "ven_codigo"),
+			inverseJoinColumns = @JoinColumn(name = "pag_tipo_codigo"))
 	private PagamentoTipo pagamentotipo;
 
 	@ManyToMany
@@ -71,19 +71,19 @@ public class Venda implements Serializable {
 	public Venda() {
 	}
 
-	public Venda(String observacao, Double valor_produtos, Double valor_desconto, Double valor_acrescimo,
-			Double valor_total, VendaSituacao situacao, Timestamp data_cadastro, Timestamp data_finalizado,
-			Timestamp data_cancelado, Pessoa pessoa, Usuario usuario) {
+	public Venda(String observacao, Double valorProdutos, Double valorDesconto, Double valorAcrescimo,
+				 Double valorTotal, VendaSituacao situacao, Timestamp dataCadastro, Timestamp dataFinalizado,
+				 Timestamp dataCancelado, Pessoa pessoa, Usuario usuario) {
 		super();
 		this.observacao = observacao;
-		this.valor_produtos = valor_produtos;
-		this.valor_desconto = valor_desconto;
-		this.valor_acrescimo = valor_acrescimo;
-		this.valor_total = valor_total;
+		this.valorProdutos = valorProdutos;
+		this.valorDesconto = valorDesconto;
+		this.valorAcrescimo = valorAcrescimo;
+		this.valorTotal = valorTotal;
 		this.situacao = situacao;
-		this.data_cadastro = data_cadastro;
-		this.data_finalizado = data_finalizado;
-		this.data_cancelado = data_cancelado;
+		this.dataCadastro = dataCadastro;
+		this.dataFinalizado = dataFinalizado;
+		this.dataCancelado = dataCancelado;
 		this.pessoa = pessoa;
 		this.usuario = usuario;
 	}
@@ -108,28 +108,28 @@ public class Venda implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Double getValor_produtos() {
-		return valor_produtos;
+	public Double getValorProdutos() {
+		return valorProdutos;
 	}
 
-	public void setValor_produtos(Double valor_produtos) {
-		this.valor_produtos = valor_produtos;
+	public void setValorProdutos(Double valorProdutos) {
+		this.valorProdutos = valorProdutos;
 	}
 
-	public Double getValor_desconto() {
-		return valor_desconto;
+	public Double getValorDesconto() {
+		return valorDesconto;
 	}
 
-	public void setValor_desconto(Double valor_desconto) {
-		this.valor_desconto = valor_desconto;
+	public void setValorDesconto(Double valorDesconto) {
+		this.valorDesconto = valorDesconto;
 	}
 
-	public Double getValor_acrescimo() {
-		return valor_acrescimo;
+	public Double getValorAcrescimo() {
+		return valorAcrescimo;
 	}
 
-	public void setValor_acrescimo(Double valor_acrescimo) {
-		this.valor_acrescimo = valor_acrescimo;
+	public void setValorAcrescimo(Double valorAcrescimo) {
+		this.valorAcrescimo = valorAcrescimo;
 	}
 
 	public VendaSituacao getSituacao() {
@@ -140,28 +140,28 @@ public class Venda implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Timestamp getData_finalizado() {
-		return data_finalizado;
+	public Timestamp getDataFinalizado() {
+		return dataFinalizado;
 	}
 
-	public void setData_finalizado(Timestamp data_finalizado) {
-		this.data_finalizado = data_finalizado;
+	public void setDataFinalizado(Timestamp dataFinalizado) {
+		this.dataFinalizado = dataFinalizado;
 	}
 
-	public Timestamp getData_cancelado() {
-		return data_cancelado;
+	public Timestamp getDataCancelado() {
+		return dataCancelado;
 	}
 
-	public void setData_cancelado(Timestamp data_cancelado) {
-		this.data_cancelado = data_cancelado;
+	public void setDataCancelado(Timestamp dataCancelado) {
+		this.dataCancelado = dataCancelado;
 	}
 
 	public Pessoa getPessoa() {
@@ -180,12 +180,12 @@ public class Venda implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public PagamentoTipo getPagamentotipo() {

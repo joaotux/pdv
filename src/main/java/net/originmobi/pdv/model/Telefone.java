@@ -3,12 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,16 +25,18 @@ public class Telefone implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TelefoneTipo tipo;
-	private Date data_cadastro;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	public Telefone() {
 	}
 
-	public Telefone(String fone, TelefoneTipo tipo, Date data_cadastro) {
+	public Telefone(String fone, TelefoneTipo tipo, Date dataCadastro) {
 		super();
 		this.fone = fone;
 		this.tipo = tipo;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Long getCodigo() {
@@ -58,12 +55,12 @@ public class Telefone implements Serializable {
 		this.fone = fone;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public void setTipo(TelefoneTipo tipo) {

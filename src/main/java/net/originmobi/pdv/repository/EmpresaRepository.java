@@ -19,7 +19,7 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 	@Modifying
 	@Query(value = "update empresa set nome = :nome, nome_fantasia = :nome_fantasia, cnpj = :cnpj, ie = :ie, regime_tributario_codigo = :regime "
 			+ "where codigo = :codigo", nativeQuery = true)
-	void update(@Param("codigo") Long codigo, @Param("nome") String nome, @Param("nome_fantasia") String nome_fantasia,
+	void update(@Param("codigo") Long codigo, @Param("nome") String nome, @Param("nome_fantasia") String nomeFantasia,
 			@Param("cnpj") String cnpj, @Param("ie") String ie, @Param("regime") Long codRegime);
 
 }

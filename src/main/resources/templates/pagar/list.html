@@ -40,13 +40,13 @@
 						<td th:text="${parcela.codigo}"></td>
 						<td th:text="${parcela.pagar.fornecedor.nome}"></td>
 						<td th:text="${parcela.pagar.observacao}"></td>
-						<td class="text-center" th:text="|R$ ${{parcela.valor_total}}|"></td>
-						<td class="text-center" th:text="|R$ ${{parcela.valor_pago}}|"></td>
-						<td class="text-center" th:text="|R$ ${{parcela.valor_restante}}|"></td>
-						<td class="text-center" th:text="${{parcela.data_vencimento}}"></td>
+						<td class="text-center" th:text="|R$ ${{parcela.valorTotal}}|"></td>
+						<td class="text-center" th:text="|R$ ${{parcela.valorPago}}|"></td>
+						<td class="text-center" th:text="|R$ ${{parcela.valorRestante}}|"></td>
+						<td class="text-center" th:text="${{parcela.dataVencimento}}"></td>
 						<td><a sec:authorize="hasRole('PAGAR_DESPESA')"
 							th:if="!${parcela.isQuitado()}"
-							th:attr="data-vlrestante=${parcela.valor_restante}, data-parcela=${parcela.codigo}"
+							th:attr="data-vlrestante=${parcela.valorRestante}, data-parcela=${parcela.codigo}"
 							class="btn btn-modal-paga" data-toggle="modal"
 							data-target=".modalpagdespesa"><img alt="Pagar"
 								th:src="@{/icons/menu/pagamento.png}"></a></td>

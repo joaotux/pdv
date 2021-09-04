@@ -10,10 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DataAtual {
 
-	public DataAtual() {
-	}
-
-	public String DataAtualIncrementa(int diasAMais) {
+	public String dataAtualIncrementa(int diasAMais) {
 		String dataAlterada = "";
 
 		try {
@@ -32,8 +29,7 @@ public class DataAtual {
 	}
 
 	public Timestamp dataAtualTimeStamp() {
-		Timestamp dataAtual = new Timestamp(System.currentTimeMillis());
-		return dataAtual;
+		return new Timestamp(System.currentTimeMillis());
 	}
 
 }

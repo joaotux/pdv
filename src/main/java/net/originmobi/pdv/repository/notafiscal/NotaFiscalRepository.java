@@ -22,7 +22,7 @@ public interface NotaFiscalRepository extends JpaRepository<NotaFiscal, Long> {
 	Integer insere(@Param("modelo") int modelo, @Param("tipo") int tipo, @Param("natureza") String natureza,
 			@Param("serie") int serie, @Param("emissor") Long empresa, @Param("destinatario") Long coddesti,
 			@Param("tipoEmissao") int tipoEmissao, @Param("verProc") String verProc, @Param("frete") int tipoFrete,
-			@Param("finalidade") int finalidade, @Param("totais") Long total_codigo, @Param("cadastro") Date cadastro);
+			@Param("finalidade") int finalidade, @Param("totais") Long totalCodigo, @Param("cadastro") Date cadastro);
 	
 	@Query("select n.totais from NotaFiscal n where n.codigo = ?1")
 	NotaFiscalTotais buscaTotaisDaNota(Long codigo);

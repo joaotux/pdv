@@ -27,17 +27,19 @@ public class PagamentoTipo implements Serializable {
 	@Column(name = "forma_pagamento")
 	private String formaPagamento;
 
-	private int qtd_parcelas;
+	@Column(name = "qtd_parcelas")
+	private int qtdParcelas;
 
-	private Date data_cadastro;
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	public PagamentoTipo() {
 	}
 
-	public PagamentoTipo(String descricao, String formaPagamento, Date data_cadastro) {
+	public PagamentoTipo(String descricao, String formaPagamento, Date dataCadastro) {
 		this.descricao = descricao;
 		this.formaPagamento = formaPagamento;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Long getCodigo() {
@@ -56,12 +58,12 @@ public class PagamentoTipo implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public String getFormaPagamento() {
@@ -72,12 +74,12 @@ public class PagamentoTipo implements Serializable {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public int getQtd_parcelas() {
-		return qtd_parcelas;
+	public int getQtdParcelas() {
+		return qtdParcelas;
 	}
 
-	public void setQtd_parcelas(int qtd_parcelas) {
-		this.qtd_parcelas = qtd_parcelas;
+	public void setQtdParcelas(int qtdParcelas) {
+		this.qtdParcelas = qtdParcelas;
 	}
 
 }

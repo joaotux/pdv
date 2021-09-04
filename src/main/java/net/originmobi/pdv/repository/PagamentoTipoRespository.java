@@ -9,6 +9,6 @@ public interface PagamentoTipoRespository extends JpaRepository<PagamentoTipo, L
 
 	public PagamentoTipo findByCodigoIn(Long codigo);
 
-	@Query("select pt.qtd_parcelas from PagamentoTipo pt where pt.codigo = ?1")
+	@Query("select pt.qtdParcelas from PagamentoTipo pt where pt.codigo = ?1")
 	public String quantidadeParcelar(Long codigo);
 }

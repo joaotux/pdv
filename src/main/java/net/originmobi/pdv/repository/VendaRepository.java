@@ -28,12 +28,12 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 	@Query("select v.situacao from Venda v where v.codigo = ?1")
 	public String verificaSituacao(Long codigo);
 
-	@Query("select v.valor_produtos from Venda v where v.codigo = ?1")
+	@Query("select v.valorProdutos from Venda v where v.codigo = ?1")
 	public Double verificaValorProdutos(Long codVen);
 
 	@Transactional
 	@Modifying
-	@Query("update Venda v set v.valor_produtos = :valorProdutos where v.codigo = :codigo")
+	@Query("update Venda v set v.valorProdutos = :valorProdutos where v.codigo = :codigo")
 	public void atualizaValorProdutos(@Param("valorProdutos") Double vlProdutos, @Param("codigo") Long codigo);
 
 	@Query("select v from Venda v where v.situacao = ?1")
@@ -43,13 +43,13 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 
 	@Transactional
 	@Modifying
-	@Query("update Venda set situacao = :situacao, valor_total = :vlTotal, valor_desconto = :vlDesconto, valor_acrescimo = :vlAcrescimo, data_finalizado = :dataFinalizado, "
-			+ "pagamentotipo = :formaPagamento where codigo = :codigo and data_finalizado is null")
+	@Query("update Venda set situacao = :situacao, valorTotal = :vlTotal, valorDesconto = :vlDesconto, valorAcrescimo = :vlAcrescimo, dataFinalizado = :dataFinalizado, "
+			+ "pagamentotipo = :formaPagamento where codigo = :codigo and dataFinalizado is null")
 	public void fechaVenda(@Param("codigo") Long codVenda, @Param("situacao") VendaSituacao situacao,
 			@Param("vlTotal") Double vltotal, @Param("vlDesconto") Double vldesconto,
 			@Param("vlAcrescimo") Double vlacrescimo, @Param("dataFinalizado") Timestamp dataFinalizado,
 			@Param("formaPagamento") PagamentoTipo formaPagamento);
 
-	@Query("select count(*) from Venda where data_finalizado is null")
+	@Query("select count(*) from Venda where dataFinalizado is null")
 	public int qtdVendasEmAberto();
 }

@@ -2,14 +2,14 @@ package net.originmobi.pdv.filter;
 
 public class CaixaFilter {
 
-	private String data_cadastro;
+	private String dataCadastro;
 
-	public String getData_cadastro() {
-		return data_cadastro;
+	public String getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(String data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(String dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 }

@@ -41,18 +41,18 @@
 							<td class="col-md-1" th:text="${parcela.receber.codigo}"></td>
 							<td class="col-md-3" th:text="${parcela.receber.pessoa.nome}"></td>
 							<td class="text-center col-md-1"
-								th:text="|R$ ${{parcela.valor_total}}|"></td>
+								th:text="|R$ ${{parcela.valorTotal}}|"></td>
 							<td class="text-center col-md-1"
-								th:text="|R$ ${{parcela.valor_recebido}}|"></td>
+								th:text="|R$ ${{parcela.valorRecebido}}|"></td>
 							<td class="text-center col-md-1"
-								th:text="|R$ ${{parcela.valor_desconto}}|"></td>
+								th:text="|R$ ${{parcela.valorDesconto}}|"></td>
 							<td class="text-center col-md-1"
-								th:text="|R$ ${{parcela.valor_restante}}|"></td>
+								th:text="|R$ ${{parcela.valorRestante}}|"></td>
 							<td class="text-center col-md-1" th:text="${parcela.sequencia}"></td>
 							<td class="text-center col-md-1"
-								th:text="${{parcela.data_cadastro}}"></td>
+								th:text="${{parcela.dataCadastro}}"></td>
 							<td class="text-center col-md-1"
-								th:text="${{parcela.data_vencimento}}"></td>
+								th:text="${{parcela.dataVencimento}}"></td>
 							<td th:if="!${parcela.isQuitado()}"><input type="checkbox"
 								th:value="${parcela.codigo}" class="marcado" /></td>
 

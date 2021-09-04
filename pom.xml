@@ -27,9 +27,8 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>jaspersoft-third-party</id>
-			<name>Jaspersoft Third Party ce Artifacts</name>
-			<url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+			<id>central</id>
+			<url>https://repo1.maven.org/maven2</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>
@@ -39,8 +38,9 @@
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
-			<id>central</id>
-			<url>https://repo1.maven.org/maven2</url>
+			<id>jaspersoft-third-party</id>
+			<name>Jaspersoft Third Party ce Artifacts</name>
+			<url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>

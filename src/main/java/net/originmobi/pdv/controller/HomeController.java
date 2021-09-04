@@ -31,7 +31,7 @@ public class HomeController {
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView(DASHBOARD_DASHBOARD);
 		mv.addObject("pedidosAberto", vendas.qtdAbertos());
-		mv.addObject("total_a_receber", receberServ.total_a_receber());
+		mv.addObject("total_a_receber", receberServ.totalAReceber());
 		mv.addObject("total_a_pagar", pagarServ.totalParagarAberto());
 		mv.addObject("total_notas_emitidas", notas.totalNotaFiscalEmitidas());
 

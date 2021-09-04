@@ -4,13 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,23 +23,29 @@ public class Caixa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "Descricao")
 	@Size(max = 250, message = "Valor máximo para descrição é de 250 caracteres")
-	private String Descricao;
+	private String descricao;
 
+	@Column(name = "valor_abertura")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_abertura;
+	private Double valorAbertura;
 
+	@Column(name = "valor_total")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
+	@Column(name = "valor_fechamento")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_fechamento;
+	private Double valorFechamento;
 
+	@Column(name = "valor_entrada")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_entrada;
+	private Double valorEntrada;
 
+	@Column(name = "valor_saida")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_saida;
+	private Double valorSaida;
 
 	@Enumerated(EnumType.STRING)
 	private CaixaTipo tipo;
@@ -53,11 +53,13 @@ public class Caixa implements Serializable {
 	private String agencia;
 	private String conta;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_cadastro;
+	private Date dataCadastro;
 
+	@Column(name = "data_fechamento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Timestamp data_fechamento;
+	private Timestamp dataFechamento;
 
 	@ManyToOne
 	@JsonIgnore
@@ -66,21 +68,21 @@ public class Caixa implements Serializable {
 	public Caixa() {
 	}
 
-	public Caixa(String descricao, CaixaTipo tipo, Double valor_abertura, Double valor_total, Double valor_fechamento,
-			Date data_cadastro, Timestamp data_fechamento, Usuario usuario) {
-		this.Descricao = descricao;
+	public Caixa(String descricao, CaixaTipo tipo, Double valorAbertura, Double valorTotal, Double valorFechamento,
+				 Date dataCadastro, Timestamp dataFechamento, Usuario usuario) {
+		this.descricao = descricao;
 		this.tipo = tipo;
-		this.valor_abertura = valor_abertura;
-		this.valor_total = valor_total;
-		this.valor_fechamento = valor_fechamento;
-		this.data_cadastro = data_cadastro;
-		this.data_fechamento = data_fechamento;
+		this.valorAbertura = valorAbertura;
+		this.valorTotal = valorTotal;
+		this.valorFechamento = valorFechamento;
+		this.dataCadastro = dataCadastro;
+		this.dataFechamento = dataFechamento;
 		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
-		return "Caixa [codigo=" + codigo + ", descricao=" + Descricao + "]";
+		return "Caixa [codigo=" + codigo + ", descricao=" + descricao + "]";
 	}
 
 	public Boolean isCofre() {
@@ -92,7 +94,7 @@ public class Caixa implements Serializable {
 	}
 
 	public boolean isAberto() {
-		return null == data_fechamento;
+		return null == dataFechamento;
 	}
 
 	public Long getCodigo() {
@@ -104,51 +106,51 @@ public class Caixa implements Serializable {
 	}
 
 	public String getDescricao() {
-		return Descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
-		Descricao = descricao;
+		this.descricao = descricao;
 	}
 
-	public Double getValor_abertura() {
-		return valor_abertura;
+	public Double getValorAbertura() {
+		return valorAbertura;
 	}
 
-	public void setValor_abertura(Double valor_abertura) {
-		this.valor_abertura = valor_abertura;
+	public void setValorAbertura(Double valorAbertura) {
+		this.valorAbertura = valorAbertura;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public Double getValor_fechamento() {
-		return valor_fechamento;
+	public Double getValorFechamento() {
+		return valorFechamento;
 	}
 
-	public void setValor_fechamento(Double valor_fechamento) {
-		this.valor_fechamento = valor_fechamento;
+	public void setValorFechamento(Double valorFechamento) {
+		this.valorFechamento = valorFechamento;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Timestamp getData_fechamento() {
-		return data_fechamento;
+	public Timestamp getDataFechamento() {
+		return dataFechamento;
 	}
 
-	public void setData_fechamento(Timestamp data_fechamento) {
-		this.data_fechamento = data_fechamento;
+	public void setDataFechamento(Timestamp dataFechamento) {
+		this.dataFechamento = dataFechamento;
 	}
 
 	public Usuario getUsuario() {
@@ -159,20 +161,20 @@ public class Caixa implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Double getValor_entrada() {
-		return valor_entrada;
+	public Double getValorEntrada() {
+		return valorEntrada;
 	}
 
-	public void setValor_entrada(Double valor_entrada) {
-		this.valor_entrada = valor_entrada;
+	public void setValorEntrada(Double valorEntrada) {
+		this.valorEntrada = valorEntrada;
 	}
 
-	public Double getValor_saida() {
-		return valor_saida;
+	public Double getValorSaida() {
+		return valorSaida;
 	}
 
-	public void setValor_saida(Double valor_saida) {
-		this.valor_saida = valor_saida;
+	public void setValorSaida(Double valorSaida) {
+		this.valorSaida = valorSaida;
 	}
 
 	public CaixaTipo getTipo() {

@@ -1,123 +1,99 @@
 package net.originmobi.pdv.service;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Optional;
-
+import net.originmobi.pdv.model.*;
+import net.originmobi.pdv.repository.EmpresaParametrosRepository;
+import net.originmobi.pdv.repository.EmpresaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.originmobi.pdv.model.Cidade;
-import net.originmobi.pdv.model.Empresa;
-import net.originmobi.pdv.model.EmpresaParametro;
-import net.originmobi.pdv.model.Endereco;
-import net.originmobi.pdv.model.RegimeTributario;
-import net.originmobi.pdv.repository.EmpresaParametrosRepository;
-import net.originmobi.pdv.repository.EmpresaRepository;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class EmpresaService {
 
-	@Autowired
-	private EmpresaRepository empresas;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private EmpresaParametrosRepository parametros;
+    @Autowired
+    private EmpresaRepository empresas;
 
-	@Autowired
-	private RegimeTributarioService regimes;
+    @Autowired
+    private EmpresaParametrosRepository parametros;
 
-	@Autowired
-	private CidadeService cidades;
+    @Autowired
+    private RegimeTributarioService regimes;
 
-	@Autowired
-	private EnderecoService enderecos;
+    @Autowired
+    private CidadeService cidades;
 
-	public void cadastro(Empresa empresa) {
+    @Autowired
+    private EnderecoService enderecos;
 
-		try {
-			empresas.save(empresa);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+    public void cadastro(Empresa empresa) {
 
-	public Optional<Empresa> verificaEmpresaCadastrada() {
-		Optional<Empresa> empresa = empresas.buscaEmpresaCadastrada();
+        try {
+            empresas.save(empresa);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
 
-		if (empresa.isPresent())
-			return empresa;
+    public Optional<Empresa> verificaEmpresaCadastrada() {
 
-		Optional<Empresa> empresaOptiona = Optional.empty();
+        return empresas.buscaEmpresaCadastrada();
 
-		return empresaOptiona;
-	}
+    }
 
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public String merger(Long codigo, String nome, String nome_fantasia, String cnpj, String ie, int serie,
-			int ambiente, Long codRegime, Long codendereco, Long codcidade, String rua, String bairro, String numero,
-			String cep, String referencia, Double aliqCalcCredito) {
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public String merger(Long codigo, String nome, String nomeFantasia, String cnpj, String ie, int serie,
+                         int ambiente, Long codRegime, Long codendereco, Long codcidade, String rua, String bairro, String numero,
+                         String cep, String referencia, Double aliqCalcCredito) {
 
-		if (codigo != null) {
-			try {
-				empresas.update(codigo, nome, nome_fantasia, cnpj, ie, codRegime);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
+        if (codigo != null) {
+            try {
+                empresas.update(codigo, nome, nomeFantasia, cnpj, ie, codRegime);
+                parametros.update(serie, ambiente, aliqCalcCredito);
+                enderecos.update(codendereco, codcidade, rua, bairro, numero, cep, referencia);
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                return "Erro ao salvar dados da empresa, chame o suporte";
+            }
+        } else {
+            EmpresaParametro parametro = new EmpresaParametro();
 
-			try {
-				parametros.update(serie, ambiente, aliqCalcCredito);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
+            try {
+                parametro.setAmbiente(ambiente);
+                parametro.setSerieNfe(serie);
+                parametro.setpCredSN(aliqCalcCredito);
+                parametros.save(parametro);
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                return "Erro ao salvar dados da empresa, chame o suporte";
+            }
 
-			try {
-				enderecos.update(codendereco, codcidade, rua, bairro, numero, cep, referencia);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
-		} else {
-			EmpresaParametro parametro = new EmpresaParametro();
+            Optional<RegimeTributario> tributario = regimes.busca(codRegime);
+            Optional<Cidade> cidade = cidades.busca(codcidade);
 
-			try {
-				parametro.setAmbiente(ambiente);
-				parametro.setSerie_nfe(serie);
-				parametro.setpCredSN(aliqCalcCredito);
-				parametros.save(parametro);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
+            LocalDate dataAtual = LocalDate.now();
+            Endereco endereco = new Endereco(rua, bairro, numero, cep, referencia, Date.valueOf(dataAtual),
+                    cidade.orElse(null));
 
-			Optional<RegimeTributario> tributario = regimes.busca(codRegime);
-			Optional<Cidade> cidade = cidades.busca(codcidade);
+            try {
+                enderecos.cadastrar(endereco);
+                Empresa empresa = new Empresa(nome, nomeFantasia, cnpj, ie, tributario.orElse(null), endereco, parametro);
+                empresas.save(empresa);
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                return "Erro ao salvar dados da empresa, chame o suporte";
+            }
+        }
 
-			LocalDate dataAtual = LocalDate.now();
-			Endereco endereco = new Endereco(rua, bairro, numero, cep, referencia, Date.valueOf(dataAtual),
-					cidade.get());
-
-			try {
-				enderecos.cadastrar(endereco);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
-
-			try {
-				Empresa empresa = new Empresa(nome, nome_fantasia, cnpj, ie, tributario.get(), endereco, parametro);
-				empresas.save(empresa);
-			} catch (Exception e) {
-				System.out.println(e);
-				return "Erro ao salvar dados da empresa, chame o suporte";
-			}
-		}
-
-		return "Empresa salva com sucesso";
-	}
+        return "Empresa salva com sucesso";
+    }
 
 }

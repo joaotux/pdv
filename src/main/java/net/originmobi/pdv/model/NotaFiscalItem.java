@@ -25,15 +25,23 @@ public class NotaFiscalItem implements Serializable {
 	private Long codigo;
 
 	private Long codProd;
+
 	private int qtd;
+
 	private Double vlTotal;
+
 	private String ceantrib;
-	private String unidade_tribu;
-	private int qtd_tribu;
+
+	@Column(name = "unidade_tribu")
+	private String unidadeTribu;
+
+	@Column(name = "qtd_tribu")
+	private int qtdTribu;
+
 	private String cfop;
 
 	@Column(name = "vl_uni_tribu")
-	private Double v_uniTribu;
+	private Double vUniTribu;
 
 	@ManyToOne
 	@JoinColumn(name = "nota_fiscal_codigo")
@@ -47,14 +55,14 @@ public class NotaFiscalItem implements Serializable {
 		super();
 	}
 
-	public NotaFiscalItem(Long prod, int qtd, Double vlTotal, String uniTribu, int qtd_tribu, Double vlUnidade,
-			NotaFiscal notaFiscal, NotaFiscalItemImposto imposto, String cfop) {
+	public NotaFiscalItem(Long prod, int qtd, Double vlTotal, String uniTribu, int qtdTribu, Double vlUnidade,
+						  NotaFiscal notaFiscal, NotaFiscalItemImposto imposto, String cfop) {
 		this.codProd = prod;
 		this.qtd = qtd;
 		this.vlTotal = vlTotal;
-		this.unidade_tribu = uniTribu;
-		this.qtd_tribu = qtd_tribu;
-		this.v_uniTribu = vlUnidade;
+		this.unidadeTribu = uniTribu;
+		this.qtdTribu = qtdTribu;
+		this.vUniTribu = vlUnidade;
 		this.notaFiscal = notaFiscal;
 		this.impostos = imposto;
 		this.cfop = cfop;
@@ -100,28 +108,28 @@ public class NotaFiscalItem implements Serializable {
 		this.ceantrib = ceantrib;
 	}
 
-	public String getUnidade_tribu() {
-		return unidade_tribu;
+	public String getUnidadeTribu() {
+		return unidadeTribu;
 	}
 
-	public void setUnidade_tribu(String unidade_tribu) {
-		this.unidade_tribu = unidade_tribu;
+	public void setUnidadeTribu(String unidadeTribu) {
+		this.unidadeTribu = unidadeTribu;
 	}
 
-	public int getQtd_tribu() {
-		return qtd_tribu;
+	public int getQtdTribu() {
+		return qtdTribu;
 	}
 
-	public void setQtd_tribu(int qtd_tribu) {
-		this.qtd_tribu = qtd_tribu;
+	public void setQtdTribu(int qtdTribu) {
+		this.qtdTribu = qtdTribu;
 	}
 
-	public Double getV_uniTribu() {
-		return v_uniTribu;
+	public Double getVUniTribu() {
+		return vUniTribu;
 	}
 
-	public void setV_uniTribu(Double v_uniTribu) {
-		this.v_uniTribu = v_uniTribu;
+	public void setVUniTribu(Double vUniTribu) {
+		this.vUniTribu = vUniTribu;
 	}
 
 	public NotaFiscal getNotaFiscal() {

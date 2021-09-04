@@ -3,11 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,8 +26,9 @@ public class Transferencia implements Serializable {
 	@Size(max = 255, message = "Limite de 255 caracteres para observação")
 	private String observacao;
 
+	@Column(name = "data_transferencia")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Timestamp data_transferencia;
+	private Timestamp dataTransferencia;
 
 	@ManyToOne
 	private Caixa origem;
@@ -46,10 +43,10 @@ public class Transferencia implements Serializable {
 		super();
 	}
 
-	public Transferencia(Double valor, Timestamp data_transferencia, Caixa origem, Caixa destino, Usuario usuario,
-			String observaocao) {
+	public Transferencia(Double valor, Timestamp dataTransferencia, Caixa origem, Caixa destino, Usuario usuario,
+						 String observaocao) {
 		this.valor = valor;
-		this.data_transferencia = data_transferencia;
+		this.dataTransferencia = dataTransferencia;
 		this.origem = origem;
 		this.destino = destino;
 		this.usuario = usuario;
@@ -72,12 +69,12 @@ public class Transferencia implements Serializable {
 		this.valor = valor;
 	}
 
-	public Timestamp getData_transferencia() {
-		return data_transferencia;
+	public Timestamp getDataTransferencia() {
+		return dataTransferencia;
 	}
 
-	public void setData_transferencia(Timestamp data_transferencia) {
-		this.data_transferencia = data_transferencia;
+	public void setDataTransferencia(Timestamp dataTransferencia) {
+		this.dataTransferencia = dataTransferencia;
 	}
 
 	public Caixa getOrigem() {

@@ -2,12 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ajuste_produtos")
@@ -25,9 +20,14 @@ public class AjusteProduto implements Serializable {
 	@ManyToOne
 	private Produto produto;
 
-	private int estoque_atual;
-	private int qtd_alteracao;
-	private int qtd_nova;
+	@Column(name = "estoque_atual")
+	private int estoqueAtual;
+
+	@Column(name = "qtd_alteracao")
+	private int qtdAlteracao;
+
+	@Column(name = "qtd_nova")
+	private int qtdNova;
 
 	public AjusteProduto() {
 		super();
@@ -57,28 +57,28 @@ public class AjusteProduto implements Serializable {
 		this.produto = produto;
 	}
 
-	public int getEstoque_atual() {
-		return estoque_atual;
+	public int getEstoqueAtual() {
+		return estoqueAtual;
 	}
 
-	public void setEstoque_atual(int estoque_atual) {
-		this.estoque_atual = estoque_atual;
+	public void setEstoqueAtual(int estoqueAtual) {
+		this.estoqueAtual = estoqueAtual;
 	}
 
-	public int getQtd_alteracao() {
-		return qtd_alteracao;
+	public int getQtdAlteracao() {
+		return qtdAlteracao;
 	}
 
-	public void setQtd_alteracao(int qtd_alteracao) {
-		this.qtd_alteracao = qtd_alteracao;
+	public void setQtdAlteracao(int qtdAlteracao) {
+		this.qtdAlteracao = qtdAlteracao;
 	}
 
-	public int getQtd_nova() {
-		return qtd_nova;
+	public int getQtdNova() {
+		return qtdNova;
 	}
 
-	public void setQtd_nova(int qtd_nova) {
-		this.qtd_nova = qtd_nova;
+	public void setQtdNova(int qtdNova) {
+		this.qtdNova = qtdNova;
 	}
 
 }

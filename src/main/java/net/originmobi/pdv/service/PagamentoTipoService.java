@@ -1,44 +1,42 @@
 package net.originmobi.pdv.service;
 
+import net.originmobi.pdv.model.PagamentoTipo;
+import net.originmobi.pdv.repository.PagamentoTipoRespository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import net.originmobi.pdv.model.PagamentoTipo;
-import net.originmobi.pdv.repository.PagamentoTipoRespository;
-
 @Service
 public class PagamentoTipoService {
 
-	@Autowired
-	private PagamentoTipoRespository pagamentotipo;
+    private final LocalDate dataAtual = LocalDate.now();
 
-	private LocalDate dataAtual = LocalDate.now();
+    @Autowired
+    private PagamentoTipoRespository pagamentotipo;
 
-	public void cadastrar(PagamentoTipo tipo) {
-		tipo.setData_cadastro(Date.valueOf(dataAtual));
-		
-		String[] quantidade = tipo.getFormaPagamento().replaceAll("/", " ").split(" ");
-		
-		tipo.setQtd_parcelas(quantidade.length);
+    public void cadastrar(PagamentoTipo tipo) {
+        tipo.setDataCadastro(Date.valueOf(dataAtual));
 
-		pagamentotipo.save(tipo);
-	}
+        String[] quantidade = tipo.getFormaPagamento().replace("/", " ").split(" ");
 
-	public List<PagamentoTipo> listar() {
-		return pagamentotipo.findAll();
-	}
+        tipo.setQtdParcelas(quantidade.length);
 
-	public PagamentoTipo busca(Long codigo) {
-		return pagamentotipo.findByCodigoIn(codigo);
-	}
+        pagamentotipo.save(tipo);
+    }
 
-	public String qtdParcelas(Long codigo) {
-		String qtd = pagamentotipo.quantidadeParcelar(codigo);
-		return qtd;
-	}
+    public List<PagamentoTipo> listar() {
+        return pagamentotipo.findAll();
+    }
+
+    public PagamentoTipo busca(Long codigo) {
+        return pagamentotipo.findByCodigoIn(codigo);
+    }
+
+    public String qtdParcelas(Long codigo) {
+        return pagamentotipo.quantidadeParcelar(codigo);
+    }
 
 }

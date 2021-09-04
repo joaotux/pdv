@@ -2,11 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 
@@ -25,7 +21,9 @@ public class ModBcIcms implements Serializable {
 
 	private int tipo;
 	private String descricao;
-	private int sub_tributaria;
+
+	@Column(name = "sub_tributaria")
+	private int subTributaria;
 
 	public ModBcIcms() {
 		super();
@@ -55,12 +53,12 @@ public class ModBcIcms implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public int getSub_tributaria() {
-		return sub_tributaria;
+	public int getSubTributaria() {
+		return subTributaria;
 	}
 
-	public void setSub_tributaria(int sub_tributaria) {
-		this.sub_tributaria = sub_tributaria;
+	public void setSubTributaria(int subTributaria) {
+		this.subTributaria = subTributaria;
 	}
 
 }

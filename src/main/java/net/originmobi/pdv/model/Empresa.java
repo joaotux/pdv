@@ -2,12 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -26,9 +21,10 @@ public class Empresa implements Serializable {
 	@Size(min = 4, max = 255, message = "Quantidade minima de caracteres é de 4 e máxima de 255")
 	private String nome;
 
+	@Column(name = "nome_fantasia")
 	@NotBlank(message = "Nome não pode ser em branco")
 	@Size(min = 4, max = 255, message = "Quantidade minima de caracteres é de 4 e máxima de 255")
-	private String nome_fantasia;
+	private String nomeFantasia;
 
 	@CNPJ
 	private String cnpj;
@@ -36,7 +32,8 @@ public class Empresa implements Serializable {
 	private String ie;
 
 	@ManyToOne
-	private RegimeTributario regime_tributario;
+	@JoinColumn(name = "regime_tributario_codigo")
+	private RegimeTributario regimeTributario;
 
 	@OneToOne
 	private EmpresaParametro parametro;
@@ -48,13 +45,13 @@ public class Empresa implements Serializable {
 		super();
 	}
 
-	public Empresa(String nome, String nome_fantasia, String cnpj, String ie, RegimeTributario regime,
-			Endereco endereco, EmpresaParametro parametro) {
+	public Empresa(String nome, String nomeFantasia, String cnpj, String ie, RegimeTributario regime,
+				   Endereco endereco, EmpresaParametro parametro) {
 		this.nome = nome;
-		this.nome_fantasia = nome_fantasia;
+		this.nomeFantasia = nomeFantasia;
 		this.cnpj = cnpj;
 		this.ie = ie;
-		this.regime_tributario = regime;
+		this.regimeTributario = regime;
 		this.endereco = endereco;
 		this.parametro = parametro;
 
@@ -76,12 +73,12 @@ public class Empresa implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getNome_fantasia() {
-		return nome_fantasia;
+	public String getNomeFantasia() {
+		return nomeFantasia;
 	}
 
-	public void setNome_fantasia(String nome_fantasia) {
-		this.nome_fantasia = nome_fantasia;
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
 	}
 
 	public String getCnpj() {
@@ -100,12 +97,12 @@ public class Empresa implements Serializable {
 		this.ie = ie;
 	}
 
-	public RegimeTributario getRegime_tributario() {
-		return regime_tributario;
+	public RegimeTributario getRegimeTributario() {
+		return regimeTributario;
 	}
 
-	public void setRegime_tributario(RegimeTributario regime_tributario) {
-		this.regime_tributario = regime_tributario;
+	public void setRegimeTributario(RegimeTributario regimeTributario) {
+		this.regimeTributario = regimeTributario;
 	}
 
 	public EmpresaParametro getParametro() {

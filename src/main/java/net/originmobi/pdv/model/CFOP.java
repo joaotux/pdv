@@ -2,10 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,8 +14,9 @@ public class CFOP implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "cfop")
 	@Size(max = 4, message = "Tamanho máximo do CFOP é de 4 digitos")
-	private String cfop;
+	private String codCfop;
 
 	@Size(max = 250, message = "Tamanho máximo da descrição é de 250 caracteres")
 	private String descricao;
@@ -38,12 +36,12 @@ public class CFOP implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getCfop() {
-		return cfop;
+	public String getCodCfop() {
+		return codCfop;
 	}
 
-	public void setCfop(String cfop) {
-		this.cfop = cfop;
+	public void setCodCfop(String cfop) {
+		this.codCfop = cfop;
 	}
 
 	public String getDescricao() {

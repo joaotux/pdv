@@ -1,9 +1,11 @@
 package net.originmobi.pdv.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import net.originmobi.pdv.model.GrupoUsuario;
+import net.originmobi.pdv.model.Permissoes;
+import net.originmobi.pdv.model.Usuario;
+import net.originmobi.pdv.repository.GrupoUsuarioRepository;
+import net.originmobi.pdv.repository.PermissoesRespository;
+import net.originmobi.pdv.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,12 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import net.originmobi.pdv.model.GrupoUsuario;
-import net.originmobi.pdv.model.Permissoes;
-import net.originmobi.pdv.model.Usuario;
-import net.originmobi.pdv.repository.GrupoUsuarioRepository;
-import net.originmobi.pdv.repository.PermissoesRespository;
-import net.originmobi.pdv.repository.UsuarioRepository;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Component
 public class LoginUserDatailsService implements UserDetailsService {
@@ -42,11 +41,11 @@ public class LoginUserDatailsService implements UserDetailsService {
 				authorities(usuario));
 	}
 
-	public Collection<? extends GrantedAuthority> authorities(Usuario usuario) {
+	public Collection<GrantedAuthority> authorities(Usuario usuario) {
 		return authorities(grupos.findByUsuarioIn(usuario));
 	}
 
-	public Collection<? extends GrantedAuthority> authorities(List<GrupoUsuario> grupos) {
+	public Collection<GrantedAuthority> authorities(List<GrupoUsuario> grupos) {
 		Collection<GrantedAuthority> auths = new ArrayList<>();
 
 		for (GrupoUsuario grupo : grupos) {

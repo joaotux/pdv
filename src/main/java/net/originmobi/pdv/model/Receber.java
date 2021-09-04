@@ -3,12 +3,7 @@ package net.originmobi.pdv.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,28 +23,29 @@ public class Receber implements Serializable {
 	@Size(max = 255)
 	private String observacao;
 
+	@Column(name = "valor_total")
 	@NumberFormat(pattern = "##,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
 	@ManyToOne
 	private Pessoa pessoa;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
 	@OneToOne
 	private Venda venda;
 
-	@Deprecated
 	public Receber() {
 	}
 
-	public Receber(String observacao, Double valor_total, Pessoa pessoa, Timestamp data_cadastro,
-			Venda venda) {
+	public Receber(String observacao, Double valorTotal, Pessoa pessoa, Timestamp dataCadastro,
+				   Venda venda) {
 		this.observacao = observacao;
-		this.valor_total = valor_total;
+		this.valorTotal = valorTotal;
 		this.pessoa = pessoa;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 		this.venda = venda;
 	}
 
@@ -69,12 +65,12 @@ public class Receber implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public Pessoa getPessoa() {
@@ -85,12 +81,12 @@ public class Receber implements Serializable {
 		this.pessoa = pessoa;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Venda getVenda() {

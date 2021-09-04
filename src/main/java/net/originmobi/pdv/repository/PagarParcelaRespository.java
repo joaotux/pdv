@@ -26,7 +26,7 @@ public interface PagarParcelaRespository extends JpaRepository<PagarParcela, Lon
 			@Param("quitado") int quitado, @Param("cadastro") Timestamp cadastro,
 			@Param("vencimento") LocalDate vencimento, @Param("pagar") Pagar pagar);
 
-	@Query("select p from PagarParcela p where p.quitado = 0 order by p.data_vencimento")
+	@Query("select p from PagarParcela p where p.quitado = 0 order by p.dataVencimento")
 	Page<PagarParcela> listaOrdenada(Pageable pageable);
 
 	@Query(value = "select * from parcela_pagar pp, pagar p, fornecedor f where p.codigo = pp.pagar_codigo and f.codigo = p.fornecedor_codigo "

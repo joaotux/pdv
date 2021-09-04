@@ -1,26 +1,20 @@
 package net.originmobi.pdv.controller;
 
-import java.util.List;
-
+import net.originmobi.pdv.model.Titulo;
+import net.originmobi.pdv.model.TituloTipo;
+import net.originmobi.pdv.model.cartao.MaquinaCartao;
+import net.originmobi.pdv.service.TituloService;
+import net.originmobi.pdv.service.TituloTipoService;
+import net.originmobi.pdv.service.cartao.MaquinaCartaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.originmobi.pdv.model.Titulo;
-import net.originmobi.pdv.model.TituloTipo;
-import net.originmobi.pdv.model.cartao.MaquinaCartao;
-import net.originmobi.pdv.service.TituloTipoService;
-import net.originmobi.pdv.service.cartao.MaquinaCartaoService;
+import java.util.List;
 
 @Controller
 @RequestMapping("/titulos")
@@ -70,7 +64,7 @@ public class TituloController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/excluir/{codigo}", method = RequestMethod.DELETE)
+	@DeleteMapping("/excluir/{codigo}")
 	public @ResponseBody String excluir(@PathVariable("codigo") Long codigo) {
 		return titulos.remover(codigo);
 	}

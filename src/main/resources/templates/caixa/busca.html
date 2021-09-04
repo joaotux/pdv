@@ -6,13 +6,14 @@
 	<div class="row">
 		<div class="margem-top">
 			<div class="col-md-4 col-md-offset-8">
+				<!--/*@thymesVar id="filterCaixa" type="net.originmobi.pdv.filter.CaixaFilter"*/-->
 				<form th:action="@{/caixa}" th:object="${filterCaixa}" method="GET">
 					<div class="input-group">
 						<input type="text" class="form-control"
-							placeholder="Data abertura" th:field="*{data_cadastro}"
+							placeholder="Data abertura" th:field="*{dataCadastro}"
 							data-provide="datepicker" data-date-format="yyyy/mm/dd"
 							data-date-language="pt-BR" data-date-autoclose="true"
-							data-date-today-highlight="true" name="data_cadastro" />
+							data-date-today-highlight="true" name="dataCadastro" />
 
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit">

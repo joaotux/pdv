@@ -25,9 +25,10 @@ public class Fornecedor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "nome_fantasia")
 	@NotNull(message = "Nome Fantasia é obrigatório")
 	@Size(max = 250, message = "Tamanho máximo de 250 caracteres")
-	private String nome_fantasia;
+	private String nomeFantasia;
 
 	@NotNull(message = "Nome é obrigatório")
 	@Size(max = 205, message = "Tamanho máximo de 250 caracteres")
@@ -39,15 +40,18 @@ public class Fornecedor implements Serializable {
 	@Size(max = 18)
 	private String cnpj;
 
+	@Column(name = "inscricao_estadual")
 	@NotNull(message = "Inscrição Estadual é obrigatório")
-	private String inscricao_estadual;
+	private String inscricaoEstadual;
 
 	@NotNull
 	private int ativo;
 
 	@Size(max = 150, message = "Tamanho máximo permitido de 150 caracteres")
 	private String observacao;
-	private Date data_cadastro;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	@OneToMany
 	private List<Telefone> telefone;
@@ -58,16 +62,16 @@ public class Fornecedor implements Serializable {
 	public Fornecedor() {
 	}
 
-	public Fornecedor(Long codigo, String nome_fantasia, String nome, String cnpj, String escricao_estadual, int ativo,
-			Date data_cadastro, Endereco endereco, List<Telefone> telefone) {
+	public Fornecedor(Long codigo, String nomeFantasia, String nome, String cnpj, String inscricaoEstadual, int ativo,
+					  Date dataCadastro, Endereco endereco, List<Telefone> telefone) {
 		super();
 		this.codigo = codigo;
-		this.nome_fantasia = nome_fantasia;
+		this.nomeFantasia = nomeFantasia;
 		this.nome = nome;
 		this.cnpj = cnpj;
-		this.inscricao_estadual = escricao_estadual;
+		this.inscricaoEstadual = inscricaoEstadual;
 		this.ativo = ativo;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 		this.endereco = endereco;
 		this.telefone = telefone;
 	}
@@ -80,12 +84,12 @@ public class Fornecedor implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getNome_fantasia() {
-		return nome_fantasia;
+	public String getNomeFantasia() {
+		return nomeFantasia;
 	}
 
-	public void setNome_fantasia(String nome_fantasia) {
-		this.nome_fantasia = nome_fantasia;
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
 	}
 
 	public String getNome() {
@@ -104,12 +108,12 @@ public class Fornecedor implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public String getInscricao_estadual() {
-		return inscricao_estadual;
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
 	}
 
-	public void setInscricao_estadual(String inscricao_estadual) {
-		this.inscricao_estadual = inscricao_estadual;
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
 	public int getAtivo() {
@@ -120,12 +124,12 @@ public class Fornecedor implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Endereco getEndereco() {

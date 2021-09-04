@@ -6,6 +6,8 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import net.originmobi.pdv.utilitarios.DataAtual;
 
 @Service
 public class ParcelaService {
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private ParcelaRepository parcelas;
@@ -46,26 +50,32 @@ public class ParcelaService {
 	public String receber(Long parcela, Double totalPago, Double acrescimo, Double desconto) {
 		DataAtual dataAtual = new DataAtual();
 
-		Optional<Parcela> parcelaAtual = parcelas.findById(parcela);
+		Optional<Parcela> parcelaAtualOptional = parcelas.findById(parcela);
 
-		if (parcelaAtual.map(Parcela::getQuitado).get().equals(1))
+		if (!parcelaAtualOptional.isPresent()) {
+			throw new RuntimeException("Parcela não encontrada");
+		}
+
+		Parcela parcelaAtual = parcelaAtualOptional.get();
+
+		if (parcelaAtual.getQuitado() == 1)
 			return "Parcela " + parcela + " já esta quitada";
 
 		DecimalFormat df = new DecimalFormat("#.00");
 
-		Double vlRecebido = (totalPago + acrescimo) + parcelaAtual.map(Parcela::getValor_recebido).get();
-		Double vlRestante = (parcelaAtual.map(Parcela::getValor_restante).get() - (totalPago + desconto));
-		Double vlDesconto = (parcelaAtual.map(Parcela::getValor_desconto)).get() + desconto;
-		Double vlAcrescimo = (parcelaAtual.map(Parcela::getValor_acrescimo)).get() + acrescimo;
+		Double vlRecebido = (totalPago + acrescimo) + parcelaAtual.getValorRecebido();
+		double vlRestante = parcelaAtual.getValorRestante() - (totalPago + desconto);
+		Double vlDesconto = parcelaAtual.getValorDesconto() + desconto;
+		Double vlAcrescimo = parcelaAtual.getValorAcrescimo() + acrescimo;
 
 		vlRestante = vlRestante < 0 ? 0.00 : vlRestante;
-		int quitado = Double.valueOf(df.format(vlRestante).replace(",", ".")) <= 0 ? 1 : 0;
+		int quitado = Double.parseDouble(df.format(vlRestante).replace(",", ".")) <= 0 ? 1 : 0;
 
 		try {
 			parcelas.receber(vlDesconto, vlAcrescimo, vlRecebido, vlRestante, quitado, dataAtual.dataAtualTimeStamp(),
 					parcela);
 		} catch (Exception e) {
-			e.getMessage();
+			logger.error(e.getMessage(), e);
 			throw new RuntimeException();
 		}
 

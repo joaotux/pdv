@@ -1,5 +1,15 @@
 package net.originmobi.pdv.service;
 
+import net.originmobi.pdv.model.ImagemProduto;
+import net.originmobi.pdv.model.Produto;
+import net.originmobi.pdv.repository.ImagemProdutoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,99 +18,87 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import net.originmobi.pdv.model.ImagemProduto;
-import net.originmobi.pdv.model.Produto;
-import net.originmobi.pdv.repository.ImagemProdutoRepository;
-
 @Service
 public class ImagemProdutoService {
 
-	@Autowired
-	private ImagemProdutoRepository imagens;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private ProdutoService produtos;
+    @Autowired
+    private ImagemProdutoRepository imagens;
 
-	private ImagemProduto imagemProduto;
+    @Autowired
+    private ProdutoService produtos;
 
-	private String contexto;
+    private Path diretorio;
 
-	private Path DIRETORIO;
+    public String cadastrar(MultipartFile file, Long codigoProduto) throws IOException {
 
-	private String uri;
+        Random vlAleatorio = new Random();
 
-	public String cadastrar(MultipartFile file, Long codigoProduto) throws IOException {
+        // aqui pego o contexto da aplicação
+        String contexto;
+        try {
+            contexto = new File(".").getCanonicalPath();
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            return "erro ao pegar o contexto da aplicação";
+        }
 
-		Random vlAleatorio = new Random();
+        // defino o diretorio onde será salva a imagem
+        diretorio = Paths.get(contexto.replace("/bin", "") + "/webapps/pdv/WEB-INF/classes/static/imagens-produtos/");
 
-		// aqui pego o contexto da aplicação
-		try {
-			contexto = new File(".").getCanonicalPath();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			return "erro ao pegar o contexto da aplicação";
-		}
+        // altero o nome da imagem e o seu tipo para jpg
+        String originalFilename = file.getOriginalFilename();
+        String imagemNovaDescricao = originalFilename != null
+                ? originalFilename.replaceAll(originalFilename,
+                "imagem" + "-" + vlAleatorio.nextInt() + ".jpg")
+                : null;
 
-		// defino o diretorio onde será salva a imagem
-		DIRETORIO = Paths.get(contexto.toString().replace("/bin", "") + "/webapps/pdv/WEB-INF/classes/static/imagens-produtos/");
+        try (FileOutputStream output = new FileOutputStream(diretorio.toString() + "/" + imagemNovaDescricao)) {
+            output.write(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "erro ao salvar aquivo no diretorio";
+        }
 
-		// altero o nome da imagem e o seu tipo para jpg
-		String imagemNovaDescricao = file.getOriginalFilename().replaceAll(file.getOriginalFilename(),
-				"imagem" + "-" + vlAleatorio.nextInt() + ".jpg");
+        removeImagem(codigoProduto);
 
-		FileOutputStream output = new FileOutputStream(DIRETORIO.toString() + "/" + imagemNovaDescricao);
-		
+        return salvaImagemDB(imagemNovaDescricao, codigoProduto);
 
-		try {
-			output.write(file.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "erro ao salvar aquivo no diretorio";
-		}
+    }
 
-		removeImagem(codigoProduto);
+    private String salvaImagemDB(String descricao, Long codigo) {
+        String uri = diretorio.toString() + "/" + descricao;
+        LocalDate dataAtual = LocalDate.now();
+        Produto produto = produtos.busca(codigo);
 
-		return salvaImagemDB(imagemNovaDescricao, codigoProduto);
+        ImagemProduto imagemProduto = new ImagemProduto(descricao, uri, java.sql.Date.valueOf(dataAtual), produto);
 
-	}
+        try {
+            imagens.save(imagemProduto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "erro ao gravar imagem no banco de dados";
+        }
+        return "ok";
+    }
 
-	private String salvaImagemDB(String descricao, Long codigo) {
-		uri = DIRETORIO.toString() + "/" + descricao;
-		LocalDate dataAtual = LocalDate.now();
-		Produto produto = produtos.busca(codigo);
+    private void removeImagem(Long codigoProduto) {
+        ImagemProduto imagem = imagens.findByProdutoCodigo(codigoProduto);
 
-		imagemProduto = new ImagemProduto(descricao, uri, java.sql.Date.valueOf(dataAtual), produto);
+        if (imagem != null) {
+            imagens.delete(imagem);
 
-		try {
-			imagens.save(imagemProduto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "erro ao gravar imagem no banco de dados";
-		}
-		return "ok";
-	}
+            Path path = Paths.get(imagem.getUri());
 
-	private void removeImagem(Long codigoProduto) {
-		ImagemProduto imagem = imagens.findByProdutoCodigo(codigoProduto);
+            FileSystemUtils.deleteRecursively(path.toFile());
+        }
+    }
 
-		if (imagem != null) {
-			imagens.delete(imagem);
-			
-			Path path = Paths.get(imagem.getUri());
-			
-			FileSystemUtils.deleteRecursively(path.toFile());
-		}
-	}
-	
-	public ImagemProduto busca(Long codigoProduto) {
-		ImagemProduto imagemPadrao = new ImagemProduto("image-upload.png", "", null, null);
-		ImagemProduto imagem = imagens.findByProdutoCodigo(codigoProduto);
-		return imagem == null ? imagemPadrao : imagem;
-	}
+    public ImagemProduto busca(Long codigoProduto) {
+        ImagemProduto imagemPadrao = new ImagemProduto("image-upload.png", "", null, null);
+        ImagemProduto imagem = imagens.findByProdutoCodigo(codigoProduto);
+        return imagem == null ? imagemPadrao : imagem;
+    }
 
 }

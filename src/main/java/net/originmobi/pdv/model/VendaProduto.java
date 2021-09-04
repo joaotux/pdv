@@ -36,15 +36,15 @@ public class VendaProduto implements Serializable {
 
 	@Column(name = "valor_balanca")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_balanca;
+	private Double valorBalanca;
 
 	public VendaProduto() {
 	}
 
-	public VendaProduto(Long produto, Long venda, Double valor_balanca) {
+	public VendaProduto(Long produto, Long venda, Double valorBalanca) {
 		super();
 		this.produto = produto;
-		this.valor_balanca = valor_balanca;
+		this.valorBalanca = valorBalanca;
 		this.venda = venda;
 	}
 
@@ -72,12 +72,12 @@ public class VendaProduto implements Serializable {
 		this.venda = venda;
 	}
 
-	public Double getValor_balanca() {
-		return valor_balanca;
+	public Double getValorBalanca() {
+		return valorBalanca;
 	}
 
-	public void setValor_balanca(Double valor_balanca) {
-		this.valor_balanca = valor_balanca;
+	public void setValorBalanca(Double valorBalanca) {
+		this.valorBalanca = valorBalanca;
 	}
 
 }

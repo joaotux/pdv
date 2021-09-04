@@ -6,7 +6,7 @@ import net.originmobi.pdv.enumerado.cartao.CartaoTipo;
 public class CartaoFilter {
 	private CartaoTipo tipo;
 	private CartaoSituacao situacao;
-	private String data_recebimento;
+	private String dataRecebimento;
 
 	public CartaoTipo getTipo() {
 		return tipo;
@@ -24,12 +24,12 @@ public class CartaoFilter {
 		this.situacao = situacao;
 	}
 
-	public String getData_recebimento() {
-		return data_recebimento;
+	public String getDataRecebimento() {
+		return dataRecebimento;
 	}
 
-	public void setData_recebimento(String data_recebimento) {
-		this.data_recebimento = data_recebimento;
+	public void setDataRecebimento(String dataRecebimento) {
+		this.dataRecebimento = dataRecebimento;
 	}
 
 }

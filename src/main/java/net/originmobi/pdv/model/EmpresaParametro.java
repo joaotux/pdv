@@ -18,7 +18,9 @@ public class EmpresaParametro implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private int serie_nfe;
+
+	@Column(name = "serie_nfe")
+	private int serieNfe;
 
 	@Column(name = "tipo_ambiente_codigo")
 	private int ambiente;
@@ -37,12 +39,12 @@ public class EmpresaParametro implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public int getSerie_nfe() {
-		return serie_nfe;
+	public int getSerieNfe() {
+		return serieNfe;
 	}
 
-	public void setSerie_nfe(int serie_nfe) {
-		this.serie_nfe = serie_nfe;
+	public void setSerieNfe(int serieNfe) {
+		this.serieNfe = serieNfe;
 	}
 
 	public int getAmbiente() {

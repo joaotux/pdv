@@ -3,9 +3,9 @@ package net.originmobi.pdv.enumerado.cartao;
 public enum CartaoSituacao {
 	APROCESSAR("A Processar"), PROCESSADO("Processado"), ANTECIPADO("Antecipado");
 
-	private String descricao;
+	private final String descricao;
 
-	private CartaoSituacao(String descricao) {
+	CartaoSituacao(String descricao) {
 		this.descricao = descricao;
 	}
 

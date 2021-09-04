@@ -1,24 +1,5 @@
 package net.originmobi.pdv.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import net.originmobi.pdv.enumerado.caixa.CaixaTipo;
 import net.originmobi.pdv.enumerado.caixa.EstiloLancamento;
 import net.originmobi.pdv.enumerado.caixa.TipoLancamento;
@@ -30,6 +11,21 @@ import net.originmobi.pdv.service.CaixaLancamentoService;
 import net.originmobi.pdv.service.CaixaService;
 import net.originmobi.pdv.service.UsuarioService;
 import net.originmobi.pdv.singleton.Aplicacao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/caixa")
@@ -40,6 +36,9 @@ public class CaixaController {
 	private static final String CAIXA_LIST = "caixa/list";
 
 	private static final String CAIXA_FORM = "caixa/form";
+	public static final String CAIXA = "caixa";
+
+	Logger logger = LoggerFactory.getLogger(CaixaController.class);
 
 	@Autowired
 	private CaixaService caixas;
@@ -64,29 +63,35 @@ public class CaixaController {
 		return mv;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public @ResponseBody String cadastro(@RequestParam Map<String, String> request, UriComponentsBuilder b) {
 		String descricao = request.get("descricao");
 		String tipo = request.get("tipo");
 		String vlAbertura = request.get("valor_abertura");
 		String agencia = request.get("agencia");
 		String conta = request.get("conta");
-		
-		Double valor_abertura = vlAbertura.isEmpty() ? 0.0 : Double.valueOf(vlAbertura.replaceAll("\\.", "").replace(",", "."));
-		CaixaTipo caixa_tipo = CaixaTipo.valueOf(tipo);
-		
+
+        double valorAbertura = 0.0;
+        if (!vlAbertura.isEmpty()) {
+            String valorTratado = Pattern.compile("\\.").matcher(vlAbertura)
+                    .replaceAll("")
+                    .replace(',', '.');
+            valorAbertura = Double.parseDouble(valorTratado);
+        }
+		CaixaTipo caixaTipo = CaixaTipo.valueOf(tipo);
+
 		Caixa caixa = new Caixa();
 		caixa.setDescricao(descricao);
-		caixa.setTipo(caixa_tipo);
-		caixa.setValor_abertura(valor_abertura);
+		caixa.setTipo(caixaTipo);
+		caixa.setValorAbertura(valorAbertura);
 		caixa.setAgencia(agencia);
 		caixa.setConta(conta);
-		
+
 		UriComponents uri = b.path("/caixa/gerenciar/").build();
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(uri.toUri());
-		
+
 		Long codCaixa = caixas.cadastro(caixa);
 
 		return headers.toString() + codCaixa;
@@ -96,74 +101,77 @@ public class CaixaController {
 	@GetMapping("/gerenciar/{codigo}")
 	public ModelAndView gerenciar(@PathVariable("codigo") Caixa caixa) {
 		ModelAndView mv = new ModelAndView(CAIXA_GERENCIAR);
-		mv.addObject("caixa", caixa);
+		mv.addObject(CAIXA, caixa);
 		mv.addObject("lancamento", new CaixaLancamento());
 		mv.addObject("lancamentos", lancamentos.lancamentosDoCaixa(caixa));
 		return mv;
 	}
 
-	@RequestMapping(value = "/lancamento/suprimento", method = RequestMethod.POST)
+	@PostMapping("/lancamento/suprimento")
 	public @ResponseBody String fazSuprimento(@RequestParam Map<String, String> request) {
 		Double valor = Double.valueOf(request.get("valor").replace(",", "."));
 		String observacao = request.get("obs");
-		Long codCaixa = Long.decode(request.get("caixa"));
+		Long codCaixa = Long.decode(request.get(CAIXA));
 
 		String retorno = "";
 
 		try {
 			Optional<Caixa> caixa = caixas.busca(codCaixa);
-			Aplicacao aplicacao = Aplicacao.getInstancia();
-			Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+			if (caixa.isPresent()) {
+				Aplicacao aplicacao = Aplicacao.getInstancia();
+				Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+				CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SUPRIMENTO,
+						EstiloLancamento.ENTRADA, caixa.get(), usuario);
 
-			CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SUPRIMENTO,
-					EstiloLancamento.ENTRADA, caixa.get(), usuario);
-
-			retorno = lancamentos.lancamento(lancamento);
+				retorno = lancamentos.lancamento(lancamento);
+			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			logger.error(e.getMessage());
 		}
 
 		return retorno;
 	}
 
-	@RequestMapping(value = "/lancamento/sangria", method = RequestMethod.POST)
+	@PostMapping("/lancamento/sangria")
 	public @ResponseBody String fazSangria(@RequestParam Map<String, String> request) {
 		Double valor = Double.valueOf(request.get("valor").replace(",", "."));
 		String observacao = request.get("obs");
-		Long codCaixa = Long.decode(request.get("caixa"));
+		Long codCaixa = Long.decode(request.get(CAIXA));
 
 		String retorno = "";
 
 		try {
 			Optional<Caixa> caixa = caixas.busca(codCaixa);
-			Aplicacao aplicacao = Aplicacao.getInstancia();
-			Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+			if (caixa.isPresent()) {
+				Aplicacao aplicacao = Aplicacao.getInstancia();
+				Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
-			CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SANGRIA,
-					EstiloLancamento.SAIDA, caixa.get(), usuario);
-			retorno = lancamentos.lancamento(lancamento);
+				CaixaLancamento lancamento = new CaixaLancamento(observacao, valor, TipoLancamento.SANGRIA,
+						EstiloLancamento.SAIDA, caixa.get(), usuario);
+				retorno = lancamentos.lancamento(lancamento);
+			}
 		} catch (Exception e) {
-			e.getStackTrace();
+			logger.error(e.getMessage());
 		}
 
 		return retorno;
 	}
 
-	@RequestMapping(value = "/fechar", method = RequestMethod.POST)
+	@PostMapping("/fechar")
 	public @ResponseBody String fecha(@RequestParam Map<String, String> request) {
-		Long caixa = Long.decode(request.get("caixa"));
+		Long caixa = Long.decode(request.get(CAIXA));
 		String senha = request.get("senha");
-		
+
 		String mensagem = "";
 		try {
 			mensagem = caixas.fechaCaixa(caixa, senha);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
-		
+
 		return mensagem;
 	}
-	
+
 	@ModelAttribute("usuarioAtual")
 	public String usuarioAtual() {
 		Aplicacao aplicacao = Aplicacao.getInstancia();

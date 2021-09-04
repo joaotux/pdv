@@ -35,7 +35,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long> {
 			+ "valor_restante = :vlrestante, quitado = :quitado, data_pagamento = :data_pagamento where codigo = :codigo", nativeQuery = true)
 	public void receber(@Param("vldesconto") Double vldesconto, @Param("vlacrescimo") Double vlacrescimo,
 			@Param("vlrecebido") Double vlrecebido, @Param("vlrestante") Double vlrestante,
-			@Param("quitado") int quitado, @Param("data_pagamento") Timestamp data_pagamento,
+			@Param("quitado") int quitado, @Param("data_pagamento") Timestamp dataPagamento,
 			@Param("codigo") Long codParcela);
 
 	@Query(value = "select * from parcela p, receber r, pessoa pes where r.codigo = p.receber_codigo and  pes.codigo = r.pessoa_codigo "

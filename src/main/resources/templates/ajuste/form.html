@@ -18,7 +18,7 @@
 					<input type="hidden" th:field="*{codigo}" id="codajuste" /> <input
 						type="hidden" th:field="*{status}" id="statusAjuste" /> <input
 						type="hidden" th:field="*{usuario}" /> <input type="hidden"
-						th:field="*{data_processamento}" />
+						th:field="*{dataProcessamento}" />
 
 					<div class="row">
 						<div class="form-group col-md-2">
@@ -42,7 +42,7 @@
 						<div class="form-group col-md-offset-1 col-md-2">
 							<label for="data">Data Processamento</label> <input id="data"
 								type="text" class="form-control"
-								th:field="*{data_processamento}" disabled="disabled" />
+								th:field="*{dataProcessamento}" disabled="disabled" />
 						</div>
 					</div>
 
@@ -80,11 +80,11 @@
 											<td class="col-md-4"
 												th:text="${prodAjuste.produto.descricao}"></td>
 											<td class="col-md-2 text-center"
-												th:text="${prodAjuste.estoque_atual}"></td>
+												th:text="${prodAjuste.estoqueAtual}"></td>
 											<td class="col-md-2 text-center"
-												th:text="${prodAjuste.qtd_alteracao}"></td>
+												th:text="${prodAjuste.qtdAlteracao}"></td>
 											<td class="col-md-1 text-center"
-												th:text="${prodAjuste.qtd_nova}"></td>
+												th:text="${prodAjuste.qtdNova}"></td>
 											<td><a th:attr="data-coditem=${prodAjuste.codigo}"
 												th:href="@{/ajustes/remove/item/}" class="btn-remove-item-ajuste"><span
 													class="glyphicon glyphicon-remove"></span></a></td>

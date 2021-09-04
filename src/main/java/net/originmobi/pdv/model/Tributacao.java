@@ -4,12 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -26,8 +21,11 @@ public class Tributacao implements Serializable {
 	@Size(min = 4, max = 255, message = "Quantidade minima de caracteres é de 4 e máxima de 100")
 	private String descricao;
 
-	private Boolean subs_tributaria;
-	private Date data_cadastro;
+	@Column(name = "subs_tributaria")
+	private Boolean subsTributaria;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	@ManyToOne
 	private Empresa empresa;
@@ -55,20 +53,20 @@ public class Tributacao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Boolean getSubs_tributaria() {
-		return subs_tributaria;
+	public Boolean getSubsTributaria() {
+		return subsTributaria;
 	}
 
-	public void setSubs_tributaria(Boolean subs_tributaria) {
-		this.subs_tributaria = subs_tributaria;
+	public void setSubsTributaria(Boolean subsTributaria) {
+		this.subsTributaria = subsTributaria;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Empresa getEmpresa() {

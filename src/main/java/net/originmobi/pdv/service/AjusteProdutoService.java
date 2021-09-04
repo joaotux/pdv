@@ -1,83 +1,84 @@
 package net.originmobi.pdv.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import net.originmobi.pdv.enumerado.ajuste.AjusteStatus;
 import net.originmobi.pdv.model.Ajuste;
 import net.originmobi.pdv.model.AjusteProduto;
 import net.originmobi.pdv.model.Produto;
 import net.originmobi.pdv.repository.AjusteProdutoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AjusteProdutoService {
 
-	@Autowired
-	private AjusteProdutoRepository ajusteprodutos;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private AjusteProdutoRepository ajusteprodutos;
+    @Autowired
+    private ProdutoService produtos;
+    @Autowired
+    private AjusteService ajustes;
 
-	@Autowired
-	private ProdutoService produtos;
+    public List<AjusteProduto> listaProdutosAjuste(Long codAjuste) {
+        return ajusteprodutos.findByAjusteCodigoEquals(codAjuste);
+    }
 
-	@Autowired
-	private AjusteService ajustes;
+    public int buscaProdAjust(Long codAjuste, Long codProd) {
+        return ajusteprodutos.buscaProdAjuste(codAjuste, codProd);
+    }
 
-	public List<AjusteProduto> listaProdutosAjuste(Long codAjuste) {
-		return ajusteprodutos.findByAjusteCodigoEquals(codAjuste);
-	}
+    public String addProduto(Long codajuste, Long codprod, int qtdAlteracao) {
+        Optional<Ajuste> ajuste = ajustes.busca(codajuste);
 
-	public int buscaProdAjust(Long codAjuste, Long codProd) {
-		return ajusteprodutos.buscaProdAjuste(codAjuste, codProd);
-	}
+        ajuste.map(Ajuste::getStatus).ifPresent(ajusteStatus -> {
+            if (ajusteStatus.equals(AjusteStatus.PROCESSADO))
+                throw new RuntimeException("Ajuste já esta processado");
+        });
 
-	public String addProduto(Long codajuste, Long codprod, int qtd_alteracao) {
-		Optional<Ajuste> ajuste = ajustes.busca(codajuste);
+        Produto produto = produtos.busca(codprod);
+        int estoqueAqual = produto.getEstoque().getQtd();
 
-		if (ajuste.map(Ajuste::getStatus).get().equals(AjusteStatus.PROCESSADO))
-			throw new RuntimeException("Ajuste já esta processado");
+        int tem = buscaProdAjust(codajuste, codprod);
 
-		Produto produto = produtos.busca(codprod);
-		int estoque_aqual = produto.getEstoque().getQtd();
+        if (tem > 0)
+            throw new RuntimeException("Este produto já existe neste ajuste");
 
-		int tem = buscaProdAjust(codajuste, codprod);
+        if (qtdAlteracao == 0)
+            throw new RuntimeException("Quantidade inválido");
 
-		if (tem > 0)
-			throw new RuntimeException("Este produto já existe neste ajuste");
+        int novoEstoque = estoqueAqual + qtdAlteracao;
 
-		if (qtd_alteracao == 0)
-			throw new RuntimeException("Quantidade inválido");
+        try {
+            ajusteprodutos.insereProduto(codajuste, codprod, estoqueAqual, qtdAlteracao, novoEstoque);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException("Erro ao tentar inserir produto no ajuste, chame o suporte");
+        }
 
-		if (ajuste.map(Ajuste::getStatus).get().equals(AjusteStatus.PROCESSADO))
-			throw new RuntimeException("Ajuste já processado");
+        return "Ajuste processado com sucesso";
+    }
 
-		int novo_estoque = estoque_aqual + qtd_alteracao;
+    public String removeProduto(Long codajuste, Long coditem) {
+        Optional<Ajuste> ajuste = ajustes.busca(codajuste);
 
-		try {
-			ajusteprodutos.insereProduto(codajuste, codprod, estoque_aqual, qtd_alteracao, novo_estoque);
-		} catch (Exception e) {
-			System.out.println(e);
-			throw new RuntimeException("Erro ao tentar inserir produto no ajuste, chame o suporte");
-		}
-		
-		return "Ajuste processado com sucesso";
-	}
+        ajuste.map(Ajuste::getStatus).ifPresent(ajusteStatus -> {
+            if (ajusteStatus.equals(AjusteStatus.PROCESSADO))
+                throw new RuntimeException("Ajuste já esta processado");
+        });
 
-	public String removeProduto(Long codajuste, Long coditem) {
-		Optional<Ajuste> ajuste = ajustes.busca(codajuste);
-		
-		if(ajuste.map(Ajuste::getStatus).get().equals(AjusteStatus.PROCESSADO))
-			throw new RuntimeException("Ajuste já esta processado");
-		
-		try {
-			ajusteprodutos.removeProduto(codajuste, coditem);
-		} catch (Exception e) {
-			System.out.println(e);
-			throw new RuntimeException("Erro ao tentar remover produto do ajuste, chame o suporte");
-		}
-		
-		return "Produto removido com sucesso";
-	}
+        try {
+            ajusteprodutos.removeProduto(codajuste, coditem);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException("Erro ao tentar remover produto do ajuste, chame o suporte");
+        }
+
+        return "Produto removido com sucesso";
+    }
 
 }

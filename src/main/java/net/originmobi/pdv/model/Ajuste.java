@@ -1,19 +1,12 @@
 package net.originmobi.pdv.model;
 
+import net.originmobi.pdv.enumerado.ajuste.AjusteStatus;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import net.originmobi.pdv.enumerado.ajuste.AjusteStatus;
 
 @Entity
 public class Ajuste implements Serializable {
@@ -26,12 +19,14 @@ public class Ajuste implements Serializable {
 	private String observacao;
 	private AjusteStatus status;
 	private String usuario;
-	
+
+	@Column(name = "data_processamento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_processamento;
-	
+	private Date dataProcessamento;
+
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_cadastro;
+	private Date dataCadastro;
 
 	@OneToMany(mappedBy = "ajuste", cascade = CascadeType.REMOVE)
 	private List<AjusteProduto> produtos;
@@ -40,11 +35,11 @@ public class Ajuste implements Serializable {
 		super();
 	}
 
-	public Ajuste(AjusteStatus status, String usuario, Date data_cadastro) {
+	public Ajuste(AjusteStatus status, String usuario, Date dataCadastro) {
 		super();
 		this.status = status;
 		this.usuario = usuario;
-		this.data_cadastro = data_cadastro;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Long getCodigo() {
@@ -79,20 +74,20 @@ public class Ajuste implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Date getData_processamento() {
-		return data_processamento;
+	public Date getDataProcessamento() {
+		return dataProcessamento;
 	}
 
-	public void setData_processamento(Date data_processamento) {
-		this.data_processamento = data_processamento;
+	public void setDataProcessamento(Date dataProcessamento) {
+		this.dataProcessamento = dataProcessamento;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public List<AjusteProduto> getProdutos() {

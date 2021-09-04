@@ -1,21 +1,5 @@
 package net.originmobi.pdv.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import net.originmobi.pdv.enumerado.TelefoneTipo;
 import net.originmobi.pdv.filter.FornecedorFilter;
 import net.originmobi.pdv.model.Cidade;
@@ -26,6 +10,20 @@ import net.originmobi.pdv.service.CidadeService;
 import net.originmobi.pdv.service.EnderecoService;
 import net.originmobi.pdv.service.FornecedorService;
 import net.originmobi.pdv.service.TelefoneService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/fornecedor")
@@ -33,6 +31,9 @@ public class FornecedorController {
 
 	private static final String FORNECEDOR_FORM = "fornecedor/form";
 	private static final String FORNECEDOR_LIST = "fornecedor/list";
+	public static final String REDIRECT_FORNECEDOR_FORM = "redirect:/fornecedor/form";
+
+	Logger logger = LoggerFactory.getLogger(FornecedorController.class);
 
 	@Autowired
 	private FornecedorService fornecedores;
@@ -78,7 +79,7 @@ public class FornecedorController {
 
 	@PostMapping
 	@Transactional
-	public String codastrar(@Validated Fornecedor fornecedor, Errors errors, Endereco endereco, Telefone telefone,
+	public String cadastrar(@Validated Fornecedor fornecedor, Errors errors, Endereco endereco, Telefone telefone,
 			RedirectAttributes attributes) {
 
 		if (errors.hasErrors())
@@ -87,30 +88,30 @@ public class FornecedorController {
 		try {
 			enderecos.cadastrar(endereco);
 		} catch (Exception e) {
-			System.out.println("Erro ao cadastrar endereço " + e);
-			return "redirect:/fornecedor/form";
+			logger.error(String.format("Erro ao cadastrar endereço %s", e));
+			return REDIRECT_FORNECEDOR_FORM;
 		}
 
 		try {
 			telefones.cadastrar(telefone);
 		} catch (Exception e) {
-			System.out.println("Erro ao cadastrar telefone " + e);
-			return "redirect:/fornecedor/form";
+			logger.error(String.format("Erro ao cadastrar telefone %s", e));
+			return REDIRECT_FORNECEDOR_FORM;
 		}
 
 		fornecedor.setEndereco(endereco);
-		fornecedor.setTelefone(Arrays.asList(telefone));
+		fornecedor.setTelefone(Collections.singletonList(telefone));
 
 		try {
 			String mensagem = fornecedores.cadastrar(fornecedor);
 			attributes.addFlashAttribute("mensagem", mensagem);
 
-			return "redirect:/fornecedor/form";
+			return REDIRECT_FORNECEDOR_FORM;
 		} catch (Exception e) {
-			System.out.println("Erro ao cadastrar fornecedor " + e);
+			logger.error(String.format("Erro ao cadastrar fornecedor %s", e));
 		}
 
-		return "redirect:/fornecedor/form";
+		return REDIRECT_FORNECEDOR_FORM;
 	}
 
 	@ModelAttribute("cidades")

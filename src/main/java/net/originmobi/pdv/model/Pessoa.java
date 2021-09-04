@@ -38,9 +38,12 @@ public class Pessoa implements Serializable {
 
 	private String observacao;
 
+	@Column(name = "data_nascimento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_nascimento;
-	private Date data_cadastro;
+	private Date dataNascimento;
+
+	@Column(name = "data_cadastro")
+	private Date dataCadastro;
 
 	@ManyToOne
 	@JoinColumn(name = "endereco_codigo")
@@ -52,14 +55,14 @@ public class Pessoa implements Serializable {
 	public Pessoa() {
 	}
 
-	public Pessoa(String nome, String apelido, String cpfcnpj, String observacao, Date data_cadastro,
-			Date data_nascimento, Endereco endereco, List<Telefone> telefone) {
+	public Pessoa(String nome, String apelido, String cpfcnpj, String observacao, Date dataCadastro,
+				  Date dataNascimento, Endereco endereco, List<Telefone> telefone) {
 		this.nome = nome;
 		this.apelido = apelido;
 		this.cpfcnpj = cpfcnpj;
 		this.observacao = observacao;
-		this.data_cadastro = data_cadastro;
-		this.data_nascimento = data_nascimento;
+		this.dataCadastro = dataCadastro;
+		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
 		this.telefone = telefone;
 	}
@@ -104,20 +107,20 @@ public class Pessoa implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Date getData_cadastro() {
-		return data_cadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Date getData_nascimento() {
-		return data_nascimento;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setData_nascimento(Date data_nascimento) {
-		this.data_nascimento = data_nascimento;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Endereco getEndereco() {

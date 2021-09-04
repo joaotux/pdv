@@ -64,7 +64,7 @@
 
 				<div th:include="@{messagens/mensagemErro}"></div>
 
-				<input type="hidden" th:field="*{data_fechamento}"
+				<input type="hidden" th:field="*{dataFechamento}"
 					id="dataFechamantoCaixa" />
 
 				<div class="row">
@@ -85,7 +85,7 @@
 					<div class="form-group col-md-2 col-md-offset-10">
 						<label for="dataAbertura" class="txt-01">Data Abertura</label> <input
 							id="dataAbertura" name="data_cadastro" type="text"
-							class="form-control" th:value="*{{data_cadastro}}"
+							class="form-control" th:value="*{{dataCadastro}}"
 							disabled="disabled" />
 					</div>
 				</div>
@@ -96,20 +96,20 @@
 				<div class="row saldosCaixa">
 					<div class="form-group col-md-2 col-md-offset-6">
 						<label for="valorEntrada" id="valorEntrada">Entrada</label> <input
-							id="valorEntrada" th:value="*{{valor_entrada}}|" type="text"
+							id="valorEntrada" th:value="*{{valorEntrada}}|" type="text"
 							class="form-control" disabled="disabled" />
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="valorSaida" id="valorSaida">Saída</label> <input
-							id="valorSaida" th:value="*{{valor_saida}}" type="text"
+							id="valorSaida" th:value="*{{valorSaida}}" type="text"
 							class="form-control" disabled="disabled" />
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="valorTotal" id="valorTotal">Saldo Total</label> <input
-							id="valorTotal" type="text" class="form-control"
-							th:value="*{{valor_total}}" disabled="disabled" />
+              id="valorTotal" type="text" class="form-control"
+              th:value="*{{valorTotal}}" disabled="disabled" />
 					</div>
 				</div>
 			</form>

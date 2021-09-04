@@ -20,10 +20,10 @@ public interface TributacaoRegraRepository extends JpaRepository<TributacaoRegra
 			+ "aliq_ipi, aliq_icms, cst_ipi_codigo, data_cadastro) values (:codtribu, :tipo, :uf, :cfop, :cst_csosn, :cstpis, :cst_cofins, :pis, :cofins, :aliq_ipi, "
 			+ ":aliq_icms, :cst_ipi, :data_cadastro)", nativeQuery = true)
 	void cadastrar(@Param("codtribu") Long codtribu, @Param("tipo") String tipo, @Param("uf") String uf,
-			@Param("cfop") String cfop, @Param("cst_csosn") String cst_csosn, @Param("cstpis") String cstpis,
+			@Param("cfop") String cfop, @Param("cst_csosn") String cstCsosn, @Param("cstpis") String cstpis,
 			@Param("cst_cofins") String cstcofins, @Param("pis") String pis, @Param("cofins") String cofins,
-			@Param("aliq_ipi") String aliq_ipi, @Param("aliq_icms") String aliq_icms, @Param("cst_ipi") String cst_ipi,
-			@Param("data_cadastro") Date data_cadastro);
+			@Param("aliq_ipi") String aliqIpi, @Param("aliq_icms") String aliqIcms, @Param("cst_ipi") String cstIpi,
+			@Param("data_cadastro") Date dataCadastro);
 
 	List<TributacaoRegra> findByTributacaoCodigoAndTipoEquals(Long codtributacao, EntradaSaida tipo);
 
@@ -33,8 +33,9 @@ public interface TributacaoRegraRepository extends JpaRepository<TributacaoRegra
 			+ "cst_csosn_codigo = :cstcsosn, cst_pis = :cstpis, "
 			+ "cst_cofins = :cstcofins, pis = :pis, cofins = :cofins, aliq_ipi = :aliq_ipi, aliq_icms = :aliq_icms, cst_ipi_codigo = :cst_ipi where codigo = :codigo", nativeQuery = true)
 	void update(@Param("codigo") Long codregra, @Param("tributacao_codigo") Long codtribu, @Param("tipo") String tipo,
-			@Param("uf") String uf, @Param("cfop") String cfop, @Param("cstcsosn") String cst_csosn,
+			@Param("uf") String uf, @Param("cfop") String cfop, @Param("cstcsosn") String cstCsosn,
 			@Param("cstpis") String cstpis, @Param("cstcofins") String cstcofins, @Param("pis") String pis,
-			@Param("cofins") String cofins, @Param("aliq_ipi") String aliq_ipi, @Param("aliq_icms") String aliq_icms, @Param("cst_ipi") String cst_ipi);
+			@Param("cofins") String cofins, @Param("aliq_ipi") String aliqIpi, @Param("aliq_icms") String aliqIcms,
+			@Param("cst_ipi") String cstIpi);
 
 }

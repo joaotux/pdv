@@ -2,11 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "nota_fiscal_item_imposto")
@@ -19,53 +15,83 @@ public class NotaFiscalItemImposto implements Serializable {
 	private Long codigo;
 
 	private int orig;
-	private int mod_bc;
+
+	@Column(name = "mod_bc")
+	private int modBc;
 
 	private int cst;
-	private Double v_bc;
-	private Double p_icms;
-	private Double v_icms;
 
-	private int cst_pis;
-	private Double vbc_pis;
-	private Double p_pis;
-	private Double v_pis;
+	@Column(name = "v_bc")
+	private Double vBc;
 
-	private int cst_cofins;
-	private Double vbc_cofins;
-	private Double p_cofins;
-	private Double v_cofins;
+	@Column(name = "p_icms")
+	private Double pIcms;
 
-	private int cst_ipi;
-	private Double vbc_ipi;
-	private Double p_ipi;
-	private Double v_ipi;
+	@Column(name = "v_icms")
+	private Double vIcms;
+
+	@Column(name = "cst_pis")
+	private int cstPis;
+
+	@Column(name = "vbc_pis")
+	private Double vbcPis;
+
+	@Column(name = "p_pis")
+	private Double pPis;
+
+	@Column(name = "v_pis")
+	private Double vPis;
+
+	@Column(name = "cst_cofins")
+	private int cstCofins;
+
+	@Column(name = "vbc_cofins")
+	private Double vbcCofins;
+
+	@Column(name = "p_cofins")
+	private Double pCofins;
+
+	@Column(name = "v_cofins")
+	private Double vCofins;
+
+	@Column(name = "cst_ipi")
+	private int cstIpi;
+
+	@Column(name = "vbc_ipi")
+	private Double vbcIpi;
+
+	@Column(name = "p_ipi")
+	private Double pIpi;
+
+	@Column(name = "v_ipi")
+	private Double vIpi;
 
 	public NotaFiscalItemImposto() {
 		super();
 	}
 
-	public NotaFiscalItemImposto(Integer orig, int vlCst_cofins, int modBcIcms, Double bc_icms, Double aliq_icms,
-			Double vlIcms, int vlCst_pis, Double bc_pis, Double pis, Double vlPis, Double bc_cofins, Double aliqCofins,
-			Double vlCofins, int cst_csosn, int cst_ipi, Double vbc_ipi, Double p_ipi, Double v_ipi) {
+	public NotaFiscalItemImposto(Integer orig, int vlCstCofins, int modBcIcms, Double bcIcms, Double aliqIcms,
+								 Double vlIcms, int vlCstPis, Double bcPis, Double pis, Double vlPis, Double bcCofins,
+								 Double aliqCofins, Double vlCofins, int cstCsosn, int cstIpi, Double vbcIpi,
+								 Double pIpi, Double vIpi) {
 		this.orig = orig;
-		this.cst_cofins = vlCst_cofins;
-		this.mod_bc = modBcIcms;
-		this.v_bc = bc_icms;
-		this.p_icms = aliq_icms;
-		this.v_icms = vlIcms;
-		this.cst_pis = vlCst_pis;
-		this.vbc_pis = bc_pis;
-		this.p_pis = pis;
-		this.v_pis = vlPis;
-		this.vbc_cofins = bc_cofins;
-		this.p_cofins = aliqCofins;
-		this.v_cofins = vlCofins;
-		this.cst = cst_csosn;
-		this.cst_ipi = cst_ipi;
-		this.vbc_ipi = vbc_ipi;
-		this.p_ipi = p_ipi;
-		this.v_ipi = v_ipi;
+		this.cstCofins = vlCstCofins;
+		this.modBc = modBcIcms;
+		this.vBc = bcIcms;
+		this.pIcms = aliqIcms;
+		this.vIcms = vlIcms;
+		this.cstPis = vlCstPis;
+		this.vbcPis = bcPis;
+		this.pPis = pis;
+		this.vPis = vlPis;
+		this.vbcCofins = bcCofins;
+		this.pCofins = aliqCofins;
+		this.vCofins = vlCofins;
+		this.cst = cstCsosn;
+		this.cstIpi = cstIpi;
+		this.vbcIpi = vbcIpi;
+		this.pIpi = pIpi;
+		this.vIpi = vIpi;
 	}
 
 	public Long getCodigo() {
@@ -92,132 +118,132 @@ public class NotaFiscalItemImposto implements Serializable {
 		this.cst = cst;
 	}
 
-	public int getMod_bc() {
-		return mod_bc;
+	public int getModBc() {
+		return modBc;
 	}
 
-	public void setMod_bc(int mod_bc) {
-		this.mod_bc = mod_bc;
+	public void setModBc(int modBc) {
+		this.modBc = modBc;
 	}
 
-	public Double getV_bc() {
-		return v_bc;
+	public Double getVBc() {
+		return vBc;
 	}
 
-	public void setV_bc(Double v_bc) {
-		this.v_bc = v_bc;
+	public void setVBc(Double vBc) {
+		this.vBc = vBc;
 	}
 
-	public Double getP_icms() {
-		return p_icms;
+	public Double getPIcms() {
+		return pIcms;
 	}
 
-	public void setP_icms(Double p_icms) {
-		this.p_icms = p_icms;
+	public void setPIcms(Double pIcms) {
+		this.pIcms = pIcms;
 	}
 
-	public Double getV_icms() {
-		return v_icms;
+	public Double getVIcms() {
+		return vIcms;
 	}
 
-	public void setV_icms(Double v_icms) {
-		this.v_icms = v_icms;
+	public void setVIcms(Double vIcms) {
+		this.vIcms = vIcms;
 	}
 
-	public int getCst_pis() {
-		return cst_pis;
+	public int getCstPis() {
+		return cstPis;
 	}
 
-	public void setCst_pis(int cst_pis) {
-		this.cst_pis = cst_pis;
+	public void setCstPis(int cstPis) {
+		this.cstPis = cstPis;
 	}
 
-	public Double getVbc_pis() {
-		return vbc_pis;
+	public Double getVbcPis() {
+		return vbcPis;
 	}
 
-	public void setVbc_pis(Double vbc_pis) {
-		this.vbc_pis = vbc_pis;
+	public void setVbcPis(Double vbcPis) {
+		this.vbcPis = vbcPis;
 	}
 
-	public Double getP_pis() {
-		return p_pis;
+	public Double getPPis() {
+		return pPis;
 	}
 
-	public void setP_pis(Double p_pis) {
-		this.p_pis = p_pis;
+	public void setPPis(Double pPis) {
+		this.pPis = pPis;
 	}
 
-	public Double getV_pis() {
-		return v_pis;
+	public Double getVPis() {
+		return vPis;
 	}
 
-	public void setV_pis(Double v_pis) {
-		this.v_pis = v_pis;
+	public void setVPis(Double vPis) {
+		this.vPis = vPis;
 	}
 
-	public int getCst_cofins() {
-		return cst_cofins;
+	public int getCstCofins() {
+		return cstCofins;
 	}
 
-	public void setCst_cofins(int cst_cofins) {
-		this.cst_cofins = cst_cofins;
+	public void setCstCofins(int cstCofins) {
+		this.cstCofins = cstCofins;
 	}
 
-	public Double getVbc_cofins() {
-		return vbc_cofins;
+	public Double getVbcCofins() {
+		return vbcCofins;
 	}
 
-	public void setVbc_cofins(Double vbc_cofins) {
-		this.vbc_cofins = vbc_cofins;
+	public void setVbcCofins(Double vbcCofins) {
+		this.vbcCofins = vbcCofins;
 	}
 
-	public Double getP_cofins() {
-		return p_cofins;
+	public Double getPCofins() {
+		return pCofins;
 	}
 
-	public void setP_cofins(Double p_cofins) {
-		this.p_cofins = p_cofins;
+	public void setPCofins(Double pCofins) {
+		this.pCofins = pCofins;
 	}
 
-	public Double getV_cofins() {
-		return v_cofins;
+	public Double getVCofins() {
+		return vCofins;
 	}
 
-	public void setV_cofins(Double v_cofins) {
-		this.v_cofins = v_cofins;
+	public void setVCofins(Double vCofins) {
+		this.vCofins = vCofins;
 	}
 
-	public int getCst_ipi() {
-		return cst_ipi;
+	public int getCstIpi() {
+		return cstIpi;
 	}
 
-	public void setCst_ipi(int cst_ipi) {
-		this.cst_ipi = cst_ipi;
+	public void setCstIpi(int cstIpi) {
+		this.cstIpi = cstIpi;
 	}
 
-	public Double getVbc_ipi() {
-		return vbc_ipi;
+	public Double getVbcIpi() {
+		return vbcIpi;
 	}
 
-	public void setVbc_ipi(Double vbc_ipi) {
-		this.vbc_ipi = vbc_ipi;
+	public void setVbcIpi(Double vbcIpi) {
+		this.vbcIpi = vbcIpi;
 	}
 
-	public Double getP_ipi() {
-		return p_ipi;
+	public Double getPIpi() {
+		return pIpi;
 	}
 
-	public void setP_ipi(Double p_ipi) {
-		this.p_ipi = p_ipi;
+	public void setPIpi(Double pIpi) {
+		this.pIpi = pIpi;
 	}
 
-	public Double getV_ipi() {
-		return v_ipi;
+	public Double getVIpi() {
+		return vIpi;
 	}
 
-	public void setV_ipi(Double v_ipi) {
-		this.v_ipi = v_ipi;
+	public void setVIpi(Double vIpi) {
+		this.vIpi = vIpi;
 	}
 
 }

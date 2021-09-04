@@ -2,10 +2,7 @@ package net.originmobi.pdv.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Cst implements Serializable {
@@ -15,7 +12,10 @@ public class Cst implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private String cst;
+
+	@Column(name = "cst")
+	private String codCst;
+
 	private String descricao;
 
 	public Cst() {
@@ -30,12 +30,12 @@ public class Cst implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getCst() {
-		return cst;
+	public String getCodCst() {
+		return codCst;
 	}
 
-	public void setCst(String cst) {
-		this.cst = cst;
+	public void setCodCst(String cst) {
+		this.codCst = cst;
 	}
 
 	public String getDescricao() {

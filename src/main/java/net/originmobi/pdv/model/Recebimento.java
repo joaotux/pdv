@@ -4,14 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -25,23 +18,29 @@ public class Recebimento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@Column(name = "valor_total")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_total;
+	private Double valorTotal;
 
+	@Column(name = "valor_desconto")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_desconto;
+	private Double valorDesconto;
 
+	@Column(name = "valor_acrescimo")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_acrescimo;
+	private Double valorAcrescimo;
 
+	@Column(name = "valor_recebido")
 	@NumberFormat(pattern = "#,##0.00")
-	private Double valor_recebido;
+	private Double valorRecebido;
 
+	@Column(name = "data_cadastro")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_cadastro;
+	private Timestamp dataCadastro;
 
+	@Column(name = "data_processamento")
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Timestamp data_processamento;
+	private Timestamp dataProcessamento;
 
 	@ManyToOne
 	private Pessoa pessoa;
@@ -57,9 +56,9 @@ public class Recebimento implements Serializable {
 		super();
 	}
 
-	public Recebimento(Double valor_total, Timestamp data_cadastro, Pessoa pessoa, List<Parcela> parcela) {
-		this.valor_total = valor_total;
-		this.data_cadastro = data_cadastro;
+	public Recebimento(Double valorTotal, Timestamp dataCadastro, Pessoa pessoa, List<Parcela> parcela) {
+		this.valorTotal = valorTotal;
+		this.dataCadastro = dataCadastro;
 		this.pessoa = pessoa;
 		this.parcela = parcela;
 	}
@@ -72,52 +71,52 @@ public class Recebimento implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public Double getValor_desconto() {
-		return valor_desconto;
+	public Double getValorDesconto() {
+		return valorDesconto;
 	}
 
-	public void setValor_desconto(Double valor_desconto) {
-		this.valor_desconto = valor_desconto;
+	public void setValorDesconto(Double valorDesconto) {
+		this.valorDesconto = valorDesconto;
 	}
 
-	public Double getValor_acrescimo() {
-		return valor_acrescimo;
+	public Double getValorAcrescimo() {
+		return valorAcrescimo;
 	}
 
-	public void setValor_acrescimo(Double valor_acrescimo) {
-		this.valor_acrescimo = valor_acrescimo;
+	public void setValorAcrescimo(Double valorAcrescimo) {
+		this.valorAcrescimo = valorAcrescimo;
 	}
 
-	public Double getValor_recebido() {
-		return valor_recebido;
+	public Double getValorRecebido() {
+		return valorRecebido;
 	}
 
-	public void setValor_recebido(Double valor_recebido) {
-		this.valor_recebido = valor_recebido;
+	public void setValorRecebido(Double valorRecebido) {
+		this.valorRecebido = valorRecebido;
 	}
 
-	public Timestamp getData_cadastro() {
-		return data_cadastro;
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setData_cadastro(Timestamp data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Timestamp getData_processamento() {
-		return data_processamento;
+	public Timestamp getDataProcessamento() {
+		return dataProcessamento;
 	}
 
-	public void setData_processamento(Timestamp data_processamento) {
-		this.data_processamento = data_processamento;
+	public void setDataProcessamento(Timestamp dataProcessamento) {
+		this.dataProcessamento = dataProcessamento;
 	}
 
 	public Pessoa getPessoa() {

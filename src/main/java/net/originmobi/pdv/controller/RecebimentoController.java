@@ -1,22 +1,16 @@
 package net.originmobi.pdv.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import net.originmobi.pdv.model.Recebimento;
 import net.originmobi.pdv.model.Titulo;
 import net.originmobi.pdv.service.RecebimentoService;
+import net.originmobi.pdv.service.TituloService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/recebimento")
@@ -37,7 +31,7 @@ public class RecebimentoController {
 		return mv;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public @ResponseBody String receber(@RequestParam Map<String, String> request){
 		Long codreceber = Long.decode(request.get("receber"));
 		
@@ -48,9 +42,9 @@ public class RecebimentoController {
 		String desconto = request.get("desconto").replace(",", ".");
 		String acrescimo = request.get("acrescimo").replace(",", ".");
 		
-		Double vlrecebido = recebido.isEmpty() ? 0.0 : Double.valueOf(recebido);
-		Double vldesconto = desconto.isEmpty() ? 0.0 : Double.valueOf(desconto);
-		Double vlacrescimo = acrescimo.isEmpty() ? 0.0 : Double.valueOf(acrescimo);
+		Double vlrecebido = recebido.isEmpty() ? 0.0 : Double.parseDouble(recebido);
+		Double vldesconto = desconto.isEmpty() ? 0.0 : Double.parseDouble(desconto);
+		Double vlacrescimo = acrescimo.isEmpty() ? 0.0 : Double.parseDouble(acrescimo);
 		
 		String mensagem = "";
 		
@@ -59,7 +53,7 @@ public class RecebimentoController {
 		return mensagem;
 	}
 	
-	@RequestMapping(value = "{codigo}", method = RequestMethod.PUT)
+	@PutMapping("{codigo}")
 	public @ResponseBody String remove(@RequestParam("codigo") Long codigo){
 		
 		recebimentos.remover(codigo);
