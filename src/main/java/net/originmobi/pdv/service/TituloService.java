@@ -13,36 +13,36 @@ import java.util.Optional;
 @Service
 public class TituloService {
 
-	private Logger logger = LoggerFactory.getLogger(TituloService.class);
+    private final Logger logger = LoggerFactory.getLogger(TituloService.class);
 
-	@Autowired
-	private TituloRepository titulos;
+    @Autowired
+    private TituloRepository titulos;
 
-	public List<Titulo> lista() {
-		return titulos.findAll();
-	}
+    public List<Titulo> lista() {
+        return titulos.findAll();
+    }
 
-	public Optional<Titulo> busca(Long codigo) {
-		return titulos.findById(codigo);
-	}
+    public Optional<Titulo> busca(Long codigo) {
+        return titulos.findById(codigo);
+    }
 
-	public void cadastro(Titulo titulo) {
-		try {
-			titulos.save(titulo);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-	}
+    public void cadastro(Titulo titulo) {
+        try {
+            titulos.save(titulo);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+    }
 
-	public String remover(Long codigo) {
-		try {
-			titulos.deleteById(codigo);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new RuntimeException("Erro ao tentar remover este registro, chame o suporte");
-		}
+    public String remover(Long codigo) {
+        try {
+            titulos.deleteById(codigo);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException("Erro ao tentar remover este registro, chame o suporte");
+        }
 
-		return "Registro removido com sucesso";
-	}
+        return "Registro removido com sucesso";
+    }
 
 }

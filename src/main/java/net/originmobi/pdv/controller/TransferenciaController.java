@@ -24,7 +24,7 @@ public class TransferenciaController {
 		Long destino = Long.decode(request.get("destino"));
 		String obs = request.get("obs");
 		
-		return transferencias.cadastrar(valor, origem, destino, obs);
+		return transferencias.cadastrar(valor, origem, destino);
 		
 	}
 	
