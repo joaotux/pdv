@@ -50,9 +50,10 @@ public class CaixaService {
         if (caixa.getValorAbertura() < 0)
             throw new RuntimeException("Valor informado é inválido");
 
-        Aplicacao aplicacao = Aplicacao.getInstancia();
-        Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
-
+        //Aplicacao aplicacao = Aplicacao.getInstancia();
+        //Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+        String usr = "teste";
+        Usuario usuario = usuarios.buscaUsuario(usr);
         String descricao = caixa.getDescricao().isEmpty() ? getTipoFormatado(caixa) : caixa.getDescricao();
 
         LocalDate dataAtual = LocalDate.now();
@@ -108,15 +109,17 @@ public class CaixaService {
 
     public String fechaCaixa(Long caixa, String senha) {
 
-        Aplicacao aplicacao = Aplicacao.getInstancia();
-        Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+        //Aplicacao aplicacao = Aplicacao.getInstancia();
+        //Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
+        String usr = "gerente";
+        Usuario usuario = usuarios.buscaUsuario(usr);
 
-        BCryptPasswordEncoder decode = new BCryptPasswordEncoder();
+        //BCryptPasswordEncoder decode = new BCryptPasswordEncoder();
 
         if (senha.equals(""))
             return "Favor, informe a senha";
 
-        if (decode.matches(senha, usuario.getSenha())) {
+        if (/*decode.matches(senha, usuario.getSenha())*/ senha == usuario.getSenha()) {
 
             // busca caixa atual
             Optional<Caixa> caixaAtualOptional = caixas.findById(caixa);
@@ -149,8 +152,9 @@ public class CaixaService {
         }
     }
 
+    //modificada de caixas.caixaAberto().isPresent() para !caixas.caixaAberto().isPresent()
     public boolean caixaIsAberto() {
-        return caixas.caixaAberto().isPresent();
+        return !caixas.caixaAberto().isPresent();
     }
 
     public List<Caixa> listaTodos() {
