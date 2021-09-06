@@ -30,8 +30,8 @@ public interface CaixaRepository extends JpaRepository<Caixa, Long> {
 	@Query("select c from Caixa c where c.tipo in ('CAIXA', 'COFRE') and c.dataCadastro like ?1 order by c.codigo desc")
 	public List<Caixa> buscaCaixasPorDataAbertura(Date dataCadastro);
 	
-	@Query("select c from Caixa c where c.tipo in ('CAIXA', 'COFRE') and c.dataFechamento is null order by c.tipo")
-	public List<Caixa> listaCaixasAbertos();
+	@Query("select c from Caixa c where c.tipo in ('CAIXA', 'COFRE')  order by c.tipo, case when c.dataFechamento is null then 1 else 0 end desc")
+	public List<Caixa> listaCaixas();
 	
 	@Query(value = "select b.codigo from caixa b where b.tipo = 'BANCO' and b.data_fechamento is null", nativeQuery = true)
 	public List<Caixa> buscaBancos(CaixaTipo tipo);
