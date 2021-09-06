@@ -92,10 +92,10 @@ public class ProdutoController {
 		Long categoria = Long.decode(request.get("categoria"));
 		Long grupo = Long.decode(request.get("grupo"));
 		String balanca = request.get("balanca");
-		String vlcusto = request.get("valor_custo");
-		String vlvenda = request.get("valor_venda");
-		String validade = request.get("data_validade");
-		String controleEstoque = request.get("controla_estoque");
+		String vlcusto = request.get("valorCusto");
+		String vlvenda = request.get("valorVenda");
+		String validade = request.get("dataValidade");
+		String controleEstoque = request.get("controlaEstoque");
 		String ativo = request.get("ativo");
 		String unitario = request.get("unidade");
 		String subtribu = request.get("subtributaria");

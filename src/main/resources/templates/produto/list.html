@@ -35,7 +35,7 @@
 					<tr th:each="produto : ${produtos}">
 						<td class="text-center" th:text="${produto.codigo}"></td>
 						<td th:text="${produto.descricao}"></td>
-						<td class="text-center" th:text="|R$ ${{produto.valor_venda}}|"></td>
+						<td class="text-center" th:text="|R$ ${{produto.valorVenda}}|"></td>
 						<td class="text-center" th:text="${produto.grupo.descricao}"></td>
 						<td class="text-center" th:text="${produto.categoria.descricao}"></td>
 						<td class="text-center" th:text="${produto.estoque.qtd}"></td>
