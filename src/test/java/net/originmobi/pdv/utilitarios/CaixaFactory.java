@@ -19,7 +19,7 @@ public class CaixaFactory {
     }
 
     public static Caixa createValidCaixaToBeClosed (CaixaTipo tipo) {
-        Usuario user = createUserToCaixa();
+        Usuario user = UsuarioFactory.createUserValid();
         Caixa caixa = new Caixa();
         caixa.setCodigo(11L);
         caixa.setDescricao("descricao do caixa");
@@ -31,7 +31,7 @@ public class CaixaFactory {
         return  caixa;
     }
     public static Caixa createValidCaixa (CaixaTipo tipo) {
-        Usuario user = createUserToCaixa();
+        Usuario user = UsuarioFactory.createUserValid();
         Caixa caixa = new Caixa();
         caixa.setCodigo(11L);
         caixa.setDescricao("descricao do caixa");
@@ -42,13 +42,5 @@ public class CaixaFactory {
         caixa.setDataFechamento(new Timestamp(System.currentTimeMillis()));
         caixa.setUsuario(user);
         return  caixa;
-    }
-
-    public static Usuario createUserToCaixa () {
-        Usuario user = new Usuario();
-        user.setCodigo(11L);
-        user.setSenha("123");
-        user.setUser("gerente");
-        return  user;
     }
 }

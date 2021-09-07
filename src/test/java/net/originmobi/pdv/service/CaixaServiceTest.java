@@ -4,6 +4,7 @@ import net.originmobi.pdv.enumerado.caixa.CaixaTipo;
 import net.originmobi.pdv.model.Caixa;
 import net.originmobi.pdv.repository.CaixaRepository;
 import net.originmobi.pdv.utilitarios.CaixaFactory;
+import net.originmobi.pdv.utilitarios.UsuarioFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +44,7 @@ public class CaixaServiceTest {
 
 
         BDDMockito.when(usuarioServiceMock.buscaUsuario(ArgumentMatchers.anyString()))
-                .thenReturn((CaixaFactory.createUserToCaixa()));
+                .thenReturn((UsuarioFactory.createUserValid()));
 
         BDDMockito.when(caixaRepositoryMock.save(ArgumentMatchers.any(Caixa.class)))
                 .thenReturn(CaixaFactory.createValidCaixa(CaixaTipo.valueOf("CAIXA")));
