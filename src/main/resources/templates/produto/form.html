@@ -129,7 +129,7 @@
 
 				<div class="row">
 					<div class="form-group col-md-2">
-						<label for="ativo">Ativo</label> <select id="ativo" name="ativo"
+						<label for="situacao">Situação</label> <select id="situacao" name="situacao" th:field="*{ativo}"
 							class="form-control">
 							<option th:each="situacao : ${ativo}" th:value="${situacao}"
 								th:text="${situacao}"></option>
