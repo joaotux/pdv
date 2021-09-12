@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/*Classe Alterada para os testes de unidade*/
 @Service
 public class CaixaService {
 

@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(SpringExtension.class)
 public class CaixaServiceTest {
 
+    /*Classe Alterada para os testes de unidade*/
     @InjectMocks
     private CaixaService caixaService;
 
