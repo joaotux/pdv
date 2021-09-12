@@ -29,7 +29,7 @@ public class Permissoes implements Serializable {
 	@Size(max = 45, message = "Tamanho máximo de 45 caracteres")
 	private String descricao;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "permissoes")
 	private List<GrupoUsuario> grupoUsuario;
 
 	@ManyToMany

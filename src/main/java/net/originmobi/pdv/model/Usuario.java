@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "grupo_usuario_codigo"))
 	private List<GrupoUsuario> grupousuario;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "usuario")
 	private List<Permissoes> permissoes;
 
 	public Usuario() {
