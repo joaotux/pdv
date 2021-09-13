@@ -30,6 +30,10 @@ $(function() {
 		mask : [ '999.999.999-99', '99.999.999/9999-99' ],
 		keepStatic : true
 	});
+	$('.js-mascara-telefone').inputmask({
+		mask : [ '(99) 99999-9999'],
+		keepStatic: true
+	});
 	$('.js-mascara-porcento').maskMoney({
 		prefix : '% ',
 		allowNegative : true,

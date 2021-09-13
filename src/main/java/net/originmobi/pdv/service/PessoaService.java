@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +76,9 @@ public class PessoaService {
         if (!cidadeOptional.isPresent()) {
             throw new RuntimeException("Cidade não encontrada");
         }
+        if(fone.length() != 10 && fone.length() != 11){
+            throw new RuntimeException("Número de telefone inválido");
+        }
 
         Cidade cidade = cidadeOptional.get();
 
@@ -114,7 +118,10 @@ public class PessoaService {
         pessoa.setCpfcnpj(cpfcnpj);
 
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataNascimento = new Date(formata.parse(dataNascimentoStr).getTime());
+        Date dataNascimento = new Date(Calendar.getInstance().getTimeInMillis());
+        if(!dataNascimentoStr.isEmpty()){
+            dataNascimento = new Date(formata.parse(dataNascimentoStr).getTime());
+        }
         pessoa.setDataNascimento(dataNascimento);
         pessoa.setObservacao(observacao);
         pessoa.setDataCadastro(Date.valueOf(dataAtual));
