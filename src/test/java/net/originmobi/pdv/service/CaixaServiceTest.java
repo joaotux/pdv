@@ -14,6 +14,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -23,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = { SecurityContextHolder.class, SecurityContext.class })
 public class CaixaServiceTest {
 
     /*Classe Alterada para os testes de unidade*/
@@ -53,6 +58,7 @@ public class CaixaServiceTest {
 
     @Test
     @DisplayName("Teste do metodo cadastro")
+    @WithMockUser("teste")
     public void cadastraCaixa() {
         Caixa caixa = CaixaFactory.createValidCaixa(CaixaTipo.valueOf("CAIXA"));
         Long cod = caixaService.cadastro(caixa);

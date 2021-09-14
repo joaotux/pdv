@@ -51,10 +51,8 @@ public class CaixaService {
         if (caixa.getValorAbertura() < 0)
             throw new RuntimeException("Valor informado é inválido");
 
-        //Aplicacao aplicacao = Aplicacao.getInstancia();
-        //Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
-        String usr = "teste";
-        Usuario usuario = usuarios.buscaUsuario(usr);
+        Aplicacao aplicacao = Aplicacao.getInstancia();
+        Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
         String descricao = caixa.getDescricao().isEmpty() ? getTipoFormatado(caixa) : caixa.getDescricao();
 
         LocalDate dataAtual = LocalDate.now();
