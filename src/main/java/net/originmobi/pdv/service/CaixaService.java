@@ -111,12 +111,12 @@ public class CaixaService {
         Aplicacao aplicacao = Aplicacao.getInstancia();
         Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
-        //BCryptPasswordEncoder decode = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder decoder = new BCryptPasswordEncoder();
 
         if (senha.equals(""))
             return "Favor, informe a senha";
 
-        if (/*decode.matches(senha, usuario.getSenha())*/ senha.equals(usuario.getSenha())) {
+        if (decoder.matches(senha, usuario.getSenha())) {
 
             // busca caixa atual
             Optional<Caixa> caixaAtualOptional = caixas.findById(caixa);
