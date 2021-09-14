@@ -65,7 +65,7 @@ public class PessoaController {
 		String nome = request.get("nome");
 		String apelido = request.get("apelido");
 		String cpfcnpj = request.get("cpfcnpj").replaceAll("\\D", "");
-		String dataNascimento = request.get("data_nascimento");
+		String dataNascimento = request.get("dataNascimento");
 		String observacao = request.get("observacao");
 		
 		// Endereço
@@ -79,7 +79,7 @@ public class PessoaController {
 
 		// Fone
 		String stCodFone = request.get("codfone") != null ? request.get("codfone") : "";
-		String fone = request.get("fone");
+		String fone = request.get("fone").replaceAll("\\D", "");
 		String tipo = request.get("tipo");
 
 		Long codpessoa = stCodPessoa.isEmpty() ? 0L : Long.decode(stCodPessoa);

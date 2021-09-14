@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/*Classe Alterada para os testes de unidade*/
+
 @Service
 public class CaixaService {
 
@@ -51,10 +51,8 @@ public class CaixaService {
         if (caixa.getValorAbertura() < 0)
             throw new RuntimeException("Valor informado é inválido");
 
-        //Aplicacao aplicacao = Aplicacao.getInstancia();
-        //Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
-        String usr = "teste";
-        Usuario usuario = usuarios.buscaUsuario(usr);
+        Aplicacao aplicacao = Aplicacao.getInstancia();
+        Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
         String descricao = caixa.getDescricao().isEmpty() ? getTipoFormatado(caixa) : caixa.getDescricao();
 
         LocalDate dataAtual = LocalDate.now();
@@ -110,17 +108,15 @@ public class CaixaService {
 
     public String fechaCaixa(Long caixa, String senha) {
 
-        //Aplicacao aplicacao = Aplicacao.getInstancia();
-        //Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
-        String usr = "gerente";
-        Usuario usuario = usuarios.buscaUsuario(usr);
+        Aplicacao aplicacao = Aplicacao.getInstancia();
+        Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
-        //BCryptPasswordEncoder decode = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder decoder = new BCryptPasswordEncoder();
 
         if (senha.equals(""))
             return "Favor, informe a senha";
 
-        if (/*decode.matches(senha, usuario.getSenha())*/ senha == usuario.getSenha()) {
+        if (decoder.matches(senha, usuario.getSenha())) {
 
             // busca caixa atual
             Optional<Caixa> caixaAtualOptional = caixas.findById(caixa);

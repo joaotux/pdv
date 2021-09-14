@@ -13,7 +13,7 @@ $(function() {
 			},
 
 			data_nacimento : {
-				required : false
+				required : true
 			},
 
 			cidade : {

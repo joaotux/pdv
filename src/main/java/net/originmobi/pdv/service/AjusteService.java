@@ -44,13 +44,10 @@ public class AjusteService {
     public Long novo() {
         dataAtual = LocalDate.now();
 
-        /*
+
         Aplicacao aplicacao = Aplicacao.getInstancia();
         String usuarioAtual = aplicacao.getUsuarioAtual();
-        */
 
-        //FOR TEST
-        String usuarioAtual = "gerente";
 
         Ajuste ajuste = new Ajuste(AjusteStatus.APROCESSAR, usuarioAtual, Date.valueOf(dataAtual));
         return ajustes.save(ajuste).getCodigo();

@@ -10,6 +10,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
@@ -17,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = { SecurityContextHolder.class, SecurityContext.class })
 public class AjusteServiceTest {
 
     @InjectMocks
@@ -54,6 +59,7 @@ public class AjusteServiceTest {
 
     @Test
     @DisplayName("Teste do metodo novo")
+    @WithMockUser("teste")
     public void novo(){
 
         BDDMockito.when(ajusteRepositoryMock.save(ArgumentMatchers.any(Ajuste.class)))

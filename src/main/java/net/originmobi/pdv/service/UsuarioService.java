@@ -42,6 +42,7 @@ public class UsuarioService {
 
         if (usuario.getCodigo() == null) {
 
+            //needs try catch
             Usuario usuarioExiste = usuarios.findByUserEquals(usuario.getUser());
             Usuario pessoaUsuario = usuarios.findByPessoaCodigoEquals(usuario.getPessoa().getCodigo());
 
@@ -77,6 +78,7 @@ public class UsuarioService {
         List<GrupoUsuario> gruposUsuario = usuario.getGrupoUsuario();
         if (!gruposUsuario.contains(gruposUsu)) {
             gruposUsuario.add(gruposUsu);
+            //falta atualizar a lista de grupo do usuario: usuario.setGrupoUsuario(gruposUsuario);
         } else {
             return "ja existe";
         }
