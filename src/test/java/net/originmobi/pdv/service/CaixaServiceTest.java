@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(classes = { SecurityContextHolder.class, SecurityContext.class })
 public class CaixaServiceTest {
 
-    /*Classe Alterada para os testes de unidade*/
     @InjectMocks
     private CaixaService caixaService;
 
@@ -66,6 +65,7 @@ public class CaixaServiceTest {
     }
     @Test
     @DisplayName("Teste do metodo fechaCaixa")
+    @WithMockUser("teste")
     public void fechaCaixa() {
 
         BDDMockito.when(caixaRepositoryMock.findById(ArgumentMatchers.anyLong()))
