@@ -2,6 +2,7 @@ package net.originmobi.pdv.utilitarios;
 
 import net.originmobi.pdv.model.Pessoa;
 import net.originmobi.pdv.model.Usuario;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,10 @@ public class UsuarioFactory {
     public static Usuario createUserValid () {
         Usuario user = new Usuario();
         user.setCodigo(11L);
-        user.setSenha("123");
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setSenha(encoder.encode("123"));
+
         user.setUser("gerente");
         user.setGrupoUsuario(GrupoUsuarioFactory.createListGrupoUsuariosValid());
 

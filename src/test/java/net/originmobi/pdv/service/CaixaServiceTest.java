@@ -65,7 +65,7 @@ public class CaixaServiceTest {
     }
     @Test
     @DisplayName("Teste do metodo fechaCaixa")
-    @WithMockUser("teste")
+    @WithMockUser(password = "123")
     public void fechaCaixa() {
 
         BDDMockito.when(caixaRepositoryMock.findById(ArgumentMatchers.anyLong()))
@@ -73,7 +73,7 @@ public class CaixaServiceTest {
 
         String expectedMsg = "Caixa fechado com sucesso";
         Caixa caixa = CaixaFactory.createValidCaixaToBeClosed(CaixaTipo.valueOf("CAIXA"));
-        String msg = caixaService.fechaCaixa(caixa.getCodigo(), caixa.getUsuario().getSenha());
+        String msg = caixaService.fechaCaixa(caixa.getCodigo(), "123");
         assertEquals(expectedMsg, msg);
 
     }
