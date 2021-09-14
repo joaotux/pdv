@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CaixaService {
 
@@ -52,7 +53,6 @@ public class CaixaService {
 
         Aplicacao aplicacao = Aplicacao.getInstancia();
         Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
-
         String descricao = caixa.getDescricao().isEmpty() ? getTipoFormatado(caixa) : caixa.getDescricao();
 
         LocalDate dataAtual = LocalDate.now();
@@ -111,12 +111,12 @@ public class CaixaService {
         Aplicacao aplicacao = Aplicacao.getInstancia();
         Usuario usuario = usuarios.buscaUsuario(aplicacao.getUsuarioAtual());
 
-        BCryptPasswordEncoder decode = new BCryptPasswordEncoder();
+        //BCryptPasswordEncoder decode = new BCryptPasswordEncoder();
 
         if (senha.equals(""))
             return "Favor, informe a senha";
 
-        if (decode.matches(senha, usuario.getSenha())) {
+        if (/*decode.matches(senha, usuario.getSenha())*/ senha.equals(usuario.getSenha())) {
 
             // busca caixa atual
             Optional<Caixa> caixaAtualOptional = caixas.findById(caixa);
@@ -149,8 +149,9 @@ public class CaixaService {
         }
     }
 
+    //modificada de caixas.caixaAberto().isPresent() para !caixas.caixaAberto().isPresent()
     public boolean caixaIsAberto() {
-        return caixas.caixaAberto().isPresent();
+        return !caixas.caixaAberto().isPresent();
     }
 
     public List<Caixa> listaTodos() {

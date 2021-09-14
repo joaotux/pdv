@@ -19,6 +19,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
+/*Classe Alterada para os testes de unidade*/
 @Service
 public class AjusteService {
 
@@ -42,9 +43,13 @@ public class AjusteService {
 
     public Long novo() {
         dataAtual = LocalDate.now();
-        Aplicacao aplicacao = Aplicacao.getInstancia();
 
-        Ajuste ajuste = new Ajuste(AjusteStatus.APROCESSAR, aplicacao.getUsuarioAtual(), Date.valueOf(dataAtual));
+
+        Aplicacao aplicacao = Aplicacao.getInstancia();
+        String usuarioAtual = aplicacao.getUsuarioAtual();
+
+
+        Ajuste ajuste = new Ajuste(AjusteStatus.APROCESSAR, usuarioAtual, Date.valueOf(dataAtual));
         return ajustes.save(ajuste).getCodigo();
     }
 
