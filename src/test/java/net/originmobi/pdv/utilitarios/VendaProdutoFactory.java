@@ -25,7 +25,7 @@ public class VendaProdutoFactory {
     public static List<Object[]> createListVendaProdutosQTD () {
 
         List<Object[]> resultado = new ArrayList<>();
-        Object[] obj = {10L, 100};
+        Object[] obj = {10L, 10};
         resultado.add(obj);
         return  resultado;
     }
