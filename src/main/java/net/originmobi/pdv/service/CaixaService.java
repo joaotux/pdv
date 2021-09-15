@@ -149,9 +149,8 @@ public class CaixaService {
         }
     }
 
-    //modificada de caixas.caixaAberto().isPresent() para !caixas.caixaAberto().isPresent()
     public boolean caixaIsAberto() {
-        return !caixas.caixaAberto().isPresent();
+        return caixas.caixaAberto().isPresent();
     }
 
     public List<Caixa> listaTodos() {
