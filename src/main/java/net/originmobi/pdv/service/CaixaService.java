@@ -70,7 +70,7 @@ public class CaixaService {
         }
 
         try {
-            caixas.save(caixa);
+            caixa = caixas.save(caixa);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new RuntimeException("Erro no processo de abertura, chame o suporte técnico");
