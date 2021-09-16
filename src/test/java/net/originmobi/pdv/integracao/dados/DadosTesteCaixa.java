@@ -17,9 +17,9 @@ public class DadosTesteCaixa {
         Caixa caixa = caixaCompleto();
         request.put("descricao", caixa.getDescricao());
         request.put("tipo", caixa.getTipo().toString());
-        request.put("valor_abertura", caixa.getValorAbertura().toString());
-        request.put("agencia", caixa.getAgencia());
-        request.put("conta", caixa.getConta());
+        request.put("valorAbertura", caixa.getValorAbertura().toString());
+        request.put("agencia","agencia");
+        request.put("conta", "conta");
         return request;
     }
 
