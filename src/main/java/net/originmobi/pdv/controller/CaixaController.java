@@ -167,6 +167,7 @@ public class CaixaController {
 			mensagem = caixas.fechaCaixa(caixa, senha);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+			return e.getMessage();
 		}
 
 		return mensagem;

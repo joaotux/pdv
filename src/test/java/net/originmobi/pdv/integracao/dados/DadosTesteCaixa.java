@@ -9,6 +9,10 @@ import org.springframework.util.LinkedMultiValueMap;
 public class DadosTesteCaixa {
 
     public static Caixa caixaCompleto(){
+        return CaixaFactory.createValidCaixaToBeClosed(CaixaTipo.CAIXA);
+    }
+
+    public static Caixa caixaFechado() {
         return CaixaFactory.createValidCaixa(CaixaTipo.CAIXA);
     }
 
