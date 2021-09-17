@@ -13,7 +13,7 @@
 					data-live-search="true">
 					<option selected="selected"></option>
 					<option th:each="produto : ${produtosVendaveis}"
-						th:text="${'COD: ' + produto.codigo + ' - ' + produto.descricao + ' - R$' + produto.valor_venda}"
+						th:text="${'COD: ' + produto.codigo + ' - ' + produto.descricao + ' - R$' + produto.valorVenda}"
 						th:value="${produto.codigo}" th:attr="data-balanca=${produto.balanca}" ></option>
 				</select>
 			</div>

@@ -135,9 +135,9 @@ public class VendaController {
 	public @ResponseBody String fechar(@RequestParam Map<String, String> request) {
 		Long venda = Long.decode(request.get("venda"));
 		Long pagamentotipo = Long.decode(request.get("pagamentotipo"));
-		String valorProdutos = request.get("valor_produtos");
-		String valorDesconto = request.get("valor_desconto");
-		String valorAcrescimo = request.get("valor_acrescimo");
+		String valorProdutos = request.get("valorProdutos");
+		String valorDesconto = request.get("valorDesconto");
+		String valorAcrescimo = request.get("valorAcrescimo");
 
 		String[] vlParcelas = request.get("valores").split(",");
 		String[] titulos = request.get("titulos").split(",");

@@ -16,12 +16,12 @@
 					<div class="row">
 						<div class="form-group col-md-2">
 							<label for="vlprod">Valor Total</label> <input id="vlprod"
-								name="valor_produtos" type="text"
+								name="valorProdutos" type="text"
 								class="form-control js-mascara" disabled="disabled" />
 						</div>
 					</div>
 					<!-- campo auxiliar para passar valor na serialização do form -->
-					<input id="vlprod" name="valor_produtos" type="hidden" />
+					<input id="vlprod" name="valorProdutos" type="hidden" />
 
 					<!-- campo auxiliar para passar valor na serialização do form -->
 					<input id="vltroco" type="hidden" name="troco" />
@@ -49,16 +49,16 @@
 					<div class="row">
 						<div class="form-group col-md-1">
 							<label for="desconto">Desc:</label> <input id="desconto"
-								name="valor_desconto" type="text"
+								name="valorDesconto" type="text"
 								class="form-control js-mascara-not-prefix"
-								th:field="*{valor_desconto}" />
+								th:field="*{valorDesconto}" />
 						</div>
 
 						<div class="form-group col-md-1">
 							<label for="acrescimo">Acre:</label> <input id="acrescimo"
-								name="valor_acrescimo" type="text"
+								name="valorAcrescimo" type="text"
 								class="form-control js-mascara-not-prefix"
-								th:field="*{valor_acrescimo}" />
+								th:field="*{valorAcrescimo}" />
 						</div>
 					</div>
 

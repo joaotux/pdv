@@ -36,7 +36,7 @@ $(function() {
 						$(".carrega").empty();
 						
 						$("#tabProdutoVenda").load(" #tabProdutoVenda");
-						$("#total_produtos").load(" #total_produtos");
+						$("#totalProdutos").load(" #totalProdutos");
 						
 						if (e == "Venda fechada")
 							alert("Venda Fechada");
@@ -80,7 +80,7 @@ $(function() {
 						success : function(e) {
 							$(".carrega").empty();
 							$("#tabProdutoVenda").load(" #tabProdutoVenda");
-							$("#total_produtos").load(" #total_produtos");
+							$("#totalProdutos").load(" #totalProdutos");
 							
 							if (e == "Venda fechada")
 								alert("Venda Fechada");
@@ -183,7 +183,7 @@ $(function() {
 															"<div class='registrolinha' id="
 																	+ i
 																	+ "><div class='row'><div class='col-md-7 dadoslinha'><div class='form-group col-md-3'>"
-																	+ "<label for='valor'>Valor</label><input type='text' name='valor_parcela[]' class='form-control vlparcela' id=" + i + "/></div>"
+																	+ "<label for='valor'>Valor</label><input type='text' name='valorParcela[]' class='form-control vlparcela' id=" + i + "/></div>"
 																	+ "<div class='form-group col-md-4'>Titulo<select name='titulo[]' id='titulo' class='form-control selectnovo'></select></div>"
 																	+ "</div></div>");
 
@@ -210,7 +210,7 @@ $(function() {
 
 											// passo o valor dividido pela
 											// quantidade de parcelas
-											$("input[name='valor_parcela[]']")
+											$("input[name='valorParcela[]']")
 													.val(vl1);
 											i--; // volto o valor atual dele
 											// para não dar problema na
@@ -277,7 +277,7 @@ $(function() {
 		
 		console.log("valor " + total);
 
-		$("input[name='valor_produtos']").val(total);
+		$("input[name='valorProdutos']").val(total);
 		// $("input[name='valor_pago']").val(total);
 	});
 

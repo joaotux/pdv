@@ -17,9 +17,9 @@ public class ReceberService {
     @Autowired
     private ReceberRepository receberRepo;
 
-    public void cadastrar(Receber receber) {
+    public Receber cadastrar(Receber receber) {
         try {
-            receberRepo.save(receber);
+            return receberRepo.save(receber);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new RuntimeException();

@@ -5,6 +5,7 @@ import net.originmobi.pdv.controller.VendaController;
 import net.originmobi.pdv.enumerado.VendaSituacao;
 import net.originmobi.pdv.enumerado.caixa.CaixaTipo;
 import net.originmobi.pdv.integracao.dados.DadosTesteVenda;
+import net.originmobi.pdv.model.Receber;
 import net.originmobi.pdv.model.Venda;
 import net.originmobi.pdv.repository.*;
 import net.originmobi.pdv.utilitarios.CaixaFactory;
@@ -64,7 +65,7 @@ public class VendaControllerIntegracaoTest {
     @MockBean
     private CaixaLancamentoRepository caixaLancamentoRepository;
 
-    @Mock
+    @MockBean
     private ReceberRepository receberRepository;
 
     @Mock
@@ -142,14 +143,18 @@ public class VendaControllerIntegracaoTest {
         Mockito.when(tituloRepository.findById(Mockito.any())).thenReturn(DadosTesteVenda.tituloCompleto());
         Mockito.when(caixaRepository.caixaAberto()).thenReturn(Optional.of(CaixaFactory.createValidCaixaToBeClosed(CaixaTipo.CAIXA)));
         Mockito.when(usuarioRepository.findByUserEquals(Mockito.anyString())).thenReturn(UsuarioFactory.createUserValid());
-        Mockito.when(receberRepository.save(Mockito.any())).thenReturn(null);
+        Mockito.when(receberRepository.save(Mockito.any())).thenAnswer(invocation -> {
+            Receber receber = invocation.getArgument(0);
+            receber.setCodigo(1L);
+            return receber;
+        });
 
         LinkedMultiValueMap<String, String> request = new LinkedMultiValueMap<>();
         request.add("venda", "1");
         request.add("pagamentotipo", "2");
-        request.add("valor_produtos", "140");
-        request.add("valor_desconto", "0");
-        request.add("valor_acrescimo", "12");
+        request.add("valorProdutos", "140");
+        request.add("valorDesconto", "0");
+        request.add("valorAcrescimo", "12");
         request.add("valores", "140");
         request.add("titulos", "1");
         mockMvc.perform(MockMvcRequestBuilders.post("/venda/fechar")

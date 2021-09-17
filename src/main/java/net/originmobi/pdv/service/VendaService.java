@@ -161,7 +161,7 @@ public class VendaService {
                 dataAtual.dataAtualTimeStamp(), dadosVenda);
 
         try {
-            receberServ.cadastrar(receber);
+            receber = receberServ.cadastrar(receber);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new RuntimeException("Erro ao fechar a venda, chame o suporte");
