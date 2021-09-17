@@ -36,7 +36,7 @@
 									<span th:text="${venda.isAberta()} ? 'ABERTO' : 'FECHADO'"
 									class="span-dados-venda"></span><br/>
 									<span th:text="|Numero: ${venda.codigo}|" class="span-dados-pedido"></span><br/>
-									<span th:text="|Total: R$ ${{venda.valor_produtos}}|" class="span-dados-pedido"></span><br/>
+									<span th:text="|Total: R$ ${{venda.valorProdutos}}|" class="span-dados-pedido"></span><br/>
 									<span th:text="${venda.pessoa} == null ? 'Sem cliente' : ${venda.pessoa.nome}" class="span-dados-pedido span-cliente"></span>
 								</a>
 							</div>
