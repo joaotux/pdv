@@ -4,7 +4,7 @@ package net.originmobi.pdv.integracao.dados;
 import net.originmobi.pdv.enumerado.caixa.CaixaTipo;
 import net.originmobi.pdv.model.Caixa;
 import net.originmobi.pdv.utilitarios.CaixaFactory;
-import java.util.HashMap;
+import org.springframework.util.LinkedMultiValueMap;
 
 public class DadosTesteCaixa {
 
@@ -12,23 +12,14 @@ public class DadosTesteCaixa {
         return CaixaFactory.createValidCaixa(CaixaTipo.CAIXA);
     }
 
-    public static HashMap<String, String> requestCaixaCadastroCompleto(){
-        HashMap<String, String> request = new HashMap<>();
+    public static LinkedMultiValueMap<String, String> requestCaixaCadastroCompleto(){
+        LinkedMultiValueMap<String, String> request = new LinkedMultiValueMap<>();
         Caixa caixa = caixaCompleto();
-        request.put("descricao", caixa.getDescricao());
-        request.put("tipo", caixa.getTipo().toString());
-        request.put("valorAbertura", caixa.getValorAbertura().toString());
-        request.put("agencia","agencia");
-        request.put("conta", "conta");
+        request.add("descricao", caixa.getDescricao());
+        request.add("tipo", caixa.getTipo().toString());
+        request.add("valorAbertura", caixa.getValorAbertura().toString());
+        request.add("agencia","agencia");
+        request.add("conta", "conta");
         return request;
-    }
-
-    public static HashMap<String, String> requestCaixaSuprimentoCompleto(){
-        HashMap<String, String> request = new HashMap<>();
-        Caixa caixa = caixaCompleto();
-        request.put("valor", "350.30");
-        request.put("observacao", "Caixa Teste");
-        request.put("caixa", "1");
-        return request    ;
     }
 }
